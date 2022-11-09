@@ -48,7 +48,7 @@ const RealLifeBenefits = () => {
     };
 
     fetch(
-      'http://localhost:5000/api/v1/completions/realLifeBenefits',
+      `${window.location.origin}/api/v1/completions/realLifeBenefits`,
       requestOptions
     )
       .then(response => response.json())
