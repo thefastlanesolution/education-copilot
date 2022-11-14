@@ -1,19 +1,22 @@
 // const { Configuration, OpenAIApi } = import ('openai');
 import { Configuration, OpenAIApi } from 'openai';
 
-const newCompletion = async (req, res) => {
+const shotgunCompletion = async (req, res) => {
   const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
   });
-  const { subject } = req.body;
-  console.log('req param', req.body, subject);
+  const { subject, gradeLevel } = req.body;
+  console.log('req param', req.body, subject, gradeLevel);
   const openai = new OpenAIApi(configuration);
   openai
     .createCompletion({
       model: 'text-davinci-002',
-      prompt: `### Subject: ${subject} Task: Give me 5 ways that learning about ${subject}, will help my students in their real life:`,
+      prompt: `Give me 10 assessment, project, or classroom activity ideas for my ${gradeLevel} students.<br><br/>Topic: ${subject}<br><br/>Okay, here's your list:<br><br/>`,
       temperature: 0.8,
-      max_tokens: 1500,
+      max_tokens: 300,
+      top_p: 1,
+      frequency_penalty: 0,
+      presence_penalty: 0,
     })
     .then(response => {
       console.log('openai res ===', response.data);
@@ -25,4 +28,4 @@ const newCompletion = async (req, res) => {
     });
 };
 
-export { newCompletion };
+export { shotgunCompletion };

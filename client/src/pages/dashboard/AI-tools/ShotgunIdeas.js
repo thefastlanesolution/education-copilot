@@ -17,25 +17,31 @@ const IdeaGenerator = () => {
   const [text, setText] = useState('');
 
   async function fetchApi(subject, gradeLevel) {
-    const response = await fetch('https://api.openai.com/v1/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization:
-          'Bearer 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',
-      },
-      body: JSON.stringify({
-        model: 'text-davinci-002',
-        prompt: `Give me 10 assessment, project, or classroom activity ideas for my ${gradeLevel} students.<br><br/>Topic: ${subject}<br><br/>Okay, here's your list:<br><br/>`,
-        temperature: 0.8,
-        max_tokens: 300,
-        top_p: 1,
-        frequency_penalty: 0,
-        presence_penalty: 0,
-      }),
+    const myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'application/json');
+
+    const raw = JSON.stringify({
+      subject,
+      gradeLevel,
     });
-    const json = await response.json();
-    setCompletion(json.choices[0].text);
+
+    const requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow',
+    };
+
+    fetch(
+      `${window.location.origin}/api/v1/completions/shotgunCompletion`,
+      requestOptions
+    )
+      .then(response => response.json())
+      .then(result => {
+        console.log('shotgunCompletion ===', result);
+        setCompletion(result.choices[0].text);
+      })
+      .catch(error => console.log('error', error));
   }
 
   const handleSubmit = event => {

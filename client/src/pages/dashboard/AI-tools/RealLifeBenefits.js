@@ -16,23 +16,6 @@ const RealLifeBenefits = () => {
   const [text, setText] = useState('');
 
   async function fetchApi(subject) {
-    // const response = await fetch('https://api.openai.com/v1/completions', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     Authorization:
-    //       'Bearer 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',
-    //   },
-    //   body: JSON.stringify({
-    //     model: 'text-davinci-002',
-    //     prompt: `### Subject: ${subject} Task: Give me 5 ways that learning about ${subject}, will help my students in their real life:`,
-    //     temperature: 0.8,
-    //     max_tokens: 1500,
-    //   }),
-    // });
-    // const json = await response.json();
-    // setCompletion(json.choices[0].text);
-
     const myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
 
@@ -48,12 +31,12 @@ const RealLifeBenefits = () => {
     };
 
     fetch(
-      `${window.location.origin}/api/v1/completions/realLifeBenefits`,
+      `${window.location.origin}/api/v1/completions/benefitsCompletion`,
       requestOptions
     )
       .then(response => response.json())
       .then(result => {
-        console.log('realLifeBenefits ===', result);
+        console.log('benefitsCompletion ===', result);
         setCompletion(result.choices[0].text);
       })
       .catch(error => console.log('error', error));

@@ -1,0 +1,93 @@
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.profileHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 20px 0;
+}
+
+.pageHeader {
+  font-size: 24px;
+  color: #333;
+}
+
+.logOut {
+  font-size: 16px;
+  color: #333;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.profileDetailsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 20px 0;
+  border-bottom: 1px solid lightgrey;
+}
+
+.profileDetailsText {
+  font-size: 20px;
+  color: #333;
+}
+
+.changePersonalDetails {
+  font-size: 16px;
+  color: #333;
+  cursor: pointer;
+}
+
+.profileCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 20px 0;
+}
+
+.profileName {
+  width: 100%;
+  border: none;
+  background: none;
+  font-size: 16px;
+  color: #333;
+  padding: 10px;
+}
+
+.profileNameActive {
+  width: 100%;
+  border: 1px solid lightgrey;
+  background: #fff;
+  font-size: 16px;
+  color: #333;
+  padding: 10px;
+}
+
+.profileEmail {
+  width: 100%;
+  border: none;
+  background: none;
+  font-size: 16px;
+  color: #333;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.profileEmailActive {
+  width: 100%;
+  border: 1px solid lightgrey;
+  background: #fff;
+  font-size: 16px;
+  color: #333;
+  padding: 10px;
+  margin-top: 10px;
+}

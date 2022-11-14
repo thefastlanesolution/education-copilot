@@ -1,12 +1,19 @@
-import { useAppContext } from '../context/appContext'
-import { Navigate } from 'react-router-dom'
+import { useAppContext } from '../context/appContext';
+import { Navigate } from 'react-router-dom';
+import { useAuthStatus } from '../hooks/useAuthStatus';
+import { getAuth } from 'firebase/auth';
+
+const auth = getAuth();
 
 const ProtectedRoute = ({ children }) => {
-  const { user } = useAppContext()
-  if (!user) {
-    return <Navigate to='/landing' />
-  }
-  return children
-}
+  const { loggedIn, checkingStatus } = useAuthStatus();
+  const { user } = useAppContext();
 
-export default ProtectedRoute
+  if (!auth.currentUser) {
+    return <Navigate to="/sign-in" />;
+  }
+  console.log(auth);
+  return children;
+};
+
+export default ProtectedRoute;

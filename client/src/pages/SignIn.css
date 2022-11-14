@@ -1,0 +1,136 @@
+.pageContainer {
+  text-align: center;
+  background-color: #f0f4f8;
+  height: 100vh;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.pageHeader {
+  font-size: 2rem;
+  font-weight: 800;
+  width: 100%;
+  height: 35px;
+  text-align: left;
+  font-family: 'Inter Tight', Sans-Serif;
+  white-space: nowrap;
+}
+
+.seperatorText {
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid #000;
+  line-height: 0.1em;
+  margin: 10px 0 20px;
+}
+
+.seperatorText span {
+  background: #f0f4f8;
+  padding: 0 10px;
+}
+
+.oAuth {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 20px;
+  width: 400px;
+  max-width: 500px;
+  margin: auto;
+  margin-top: 4vw;
+}
+
+.signinForm {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 20px;
+  width: 400px;
+  max-width: 500px;
+  margin: auto;
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 600px) {
+  .signinForm {
+    width: 90%;
+  }
+}
+
+.emailInput,
+.passwordInput {
+  border: 1px solid rgba(245, 245, 245, 0.15);
+  border-radius: 0.28571429rem;
+  padding: 12px;
+  font-size: 16px;
+  width: 100%;
+  border: 2px solid rgba(34, 36, 38, 0.15);
+}
+
+.passwordInputDiv {
+  position: relative;
+}
+
+.showPassword {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+
+.registerLink {
+  color: gray;
+  font-family: 'Inter Tight', Sans-Serif;
+  font-size: 16px;
+  white-space: nowrap;
+}
+
+.registerLink span {
+  color: #007bff;
+  font-weight: 600;
+}
+
+.forgotPasswordLink {
+  margin-top: 1.3rem;
+  color: #007bff;
+  font-family: 'Inter Tight', Sans-Serif;
+  font-size: 16px;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.signInBar {
+  align-items: center;
+}
+
+.signInText {
+  color: #334359;
+  font-weight: 700;
+  padding: 0;
+  margin: 0;
+}
+
+.signInText:hover {
+  color: #676481;
+}
+
+.signInButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 3rem;
+  width: 100%;
+  border-color: rgb(219, 219, 219);
+  border-style: solid;
+  background: white;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  outline: none;
+  font-family: 'Inter Tight', Sans-Serif;
+  font-size: 18px;
+}
+
+.signInButton:hover {
+  box-shadow: 0 0.1rem 0.1rem rgba(0, 0, 0, 0.1);
+}

@@ -1,0 +1,148 @@
+.signUpPageContainer {
+  text-align: center;
+  background-color: #f0f4f8;
+  height: 100vh;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.signUpPageHeader {
+  font-size: 2rem;
+  font-weight: 800;
+  width: 100%;
+  height: 35px;
+  text-align: left;
+  font-family: 'Inter Tight', Sans-Serif;
+  white-space: nowrap;
+}
+
+.signUpSeperatorText {
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid #000;
+  line-height: 0.1em;
+  margin: 10px 0 20px;
+}
+
+.signUpSeperatorText span {
+  background: #f0f4f8;
+  padding: 0 10px;
+}
+
+.signUpoAuth {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 20px;
+  width: 400px;
+  max-width: 500px;
+  margin: auto;
+  margin-top: 4vw;
+}
+
+.signUpOtherLinks {
+  margin-top: 1.5rem;
+  color: gray;
+  font-family: 'Inter Tight', Sans-Serif;
+  font-size: 16px;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.signUpForm {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 20px;
+  width: 400px;
+  max-width: 500px;
+  margin: auto;
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 600px) {
+  .signinForm {
+    width: 90%;
+  }
+}
+
+.signUpEmailInput,
+.signUpPasswordInput {
+  border: 1px solid rgba(245, 245, 245, 0.15);
+  border-radius: 0.28571429rem;
+  padding: 12px;
+  font-size: 16px;
+  width: 100%;
+  border: 2px solid rgba(34, 36, 38, 0.15);
+}
+
+.passwordInputDiv {
+  position: relative;
+}
+
+.signUpNameInput {
+  border: 1px solid rgba(245, 245, 245, 0.15);
+  border-radius: 0.28571429rem;
+  padding: 12px;
+  font-size: 16px;
+  width: 100%;
+  border: 2px solid rgba(34, 36, 38, 0.15);
+}
+
+.signUpShowPassword {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+
+.signUpOtherLinks {
+  color: gray;
+  font-family: 'Inter Tight', Sans-Serif;
+  font-size: 16px;
+  white-space: nowrap;
+}
+.signUpBack:active {
+  color: gray;
+}
+
+.signUpBack span {
+  color: #007bff;
+  font-weight: 600;
+}
+
+.signUpBar {
+  align-items: center;
+}
+
+.signUpText {
+  color: #334359;
+  font-weight: 700;
+  padding: 0;
+  margin: 0;
+}
+
+.signUpText:hover {
+  color: #676481;
+}
+
+.signUpButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 3rem;
+  width: 100%;
+  border-color: rgb(219, 219, 219);
+  border-style: solid;
+  background: white;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  outline: none;
+  font-family: 'Inter Tight', Sans-Serif;
+  font-size: 18px;
+}
+
+.signUpButton:hover {
+  box-shadow: 0 0.1rem 0.1rem rgba(0, 0, 0, 0.1);
+}

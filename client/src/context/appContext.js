@@ -5,14 +5,6 @@ import axios from 'axios';
 import {
   DISPLAY_ALERT,
   CLEAR_ALERT,
-  SETUP_USER_BEGIN,
-  SETUP_USER_SUCCESS,
-  SETUP_USER_ERROR,
-  TOGGLE_SIDEBAR,
-  LOGOUT_USER,
-  UPDATE_USER_BEGIN,
-  UPDATE_USER_SUCCESS,
-  UPDATE_USER_ERROR,
   HANDLE_CHANGE,
   CLEAR_VALUES,
   CREATE_STUDENT_BEGIN,
@@ -20,15 +12,6 @@ import {
   CREATE_STUDENT_ERROR,
   GET_STUDENTS_BEGIN,
   GET_STUDENTS_SUCCESS,
-  SET_EDIT_STUDENT,
-  DELETE_STUDENT_BEGIN,
-  EDIT_STUDENT_BEGIN,
-  EDIT_STUDENT_SUCCESS,
-  EDIT_STUDENT_ERROR,
-  SHOW_STATS_BEGIN,
-  SHOW_STATS_SUCCESS,
-  CLEAR_FILTERS,
-  CHANGE_PAGE,
 } from './actions';
 
 const token = localStorage.getItem('token');
@@ -94,7 +77,7 @@ const AppProvider = ({ children }) => {
     error => {
       // console.log(error.response)
       if (error.response.status === 401) {
-        logoutUser();
+        console.log('401 Error');
       }
       return Promise.reject(error);
     }
@@ -111,77 +94,14 @@ const AppProvider = ({ children }) => {
     }, 3000);
   };
 
-  const addUserToLocalStorage = ({ user, token, school }) => {
-    localStorage.setItem('user', JSON.stringify(user));
-    localStorage.setItem('token', token);
-    localStorage.setItem('school', school);
-  };
-
-  const removeUserFromLocalStorage = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    localStorage.removeItem('school');
-  };
-
-  const setupUser = async ({ currentUser, endPoint, alertText }) => {
-    dispatch({ type: SETUP_USER_BEGIN });
-    try {
-      const { data } = await axios.post(
-        `/api/v1/auth/${endPoint}`,
-        currentUser
-      );
-
-      const { user, token, school, gradeLevel, subject } = data;
-      dispatch({
-        type: SETUP_USER_SUCCESS,
-        payload: { user, token, school, gradeLevel, subject, alertText },
-      });
-      addUserToLocalStorage({ user, token, school, gradeLevel, subject });
-    } catch (error) {
-      dispatch({
-        type: SETUP_USER_ERROR,
-        payload: { msg: error.response.data.msg },
-      });
-    }
-    clearAlert();
-  };
-  const toggleSidebar = () => {
-    dispatch({ type: TOGGLE_SIDEBAR });
-  };
-
-  const logoutUser = () => {
-    dispatch({ type: LOGOUT_USER });
-    removeUserFromLocalStorage();
-  };
-  const updateUser = async currentUser => {
-    dispatch({ type: UPDATE_USER_BEGIN });
-    try {
-      const { data } = await authFetch.patch('/auth/updateUser', currentUser);
-
-      const { user, school, gradeLevel, subject, token } = data;
-
-      dispatch({
-        type: UPDATE_USER_SUCCESS,
-        payload: { user, school, gradeLevel, subject, token },
-      });
-      addUserToLocalStorage({ user, school, gradeLevel, subject, token });
-    } catch (error) {
-      if (error.response.status !== 401) {
-        dispatch({
-          type: UPDATE_USER_ERROR,
-          payload: { msg: error.response.data.msg },
-        });
-      }
-    }
-    clearAlert();
-  };
-
   const handleChange = ({ name, value }) => {
     dispatch({ type: HANDLE_CHANGE, payload: { name, value } });
   };
   const clearValues = () => {
     dispatch({ type: CLEAR_VALUES });
   };
+
+  // Creates a Student in the MongoDB Database
   const createStudent = async () => {
     dispatch({ type: CREATE_STUDENT_BEGIN });
     try {
@@ -241,101 +161,20 @@ const AppProvider = ({ children }) => {
         },
       });
     } catch (error) {
-      logoutUser();
+      console.log('Error getting students');
     }
     clearAlert();
   };
 
-  const setEditStudent = id => {
-    dispatch({ type: SET_EDIT_STUDENT, payload: { id } });
-  };
-  const editStudent = async () => {
-    dispatch({ type: EDIT_STUDENT_BEGIN });
-
-    try {
-      const {
-        firstName,
-        lastName,
-        birthDate,
-        studentEmail,
-        parentFirstName,
-        parentLastName,
-        parentEmail,
-        parentPhone,
-        status,
-      } = state;
-      await authFetch.patch(`/students/${state.editStudentId}`, {
-        firstName,
-        lastName,
-        birthDate,
-        studentEmail,
-        parentFirstName,
-        parentLastName,
-        parentEmail,
-        parentPhone,
-        status,
-      });
-      dispatch({ type: EDIT_STUDENT_SUCCESS });
-      dispatch({ type: CLEAR_VALUES });
-    } catch (error) {
-      if (error.response.status === 401) return;
-      dispatch({
-        type: EDIT_STUDENT_ERROR,
-        payload: { msg: error.response.data.msg },
-      });
-    }
-    clearAlert();
-  };
-  const deleteStudent = async studentId => {
-    dispatch({ type: DELETE_STUDENT_BEGIN });
-    try {
-      await authFetch.delete(`/students/${studentId}`);
-      getStudents();
-    } catch (error) {
-      logoutUser();
-    }
-  };
-  const showStats = async () => {
-    dispatch({ type: SHOW_STATS_BEGIN });
-    try {
-      const { data } = await authFetch('/students/stats');
-      dispatch({
-        type: SHOW_STATS_SUCCESS,
-        payload: {
-          stats: data.defaultStats,
-          monthlyApplications: data.monthlyApplications,
-        },
-      });
-    } catch (error) {
-      logoutUser();
-    }
-    clearAlert();
-  };
-  const clearFilters = () => {
-    dispatch({ type: CLEAR_FILTERS });
-  };
-  const changePage = page => {
-    dispatch({ type: CHANGE_PAGE, payload: { page } });
-  };
   return (
     <AppContext.Provider
       value={{
         ...state,
         displayAlert,
-        setupUser,
-        toggleSidebar,
-        logoutUser,
-        updateUser,
         handleChange,
         clearValues,
         createStudent,
         getStudents,
-        setEditStudent,
-        deleteStudent,
-        editStudent,
-        showStats,
-        clearFilters,
-        changePage,
       }}
     >
       {children}

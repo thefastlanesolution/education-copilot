@@ -16,7 +16,6 @@ const createStudent = async (req, res) => {
   if (!firstName || !lastName) {
     throw new BadRequestError('Please provide all values');
   }
-  req.body.createdBy = req.user.userId;
   const student = await Student.create(req.body);
   res.status(StatusCodes.CREATED).json({ student });
 };
@@ -25,9 +24,7 @@ const createStudent = async (req, res) => {
 const getAllStudents = async (req, res) => {
   const { status, sort, search } = req.query;
 
-  const queryObject = {
-    createdBy: req.user.userId,
-  };
+  const queryObject = {};
   // add stuff based on condition
 
   if (status && status !== 'all') {

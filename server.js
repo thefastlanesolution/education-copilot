@@ -19,14 +19,12 @@ import mongoSanitize from 'express-mongo-sanitize';
 import connectDB from './db/connect.js';
 
 // routers
-import authRouter from './routes/authRoutes.js';
 import studentsRouter from './routes/studentRoutes.js';
 import completionRouter from './routes/completionRoutes.js';
 
 // middleware
 import notFoundMiddleware from './middleware/not-found.js';
 import errorHandlerMiddleware from './middleware/error-handler.js';
-import authenticateUser from './middleware/auth.js';
 
 if (process.env.NODE_ENV !== 'production') {
   app.use(morgan('dev'));
@@ -47,10 +45,9 @@ app.use(
   })
 );
 
-app.use('/api/v1/auth', authRouter);
-app.use('/api/v1/students', authenticateUser, studentsRouter);
+app.use('/api/v1/students', studentsRouter);
 
-//use this router here
+// Open AI User Completion Generation Handlers
 app.use('/api/v1/completions', completionRouter);
 
 // only when ready to deploy

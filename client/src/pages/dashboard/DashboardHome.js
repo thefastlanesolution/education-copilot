@@ -10,10 +10,10 @@ const Header = styled.header`
   margin-top: 10%;
 `;
 
-const Dashboard = () => (
+const DashboardHome = () => (
   <Header>
     <h1>Welcome to Copilot 👋</h1>
   </Header>
 );
 
-export default Dashboard;
+export default DashboardHome;

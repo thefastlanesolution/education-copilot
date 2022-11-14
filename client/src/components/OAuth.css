@@ -1,0 +1,25 @@
+.socialIconDiv {
+  height: 3rem;
+  width: 100%;
+  background-color: #1e43ff;
+  border-radius: 0.5rem;
+  border: none;
+}
+
+.signupText {
+  color: white;
+  font-weight: 700;
+  padding: 0;
+  margin: 0;
+  font-weight: 600;
+  font-family: 'Inter Tight', Sans-Serif;
+  font-size: 18px;
+}
+
+.socialIconDiv:hover {
+  background-color: #516eff;
+}
+
+.socialIconDiv:hover {
+  cursor: pointer;
+}
