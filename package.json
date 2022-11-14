@@ -52,10 +52,8 @@
     "morgan": "^1.10.0",
     "openai": "^3.1.0",
     "react-leaflet": "^3.2.2",
-    "react-toastify": "^9.1.1",
     "stripe": "^10.17.0",
     "styled-components": "^5.3.6",
-    "swiper": "^8.4.4",
     "uuid": "^9.0.0",
     "validator": "^13.7.0",
     "xss-clean": "^0.1.1"

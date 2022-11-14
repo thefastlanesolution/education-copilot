@@ -12,7 +12,6 @@ import {
 } from 'firebase/firestore';
 import { db } from '../firebase.config';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import './Profile.css';
 
 function Profile() {
@@ -78,7 +77,7 @@ function Profile() {
       }
     } catch (error) {
       console.log(error);
-      toast.error('Could not update profile details');
+      console.log('Could not update profile details');
     }
   };
 

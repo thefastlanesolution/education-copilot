@@ -2,7 +2,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { doc, setDoc, getDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../firebase.config';
-import { toast } from 'react-toastify';
 import './OAuth.css';
 
 function OAuth() {
@@ -30,7 +29,7 @@ function OAuth() {
       }
       navigate('/');
     } catch (error) {
-      toast.error('Could not authorize with Google');
+      console.log('Could not authorize with Google');
     }
   };
 

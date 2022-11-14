@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
 import PrivateRoute from './components/PrivateRoute';
 import Profile from './pages/Profile';
 import SignIn from './pages/SignIn';
