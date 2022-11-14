@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import './DashboardHome.css';
 
 const Header = styled.header`
   display: flex;
@@ -12,7 +13,22 @@ const Header = styled.header`
 
 const DashboardHome = () => (
   <Header>
-    <h1>Welcome to Copilot 👋</h1>
+    <h1>
+      Welcome to Copilot 🚀
+      <br />
+      <br />
+      <div className="cta">
+        <h3>
+          <a
+            target="_blank"
+            href="https://www.facebook.com/groups/1429875590870786"
+          >
+            👉 Beta users: Click here to join our Facebook group to retain free
+            access!
+          </a>
+        </h3>
+      </div>
+    </h1>
   </Header>
 );
 
