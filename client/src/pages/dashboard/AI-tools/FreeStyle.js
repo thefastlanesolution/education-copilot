@@ -8,7 +8,7 @@ import Wrapper from '../../../assets/wrappers/InputForm';
 import Editor from 'ckeditor5-custom-build/build/ckeditor';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 
-const WritingPrompt = () => {
+const FreeStyle = () => {
   const { displayAlert, isLoading } = useAppContext();
 
   const [completion, setCompletion] = useState('');
@@ -31,12 +31,12 @@ const WritingPrompt = () => {
     };
 
     fetch(
-      `${window.location.origin}/api/v1/completions/writingPromptCompletion`,
+      `${window.location.origin}/api/v1/completions/freeStyleCompletion`,
       requestOptions
     )
       .then(response => response.json())
       .then(result => {
-        console.log('writingPromptCompletion ===', result);
+        console.log('FreeStyleCompletion ===', result);
         setCompletion(result.choices[0].text);
       })
       .catch(error => console.log('error', error));
@@ -69,10 +69,10 @@ const WritingPrompt = () => {
         <CardContent>
           <form onSubmit={handleSubmit}>
             <div className="form-center">
-              <h4>Writing Prompt Generator 📝</h4>
+              <h4>AI Freestyle 🚀</h4>
               <FormRow
                 type="text"
-                labelText="Topic/Prompt:"
+                labelText="Prompt"
                 name="subject"
                 value={subject}
                 handleChange={e => setSubject(e.target.value)}
@@ -87,21 +87,10 @@ const WritingPrompt = () => {
             </div>
           </form>
           <div className="bodyText">
-            <h5>Generate long form writing prompts with ease.</h5>
-            <p>
-              ✅ Currently, it's best to phrase your topic/prompt in the form of
-              a question. Although, may still get great results using single
-              words or statements.
-              <br />✅ The goal of this tool is to create a long form writing
-              prompt that promotes critical and analytical thinking.
-              <br />
-              <br />
-              <h4>Examples 🥳</h4>
-              <ol>- Do you believe zoos should exist?</ol>
-              <ol>- Should schools have a dress code?</ol>
-              <ol>- Are small schools more effective than large schools?</ol>
-              <ol>- Should celebrating international holidays be mandatory?</ol>
-            </p>
+            <h5>
+              Ask for advice, order a document to be created, test the limits of
+              Copilot!
+            </h5>
           </div>
         </CardContent>
       </Card>
@@ -119,4 +108,4 @@ const WritingPrompt = () => {
   );
 };
 
-export default WritingPrompt;
+export default FreeStyle;

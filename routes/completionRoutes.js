@@ -9,6 +9,7 @@ import { writingPromptCompletion } from '../controllers/AI Tools/writingPromptCo
 import { parentEmailsCompletion } from '../controllers/AI Tools/parentEmailController.js';
 import { weeklyNewsletterCompletion } from '../controllers/AI Tools/weeklyNewsletterController.js';
 import { researchProjectCompletion } from '../controllers/AI Tools/researchProjectController.js';
+import { freeStyleCompletion } from '../controllers/AI Tools/freeStyleController.js';
 
 // router.route('/').post(benefitsCompletion);
 
@@ -19,7 +20,7 @@ router.post('/benefitsCompletion', (req, res) => {
   // res.send('RealLifeBenefits');
 });
 
-// Real Life Benefits
+// Idea Generator
 router.post('/shotgunCompletion', (req, res) => {
   console.log('shotgunCompletion api call ===');
   shotgunCompletion(req, res);
@@ -33,28 +34,35 @@ router.post('/lessonPlannerCompletion', (req, res) => {
   // res.send('RealLifeBenefits');
 });
 
-// Real Life Benefits
+// Informational handout
 router.post('/infoHandoutCompletion', (req, res) => {
   console.log('infoHandoutCompletion api call ===');
   infoHandoutCompletion(req, res);
   // res.send('RealLifeBenefits');
 });
 
-// Real Life Benefits
+// Writing Prompt
 router.post('/writingPromptCompletion', (req, res) => {
   console.log('writingPromptCompletion api call ===');
   writingPromptCompletion(req, res);
   // res.send('RealLifeBenefits');
 });
 
-// Real Life Benefits
+// Free Style
+router.post('/freeStyleCompletion', (req, res) => {
+  console.log('freeStyleCompletion api call ===');
+  freeStyleCompletion(req, res);
+  // res.send('RealLifeBenefits');
+});
+
+// Parent Emails
 router.post('/parentEmailsCompletion', (req, res) => {
   console.log('parentEmailsCompletion api call ===');
   parentEmailsCompletion(req, res);
   // res.send('RealLifeBenefits');
 });
 
-// Real Life Benefits
+// Weekly Newsletter
 router.post('/weeklyNewsletterCompletion', (req, res) => {
   console.log('weeklyNewsletterCompletion api call ===');
   weeklyNewsletterCompletion(req, res);

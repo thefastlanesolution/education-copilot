@@ -10,7 +10,7 @@ import {
   orderBy,
   deleteDoc,
 } from 'firebase/firestore';
-import { db } from '../firebase.config';
+import { db } from '../../firebase.config';
 import { useNavigate } from 'react-router-dom';
 import './Profile.css';
 

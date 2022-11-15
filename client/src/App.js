@@ -1,9 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import PrivateRoute from './components/PrivateRoute';
-import Profile from './pages/Profile';
-import SignIn from './pages/SignIn';
-import SignUp from './pages/SignUp';
-import ForgotPassword from './pages/ForgotPassword';
+import Profile from './pages/auth/Profile';
+import SignIn from './pages/auth/SignIn';
+import SignUp from './pages/auth/SignUp';
+import ForgotPassword from './pages/auth/ForgotPassword';
 
 // Jobify Components
 import { Landing, Error, ProtectedRoute } from './pages';
@@ -16,6 +16,7 @@ import {
 
 // AI Tool Components
 import ParentEmails from './pages/dashboard/AI-tools/ParentEmails.js';
+import FreeStyle from './pages/dashboard/AI-tools/FreeStyle.js';
 import LessonPlan from './pages/dashboard/AI-tools/LessonPlans.js';
 import RealLifeBenefits from './pages/dashboard/AI-tools/RealLifeBenefits.js';
 import WritingPrompt from './pages/dashboard/AI-tools/WritingPrompt.js';
@@ -24,7 +25,6 @@ import ResearchProjectGenerator from './pages/dashboard/AI-tools/ResearchProject
 import IdeaGenerator from './pages/dashboard/AI-tools/ShotgunIdeas.js';
 import InformationalHandout from './pages/dashboard/AI-tools/InformationalHandout.js';
 import PricingPage from './pages/pricing/PricingPage.js';
-import Explore from './pages/Explore';
 import React from 'react';
 
 function App() {
@@ -47,6 +47,7 @@ function App() {
               <Route path="/profile" element={<Profile />} />
             </Route>
             <Route path="parent-emails" element={<ParentEmails />} />
+            <Route path="freestyle" element={<FreeStyle />} />
             <Route path="lesson-planner" element={<LessonPlan />} />
             <Route path="real-life-benefits" element={<RealLifeBenefits />} />
             <Route path="weekly-newsletter" element={<WeeklyNewsletter />} />
