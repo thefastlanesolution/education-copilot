@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Card from '@mui/material/Card';
 import FormRow from '../../../components/FormRow';
 import CardContent from '@mui/material/CardContent';
@@ -7,13 +7,13 @@ import { useAppContext } from '../../../context/appContext';
 import Wrapper from '../../../assets/wrappers/InputForm';
 import Editor from 'ckeditor5-custom-build/build/ckeditor';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
+import './FreeStyle.css';
 
 const FreeStyle = () => {
   const { displayAlert, isLoading } = useAppContext();
 
   const [completion, setCompletion] = useState('');
   const [subject, setSubject] = useState('');
-  const [text, setText] = useState('');
 
   async function fetchApi(subject) {
     const myHeaders = new Headers();
@@ -50,6 +50,30 @@ const FreeStyle = () => {
     }
     fetchApi(subject);
   };
+
+  const handleChange = event => {
+    const div = document.querySelector(
+      '#root > section > main > div > div > main > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiCard-root.input-card.css-1gnog30-MuiPaper-root-MuiCard-root > div > form > div > div.ck.ck-reset.ck-editor.ck-rounded-corners > div.ck.ck-editor__main > div'
+    );
+    setSubject(div.innerText);
+  };
+
+  // // useEffect(() => {
+  // const div = document.querySelector(
+  //   '#root > section > main > div > div > main > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiCard-root.input-card.css-1gnog30-MuiPaper-root-MuiCard-root > div > form > div > div.ck.ck-reset.ck-editor.ck-rounded-corners > div.ck.ck-editor__main > div'
+  // );
+  // setSubject(div.innerText);
+  // // }, []);
+
+  function nl2br(str, is_xhtml) {
+    var breakTag =
+      is_xhtml || typeof is_xhtml === 'undefined' ? '<br />' : '<br>';
+    return (str + '').replace(
+      /([^>\r\n]?)(\r\n|\n\r|\r|\n)/g,
+      '$1' + breakTag + '$2'
+    );
+  }
+
   return (
     <Wrapper>
       <Card
@@ -70,19 +94,25 @@ const FreeStyle = () => {
           <form onSubmit={handleSubmit}>
             <div className="form-center">
               <h4>AI Freestyle 🚀</h4>
-              <FormRow
+              <CKEditor
+                className="editorOne"
+                editor={Editor}
+                data="Prompt goes here..."
+                onChange={handleChange}
+              ></CKEditor>
+              {/* <FormRow
                 type="text"
                 labelText="Prompt"
                 name="subject"
                 value={subject}
                 handleChange={e => setSubject(e.target.value)}
-              />
+              /> */}
               <button
                 className="btn btn-block"
                 type="submit"
                 disabled={isLoading}
               >
-                {isLoading ? 'Please Wait...' : 'Generate Writing Prompt'}
+                {isLoading ? 'Please Wait...' : 'Generate'}
               </button>
             </div>
           </form>
@@ -97,11 +127,8 @@ const FreeStyle = () => {
       <div className="editor">
         <CKEditor
           editor={Editor}
-          data={completion}
-          onchange={(event, editor) => {
-            const data = editor.setData('hello world');
-            setText(data);
-          }}
+          data={nl2br(completion)}
+          onchange={console.log('Editor has changed!')}
         ></CKEditor>
       </div>
     </Wrapper>

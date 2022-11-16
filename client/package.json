@@ -30,6 +30,7 @@
     "react": "^17.0.2",
     "react-app-polyfill": "^3.0.0",
     "react-dom": "^17.0.2",
+    "react-ga": "^3.3.1",
     "react-icons": "^4.3.1",
     "react-router-dom": "^6.0.2",
     "react-scripts": "^5.0.1",
