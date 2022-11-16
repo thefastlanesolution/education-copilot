@@ -2,6 +2,15 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="script-src 'self' https://apis.google.com;
+             script-src 'self' https://www.googletagmanager.com/gtag/js?id=G-1SFKT29DLQ;
+             script-src 'self' https://code.tidio.co/ukkfgfcjechyifwz7xsegot5dhc6spof.js;
+             default-src 'self' https://identitytoolkit.googleapis.com"
+    />
+
     <link rel="icon" href="%PUBLIC_URL%/favigon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
@@ -26,10 +35,14 @@
       gtag('config', 'G-1SFKT29DLQ');
     </script>
 
+    <!-- Tidio Live Chat -->
+
     <script
       src="//code.tidio.co/ukkfgfcjechyifwz7xsegot5dhc6spof.js"
       async
     ></script>
+
+    <!-- Content Security Policy -->
 
     <!--
       manifest.json provides metadata used when your web app is installed on a
