@@ -94,19 +94,6 @@ const FreeStyle = () => {
           <form onSubmit={handleSubmit}>
             <div className="form-center">
               <h4>AI Freestyle 🚀</h4>
-              <CKEditor
-                className="editorOne"
-                editor={Editor}
-                data="Prompt goes here..."
-                onChange={handleChange}
-              ></CKEditor>
-              {/* <FormRow
-                type="text"
-                labelText="Prompt"
-                name="subject"
-                value={subject}
-                handleChange={e => setSubject(e.target.value)}
-              /> */}
               <button
                 className="btn btn-block"
                 type="submit"
@@ -114,6 +101,12 @@ const FreeStyle = () => {
               >
                 {isLoading ? 'Please Wait...' : 'Generate'}
               </button>
+              <CKEditor
+                className="editorOne"
+                editor={Editor}
+                data="Prompt goes here..."
+                onChange={handleChange}
+              ></CKEditor>
             </div>
           </form>
           <div className="bodyText">
