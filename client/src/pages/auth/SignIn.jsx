@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './SignIn.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { Navigate } from 'react-router-dom';
 import OAuth from '../../components/OAuth';
 import visibilityIcon from '../../assets/svg/visibilityIcon.svg';
 
