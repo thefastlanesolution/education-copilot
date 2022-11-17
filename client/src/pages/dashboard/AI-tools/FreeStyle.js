@@ -58,13 +58,6 @@ const FreeStyle = () => {
     setSubject(div.innerText);
   };
 
-  // // useEffect(() => {
-  // const div = document.querySelector(
-  //   '#root > section > main > div > div > main > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiCard-root.input-card.css-1gnog30-MuiPaper-root-MuiCard-root > div > form > div > div.ck.ck-reset.ck-editor.ck-rounded-corners > div.ck.ck-editor__main > div'
-  // );
-  // setSubject(div.innerText);
-  // // }, []);
-
   function nl2br(str, is_xhtml) {
     var breakTag =
       is_xhtml || typeof is_xhtml === 'undefined' ? '<br />' : '<br>';
@@ -100,26 +93,19 @@ const FreeStyle = () => {
                 data="Prompt goes here..."
                 onChange={handleChange}
               ></CKEditor>
-              {/* <FormRow
-                type="text"
-                labelText="Prompt"
-                name="subject"
-                value={subject}
-                handleChange={e => setSubject(e.target.value)}
-              /> */}
-              <button
-                className="btn btn-block"
-                type="submit"
-                disabled={isLoading}
-              >
-                {isLoading ? 'Please Wait...' : 'Generate'}
-              </button>
             </div>
+            <button
+              className="btn btn-block"
+              type="submit"
+              disabled={isLoading}
+            >
+              {isLoading ? 'Please Wait...' : 'Generate'}
+            </button>
           </form>
           <div className="bodyText">
             <h5>
               Ask for advice, order a document to be created, test the limits of
-              Copilot!
+              Copilot! Test
             </h5>
           </div>
         </CardContent>
