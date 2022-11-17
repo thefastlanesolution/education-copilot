@@ -40,30 +40,32 @@ function App() {
               </ProtectedRoute>
             }
           >
-            <Route index element={<DashboardHome />} />
-            <Route path="all-students" element={<Workshop />} />
             {/* <Route path="pricing" element={<Pricing />} /> */}
-            <Route path="/profile" element={<PrivateRoute />}>
+            <Route path="/" element={<PrivateRoute />}>
               <Route path="/profile" element={<Profile />} />
+              <Route index element={<DashboardHome />} />
+              <Route path="all-students" element={<Workshop />} />
+              <Route path="parent-emails" element={<ParentEmails />} />
+              <Route path="freestyle" element={<FreeStyle />} />
+              <Route path="lesson-planner" element={<LessonPlan />} />
+              <Route path="real-life-benefits" element={<RealLifeBenefits />} />
+              <Route path="weekly-newsletter" element={<WeeklyNewsletter />} />
+              <Route
+                path="informational-handout"
+                element={<InformationalHandout />}
+              />
+              <Route
+                path="research-project-generator"
+                element={<ResearchProjectGenerator />}
+              />
+              <Route
+                path="shotgun-idea-generator"
+                element={<IdeaGenerator />}
+              />
+              <Route path="writing-prompts" element={<WritingPrompt />} />
+              <Route path="add-student" element={<AddStudent />} />
             </Route>
-            <Route path="parent-emails" element={<ParentEmails />} />
-            <Route path="freestyle" element={<FreeStyle />} />
-            <Route path="lesson-planner" element={<LessonPlan />} />
-            <Route path="real-life-benefits" element={<RealLifeBenefits />} />
-            <Route path="weekly-newsletter" element={<WeeklyNewsletter />} />
-            <Route
-              path="informational-handout"
-              element={<InformationalHandout />}
-            />
-            <Route
-              path="research-project-generator"
-              element={<ResearchProjectGenerator />}
-            />
-            <Route path="shotgun-idea-generator" element={<IdeaGenerator />} />
-            <Route path="writing-prompts" element={<WritingPrompt />} />
           </Route>
-
-          <Route path="add-student" element={<AddStudent />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="pricing" element={<PricingPage />} />
           <Route path="/sign-in" element={<SignIn />} />

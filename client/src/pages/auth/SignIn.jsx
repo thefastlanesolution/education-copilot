@@ -1,10 +1,15 @@
 import { useState } from 'react';
 import './SignIn.css';
 import { Link, useNavigate } from 'react-router-dom';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import { Navigate } from 'react-router-dom';
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  setPersistence,
+  browserLocalPersistence,
+} from 'firebase/auth';
 import OAuth from '../../components/OAuth';
 import visibilityIcon from '../../assets/svg/visibilityIcon.svg';
+import firebase from 'firebase/compat/app';
 
 function SignIn() {
   const [showPassword, setShowPassword] = useState(false);
@@ -36,6 +41,7 @@ function SignIn() {
       );
 
       if (userCredential.user) {
+        firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
         navigate('/');
       }
     } catch (error) {

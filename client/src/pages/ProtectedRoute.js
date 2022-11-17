@@ -8,11 +8,12 @@ const auth = getAuth();
 const ProtectedRoute = ({ children }) => {
   const { loggedIn, checkingStatus } = useAuthStatus();
   const { user } = useAppContext();
+  console.log('USER;', auth.currentUser);
 
-  if (!auth.currentUser) {
+  if (auth?.currentUser?.accessToken === null) {
     return <Navigate to="/sign-in" />;
   }
-  console.log(auth);
+  console.log('AUTH: ', auth);
   return children;
 };
 

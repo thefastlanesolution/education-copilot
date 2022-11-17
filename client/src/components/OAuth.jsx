@@ -27,6 +27,7 @@ function OAuth() {
           timestamp: serverTimestamp(),
         });
       }
+
       navigate('/');
     } catch (error) {
       console.log('Could not authorize with Google');
