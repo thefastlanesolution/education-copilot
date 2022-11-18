@@ -7,6 +7,9 @@ import { useAppContext } from '../../../context/appContext';
 import Wrapper from '../../../assets/wrappers/InputForm';
 import Editor from 'ckeditor5-custom-build/build/ckeditor';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import { getAuth } from '@firebase/auth';
+import { db } from '../../../firebase.config';
 
 const CompletionHistory = () => {
   const { displayAlert, isLoading } = useAppContext();
@@ -15,43 +18,37 @@ const CompletionHistory = () => {
   const [subject, setSubject] = useState('');
   const [gradeLevel, setGradeLevel] = useState('');
   const [text, setText] = useState('');
+  const [completionsForUser, setCompletionsForUser] = useState([]);
 
-  async function fetchApi(subject, gradeLevel) {
-    const myHeaders = new Headers();
-    myHeaders.append('Content-Type', 'application/json');
-
-    const raw = JSON.stringify({
-      subject,
-      gradeLevel,
+  async function getFromDBForUser(collectionName) {
+    const auth = getAuth();
+    const user = auth.currentUser;
+    const docsToAdd = [];
+    const dbQuery = query(
+      collection(db, collectionName),
+      where('userId', '==', user.uid)
+    );
+    const querySnapshot = await getDocs(dbQuery);
+    querySnapshot.forEach(doc => {
+      docsToAdd.push({
+        ...doc.data(),
+        id: doc.id,
+      });
     });
-
-    const requestOptions = {
-      method: 'POST',
-      headers: myHeaders,
-      body: raw,
-      redirect: 'follow',
-    };
-
-    fetch(
-      `${window.location.origin}/api/v1/completions/infoHandoutCompletion`,
-      requestOptions
-    )
-      .then(response => response.json())
-      .then(result => {
-        console.log('infoHandoutCompletion ===', result);
-        setCompletion(result.choices[0].text);
-      })
-      .catch(error => console.log('error', error));
+    setCompletionsForUser(docsToAdd);
   }
 
-  const handleSubmit = event => {
-    event.preventDefault();
-    if (!subject) {
-      displayAlert();
-      return;
+  React.useEffect(() => getFromDBForUser('completions'), []);
+
+  function handleClickAndDisplayCompletion(event, id) {
+    const completionFound = completionsForUser.find(
+      completion => completion.id === id
+    );
+    if (completionFound) {
+      console.log(completionFound);
+      setCompletion(completionFound.generatedText);
     }
-    fetchApi(subject, gradeLevel);
-  };
+  }
 
   return (
     <Wrapper>
@@ -74,12 +71,18 @@ const CompletionHistory = () => {
             <h4>Completion History 📝</h4>
           </div>
 
-          <div className="bodyText">
-            <h5>Here is your completion</h5>
-            <p>
-              ✅ Prompt:
-              <br />✅ Completion:
-            </p>
+          <div className="bodyText" style={{ overflowY: 'scroll' }}>
+            <h5>Here is your completion history</h5>
+            {completionsForUser.map((doc, index) => (
+              <p
+                key={index}
+                onClick={e => handleClickAndDisplayCompletion(e, doc.id)}
+                style={{ cursor: 'pointer' }}
+              >
+                ✅ Grade Level: {doc.gradeLevel}
+                <br />✅ Subject: {doc.subject}
+              </p>
+            ))}
           </div>
         </CardContent>
       </Card>

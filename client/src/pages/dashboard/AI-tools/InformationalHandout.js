@@ -7,6 +7,9 @@ import { useAppContext } from '../../../context/appContext';
 import Wrapper from '../../../assets/wrappers/InputForm';
 import Editor from 'ckeditor5-custom-build/build/ckeditor';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
+import { db } from '../../../firebase.config';
+import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
+import { getAuth } from '@firebase/auth';
 
 const InformationalHandout = () => {
   const { displayAlert, isLoading } = useAppContext();
@@ -15,6 +18,17 @@ const InformationalHandout = () => {
   const [subject, setSubject] = useState('');
   const [gradeLevel, setGradeLevel] = useState('');
   const [text, setText] = useState('');
+
+  async function saveCompletionToDB(collectionName, data) {
+    const auth = getAuth();
+    const user = auth.currentUser;
+    data = {
+      ...data,
+      userId: user.uid,
+      timestamp: Date.now(),
+    };
+    const ref = await addDoc(collection(db, collectionName), data);
+  }
 
   async function fetchApi(subject, gradeLevel) {
     const myHeaders = new Headers();
@@ -40,6 +54,17 @@ const InformationalHandout = () => {
       .then(result => {
         console.log('infoHandoutCompletion ===', result);
         setCompletion(result.choices[0].text);
+
+        const dataToSave = {
+          subject,
+          gradeLevel,
+          application: 'informational-handout',
+          generatedText: result.choices[0].text,
+        };
+
+        saveCompletionToDB('completions', dataToSave)
+          .then(() => console.log('hi'))
+          .catch(err => console.log('error', err));
       })
       .catch(error => console.log('error', error));
   }
