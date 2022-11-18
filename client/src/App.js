@@ -25,6 +25,7 @@ import ResearchProjectGenerator from './pages/dashboard/AI-tools/ResearchProject
 import IdeaGenerator from './pages/dashboard/AI-tools/ShotgunIdeas.js';
 import InformationalHandout from './pages/dashboard/AI-tools/InformationalHandout.js';
 import PricingPage from './pages/pricing/PricingPage.js';
+import CompletionHistory from './pages/dashboard/AI-tools/CompletionHistory.js';
 import React from 'react';
 
 function App() {
@@ -64,6 +65,10 @@ function App() {
               />
               <Route path="writing-prompts" element={<WritingPrompt />} />
               <Route path="add-student" element={<AddStudent />} />
+              <Route
+                path="completion-history"
+                element={<CompletionHistory />}
+              />
             </Route>
           </Route>
           <Route path="/forgot-password" element={<ForgotPassword />} />
