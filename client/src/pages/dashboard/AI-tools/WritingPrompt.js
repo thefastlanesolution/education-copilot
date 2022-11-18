@@ -7,6 +7,9 @@ import { useAppContext } from '../../../context/appContext';
 import Wrapper from '../../../assets/wrappers/InputForm';
 import Editor from 'ckeditor5-custom-build/build/ckeditor';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
+import { db } from '../../../firebase.config';
+import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
+import { getAuth } from '@firebase/auth';
 
 const WritingPrompt = () => {
   const { displayAlert, isLoading } = useAppContext();
@@ -14,6 +17,17 @@ const WritingPrompt = () => {
   const [completion, setCompletion] = useState('');
   const [subject, setSubject] = useState('');
   const [text, setText] = useState('');
+
+  async function saveCompletionToDB(collectionName, data) {
+    const auth = getAuth();
+    const user = auth.currentUser;
+    data = {
+      ...data,
+      userId: user.uid,
+      timestamp: Date.now(),
+    };
+    const ref = await addDoc(collection(db, collectionName), data);
+  }
 
   async function fetchApi(subject) {
     const myHeaders = new Headers();
@@ -38,6 +52,16 @@ const WritingPrompt = () => {
       .then(result => {
         console.log('writingPromptCompletion ===', result);
         setCompletion(result.choices[0].text);
+
+        const dataToSave = {
+          subject,
+          application: 'informational-handout',
+          generatedText: result.choices[0].text,
+        };
+
+        saveCompletionToDB('writing-prompt', dataToSave)
+          .then(() => console.log('hi'))
+          .catch(err => console.log('error', err));
       })
       .catch(error => console.log('error', error));
   }

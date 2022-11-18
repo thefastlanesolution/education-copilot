@@ -7,6 +7,9 @@ import { useAppContext } from '../../../context/appContext';
 import Wrapper from '../../../assets/wrappers/InputForm';
 import Editor from 'ckeditor5-custom-build/build/ckeditor';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
+import { db } from '../../../firebase.config';
+import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
+import { getAuth } from '@firebase/auth';
 
 const RealLifeBenefits = () => {
   const { displayAlert, isLoading } = useAppContext();
@@ -14,6 +17,17 @@ const RealLifeBenefits = () => {
   const [completion, setCompletion] = useState('');
   const [subject, setSubject] = useState('');
   const [text, setText] = useState('');
+
+  async function saveCompletionToDB(collectionName, data) {
+    const auth = getAuth();
+    const user = auth.currentUser;
+    data = {
+      ...data,
+      userId: user.uid,
+      timestamp: Date.now(),
+    };
+    const ref = await addDoc(collection(db, collectionName), data);
+  }
 
   async function fetchApi(subject) {
     const myHeaders = new Headers();
@@ -38,6 +52,16 @@ const RealLifeBenefits = () => {
       .then(result => {
         console.log('benefitsCompletion ===', result);
         setCompletion(result.choices[0].text);
+
+        const dataToSave = {
+          subject,
+          application: 'real-world-benefits',
+          generatedText: result.choices[0].text,
+        };
+
+        saveCompletionToDB('completions', dataToSave)
+          .then(() => console.log('hi'))
+          .catch(err => console.log('error', err));
       })
       .catch(error => console.log('error', error));
   }

@@ -22,7 +22,7 @@ import RealLifeBenefits from './pages/dashboard/AI-tools/RealLifeBenefits.js';
 import WritingPrompt from './pages/dashboard/AI-tools/WritingPrompt.js';
 import WeeklyNewsletter from './pages/dashboard/AI-tools/WeeklyNewsletter.js';
 import ResearchProjectGenerator from './pages/dashboard/AI-tools/ResearchProjectGenerator.js';
-import IdeaGenerator from './pages/dashboard/AI-tools/ShotgunIdeas.js';
+import IdeaGenerator from './pages/dashboard/AI-tools/IdeaGenerator.js';
 import InformationalHandout from './pages/dashboard/AI-tools/InformationalHandout.js';
 import PricingPage from './pages/pricing/PricingPage.js';
 import CompletionHistory from './pages/dashboard/AI-tools/CompletionHistory.js';
