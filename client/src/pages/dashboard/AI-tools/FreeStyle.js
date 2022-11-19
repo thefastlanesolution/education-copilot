@@ -104,19 +104,12 @@ const FreeStyle = () => {
                 data="Prompt goes here..."
                 onChange={handleChange}
               ></CKEditor>
-              {/* <FormRow
-                type="text"
-                labelText="Prompt"
-                name="subject"
-                value={subject}
-                handleChange={e => setSubject(e.target.value)}
-              /> */}
               <button
                 className="btn btn-block"
                 type="submit"
                 disabled={isLoading}
               >
-                {isLoading ? 'Please Wait...' : 'Generate'}
+                Generate Output
               </button>
             </div>
           </form>
