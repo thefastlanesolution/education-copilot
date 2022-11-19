@@ -58,7 +58,7 @@ const IdeaGenerator = () => {
         const dataToSave = {
           subject,
           gradeLevel,
-          application: 'idea-generator',
+          application: 'Idea Generator',
           generatedText: result.choices[0].text,
         };
 

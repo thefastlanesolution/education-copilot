@@ -69,7 +69,7 @@ const ParentEmails = () => {
           secondFeedback,
           thirdFeedback,
           fourthFeedback,
-          application: 'parent-emails',
+          application: 'Parent Emails',
           generatedText: result.choices[0].text,
         };
 

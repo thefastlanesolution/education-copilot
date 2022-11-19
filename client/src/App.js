@@ -65,10 +65,7 @@ function App() {
               />
               <Route path="writing-prompts" element={<WritingPrompt />} />
               <Route path="add-student" element={<AddStudent />} />
-              <Route
-                path="completion-history"
-                element={<CompletionHistory />}
-              />
+              <Route path="history" element={<CompletionHistory />} />
             </Route>
           </Route>
           <Route path="/forgot-password" element={<ForgotPassword />} />

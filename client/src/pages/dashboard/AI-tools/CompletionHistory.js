@@ -7,9 +7,10 @@ import { useAppContext } from '../../../context/appContext';
 import Wrapper from '../../../assets/wrappers/InputForm';
 import Editor from 'ckeditor5-custom-build/build/ckeditor';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import { collection, getDocs, query, where, orderBy } from 'firebase/firestore';
 import { getAuth } from '@firebase/auth';
 import { db } from '../../../firebase.config';
+import './CompletionHistory.css';
 
 const CompletionHistory = () => {
   const { displayAlert, isLoading } = useAppContext();
@@ -50,6 +51,18 @@ const CompletionHistory = () => {
     }
   }
 
+  // Shorten Output text in the output history card
+  function truncateText(text) {
+    const words = text.split(' ');
+    const truncatedWords = words.slice(0, 14);
+    return truncatedWords.join(' ') + ' ...';
+  }
+
+  // Strips the output of HTML formatting
+  function stripHTMLTags(str) {
+    return str.replace(/<[^>]*>/g, ' ');
+  }
+
   return (
     <Wrapper>
       <Card
@@ -67,20 +80,31 @@ const CompletionHistory = () => {
         className="input-card"
       >
         <CardContent>
-          <div className="form-center">
-            <h4>Completion History 📝</h4>
-          </div>
+          <div className="form-center"></div>
 
           <div className="bodyText" style={{ overflowY: 'scroll' }}>
-            <h5>Here is your completion history</h5>
+            <h4>Here is your output history</h4>
             {completionsForUser.map((doc, index) => (
               <p
+                className="completion"
                 key={index}
                 onClick={e => handleClickAndDisplayCompletion(e, doc.id)}
                 style={{ cursor: 'pointer' }}
               >
-                ✅ Grade Level: {doc.gradeLevel}
-                <br />✅ Subject: {doc.subject}
+                <strong>Tool:</strong> {doc.application}
+                <br />
+                <strong>Topic: </strong>
+                {doc.subject}
+                {doc.gradeLevel && (
+                  <React.Fragment>
+                    <br />
+                    <strong>Grade Level: </strong>
+                    {doc.gradeLevel}
+                  </React.Fragment>
+                )}
+                <br />
+                <strong>Output: </strong>
+                {truncateText(stripHTMLTags(doc.generatedText))}
               </p>
             ))}
           </div>

@@ -58,7 +58,7 @@ const LessonPlan = () => {
         const dataToSave = {
           subject,
           gradeLevel,
-          application: 'lesson-planner',
+          application: 'Lesson Planner',
           generatedText: result.choices[0].text,
         };
 

@@ -58,7 +58,7 @@ const InformationalHandout = () => {
         const dataToSave = {
           subject,
           gradeLevel,
-          application: 'informational-handout',
+          application: 'Informational Handout',
           generatedText: result.choices[0].text,
         };
 

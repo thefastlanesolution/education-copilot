@@ -55,7 +55,7 @@ const RealLifeBenefits = () => {
 
         const dataToSave = {
           subject,
-          application: 'real-world-benefits',
+          application: 'Real World Benefits',
           generatedText: result.choices[0].text,
         };
 

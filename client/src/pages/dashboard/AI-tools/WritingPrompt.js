@@ -55,11 +55,11 @@ const WritingPrompt = () => {
 
         const dataToSave = {
           subject,
-          application: 'informational-handout',
+          application: 'Writing Prompt',
           generatedText: result.choices[0].text,
         };
 
-        saveCompletionToDB('writing-prompt', dataToSave)
+        saveCompletionToDB('completions', dataToSave)
           .then(() => console.log('hi'))
           .catch(err => console.log('error', err));
       })

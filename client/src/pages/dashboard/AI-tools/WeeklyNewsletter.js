@@ -78,7 +78,7 @@ const WeeklyNewsletter = () => {
           fourthTopic,
           fifthTopic,
           gradeLevel,
-          application: 'weekly-newsletter',
+          application: 'Weekly Newsletter/Update',
           generatedText: result.choices[0].text,
         };
 

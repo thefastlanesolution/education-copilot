@@ -58,7 +58,7 @@ const ResearchProjectGenerator = () => {
         const dataToSave = {
           subject,
           gradeLevel,
-          application: 'research-project',
+          application: 'Research Project Generator',
           generatedText: result.choices[0].text,
         };
 
