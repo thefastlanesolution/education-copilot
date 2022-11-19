@@ -48,29 +48,15 @@ const FreeStyle = () => {
       displayAlert();
       return;
     }
-    const div = document.querySelector(
-      '#root > section > main > div > div > main > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiCard-root.input-card.css-1gnog30-MuiPaper-root-MuiCard-root > div > form > div > div.ck.ck-reset.ck-editor.ck-rounded-corners > div.ck.ck-editor__main > div'
-    );
-    fetchApi(div.innerText);
+    fetchApi(subject);
   };
 
   const handleChange = event => {
     const div = document.querySelector(
       '#root > section > main > div > div > main > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiCard-root.input-card.css-1gnog30-MuiPaper-root-MuiCard-root > div > form > div > div.ck.ck-reset.ck-editor.ck-rounded-corners > div.ck.ck-editor__main > div'
     );
-    if (div) {
-      return setSubject(div.innerText);
-    } else {
-      console.log('No div here');
-    }
+    return setSubject(div.innerText);
   };
-
-  // // useEffect(() => {
-  // const div = document.querySelector(
-  //   '#root > section > main > div > div > main > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiCard-root.input-card.css-1gnog30-MuiPaper-root-MuiCard-root > div > form > div > div.ck.ck-reset.ck-editor.ck-rounded-corners > div.ck.ck-editor__main > div'
-  // );
-  // setSubject(div.innerText);
-  // // }, []);
 
   function nl2br(str, is_xhtml) {
     var breakTag =
@@ -104,7 +90,7 @@ const FreeStyle = () => {
               <CKEditor
                 className="editorOne"
                 editor={Editor}
-                data="Prompt goes here..."
+                data="Coming soon..."
                 onChange={handleChange}
               ></CKEditor>
               <button
