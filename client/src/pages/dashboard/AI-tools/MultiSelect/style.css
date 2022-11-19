@@ -1,0 +1,15 @@
+.select {
+  width: 100%;
+  padding: 0rem 1rem 0rem 1rem;
+  margin: 20px auto;
+}
+
+button {
+  border: solid 2px rgb(144, 144, 144);
+  padding: 5px;
+  border-radius: 5px;
+  background-color: white;
+  color: rgb(144, 144, 144);
+  font-weight: bold;
+  cursor: pointer;
+}

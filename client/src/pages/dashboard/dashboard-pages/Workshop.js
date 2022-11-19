@@ -1,4 +1,4 @@
-import { WorkshopTools } from '../../components';
+import { WorkshopTools } from '../../../components';
 
 const Workshop = () => {
   return (

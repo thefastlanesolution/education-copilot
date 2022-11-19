@@ -7,9 +7,11 @@ import { useAppContext } from '../../../context/appContext';
 import Wrapper from '../../../assets/wrappers/InputForm';
 import Editor from 'ckeditor5-custom-build/build/ckeditor';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
+import { ImProfile, ImHistory } from 'react-icons/im';
 import { collection, getDocs, query, where, orderBy } from 'firebase/firestore';
 import { getAuth } from '@firebase/auth';
 import { db } from '../../../firebase.config';
+import { MultiSelect } from './MultiSelect';
 import './CompletionHistory.css';
 
 const CompletionHistory = () => {
@@ -64,64 +66,68 @@ const CompletionHistory = () => {
   }
 
   return (
-    <Wrapper>
-      <Card
-        sx={{
-          width: '100%',
-          maxWidth: '100%',
-          border: 'none',
-          boxShadow: '0px 0px 2px rgba(0, 0, 0, 0.15)',
-          borderRadius: '5px',
-          height: '100%',
-          '&:hover': {
-            boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.25)',
-          },
-        }}
-        className="input-card"
-      >
-        <CardContent>
-          <div className="form-center"></div>
-
-          <div className="bodyText" style={{ overflowY: 'scroll' }}>
-            <h4>Here is your output history</h4>
-            {completionsForUser.map((doc, index) => (
-              <p
-                className="completion"
-                key={index}
-                onClick={e => handleClickAndDisplayCompletion(e, doc.id)}
-                style={{ cursor: 'pointer' }}
-              >
-                <strong>Tool:</strong> {doc.application}
-                <br />
-                <strong>Topic: </strong>
-                {doc.subject}
-                {doc.gradeLevel && (
-                  <React.Fragment>
-                    <br />
-                    <strong>Grade Level: </strong>
-                    {doc.gradeLevel}
-                  </React.Fragment>
-                )}
-                <br />
-                <strong>Output: </strong>
-                {truncateText(stripHTMLTags(doc.generatedText))}
-              </p>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
-
-      <div className="editor">
-        <CKEditor
-          editor={Editor}
-          data={completion}
-          onchange={(event, editor) => {
-            const data = editor.setData('hello world');
-            setText(data);
-          }}
-        ></CKEditor>
+    <React.Fragment>
+      <div className="pageheader">
+        {<ImHistory className="historyicon" />} Completion History
       </div>
-    </Wrapper>
+      <Wrapper>
+        <Card
+          sx={{
+            width: '100%',
+            maxWidth: '100%',
+            border: 'none',
+            boxShadow: '0px 0px 2px rgba(0, 0, 0, 0.15)',
+            borderRadius: '5px',
+            height: '100%',
+            '&:hover': {
+              boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.25)',
+            },
+          }}
+          className="input-card"
+        >
+          <CardContent>
+            <MultiSelect />
+            <div className="bodyText">
+              {completionsForUser.map((doc, index) => (
+                <p
+                  className="completion"
+                  key={index}
+                  onClick={e => handleClickAndDisplayCompletion(e, doc.id)}
+                  style={{ cursor: 'pointer' }}
+                >
+                  <div className="tool">
+                    <strong>Tool:</strong> {doc.application}
+                  </div>
+                  <strong>Topic: </strong>
+                  {doc.subject}
+                  {doc.gradeLevel && (
+                    <React.Fragment>
+                      <br />
+                      <strong>Grade Level: </strong>
+                      {doc.gradeLevel}
+                    </React.Fragment>
+                  )}
+                  <br />
+                  <strong>Output: </strong>
+                  {truncateText(stripHTMLTags(doc.generatedText))}
+                </p>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        <div className="editor">
+          <CKEditor
+            editor={Editor}
+            data={completion}
+            onchange={(event, editor) => {
+              const data = editor.setData('hello world');
+              setText(data);
+            }}
+          ></CKEditor>
+        </div>
+      </Wrapper>
+    </React.Fragment>
   );
 };
 
