@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
+import debounce from 'lodash.debounce';
 import Card from '@mui/material/Card';
 import FormRow from '../../../components/FormRow';
 import CardContent from '@mui/material/CardContent';
@@ -8,7 +9,15 @@ import Wrapper from '../../../assets/wrappers/InputForm';
 import Editor from 'ckeditor5-custom-build/build/ckeditor';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import { ImProfile, ImHistory } from 'react-icons/im';
-import { collection, getDocs, query, where, orderBy } from 'firebase/firestore';
+import {
+  collection,
+  getDocs,
+  query,
+  where,
+  orderBy,
+  doc,
+  updateDoc,
+} from 'firebase/firestore';
 import { getAuth } from '@firebase/auth';
 import { db } from '../../../firebase.config';
 import { MultiSelect } from './MultiSelect';
@@ -17,20 +26,34 @@ import './CompletionHistory.css';
 const CompletionHistory = () => {
   const { displayAlert, isLoading } = useAppContext();
 
-  const [completion, setCompletion] = useState('');
+  const [completion, setCompletion] = useState({});
   const [subject, setSubject] = useState('');
   const [gradeLevel, setGradeLevel] = useState('');
   const [text, setText] = useState('');
   const [completionsForUser, setCompletionsForUser] = useState([]);
+  const debouncedTextChangeHandler = useCallback(
+    debounce(handleEditorTextOnChange, 300),
+    [completion]
+  );
 
-  async function getFromDBForUser(collectionName) {
+  async function getFilteredDataFromDBForUser(collectionName, filter) {
     const auth = getAuth();
     const user = auth.currentUser;
     const docsToAdd = [];
-    const dbQuery = query(
-      collection(db, collectionName),
-      where('userId', '==', user.uid)
-    );
+    let dbQuery;
+    if (filter === 'All Tools') {
+      dbQuery = query(
+        collection(db, collectionName),
+        where('userId', '==', user.uid)
+      );
+    } else if (Array.isArray(filter)) {
+      dbQuery = query(
+        collection(db, collectionName),
+        where('userId', '==', user.uid),
+        where('application', 'in', filter)
+      );
+    }
+
     const querySnapshot = await getDocs(dbQuery);
     querySnapshot.forEach(doc => {
       docsToAdd.push({
@@ -38,19 +61,36 @@ const CompletionHistory = () => {
         id: doc.id,
       });
     });
+
+    docsToAdd.sort((a, b) => {
+      return b.timestamp - a.timestamp;
+    });
     setCompletionsForUser(docsToAdd);
   }
 
-  React.useEffect(() => getFromDBForUser('completions'), []);
+  React.useEffect(
+    () => getFilteredDataFromDBForUser('completions', 'All Tools'),
+    []
+  );
 
   function handleClickAndDisplayCompletion(event, id) {
     const completionFound = completionsForUser.find(
       completion => completion.id === id
     );
     if (completionFound) {
-      console.log(completionFound);
-      setCompletion(completionFound.generatedText);
+      setCompletion(completionFound);
     }
+  }
+
+  async function handleEditorTextOnChange(event, editor) {
+    if (!completion.id) return console.log('No completion selected');
+
+    const data = editor.getData();
+    console.log('Saving data ...');
+    const docRef = doc(db, 'completions', completion.id);
+    await updateDoc(docRef, {
+      generatedText: data,
+    });
   }
 
   // Shorten Output text in the output history card
@@ -86,7 +126,7 @@ const CompletionHistory = () => {
           className="input-card"
         >
           <CardContent>
-            <MultiSelect />
+            <MultiSelect filterHandler={getFilteredDataFromDBForUser} />
             <div className="bodyText">
               {completionsForUser.map((doc, index) => (
                 <p
@@ -119,11 +159,8 @@ const CompletionHistory = () => {
         <div className="editor">
           <CKEditor
             editor={Editor}
-            data={completion}
-            onchange={(event, editor) => {
-              const data = editor.setData('hello world');
-              setText(data);
-            }}
+            data={completion.generatedText}
+            onChange={debouncedTextChangeHandler}
           ></CKEditor>
         </div>
       </Wrapper>

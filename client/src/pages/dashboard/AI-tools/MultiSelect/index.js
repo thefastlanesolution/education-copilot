@@ -17,27 +17,44 @@ const options = [
   { value: 'Parent emails', label: 'Parent emails' },
 ];
 
-export const MultiSelect = () => {
-  const [selectedOptions, setSelectedOptions] = useState([]);
+export const MultiSelect = props => {
+  const [selectedOptions, setSelectedOptions] = useState(options[0]);
 
-  const handleSelect = () => {
-    console.log(selectedOptions);
+  const handleSelect = async (values, chosenOption) => {
+    if (chosenOption?.option?.value === 'All Tools' || values.length === 0) {
+      setSelectedOptions([{ value: 'All Tools', label: 'All Tools' }]);
+      await props.filterHandler('completions', 'All Tools');
+    } else {
+      const newSelectedOptions = values.filter(
+        option => option.value !== 'All Tools'
+      );
+      setSelectedOptions(newSelectedOptions);
+      await props.filterHandler(
+        'completions',
+        newSelectedOptions.map(option => option.value)
+      );
+    }
   };
 
+  const filterOptions = (options, inputValue) => {
+    console.log(options, inputValue);
+  };
   return (
     <>
       <Select
         defaultValue={[options[0]]}
         components={animatedComponents}
         isMulti
+        value={selectedOptions}
         options={options}
-        onChange={item => setSelectedOptions(item)}
+        onChange={handleSelect}
         className="select"
         isClearable={true}
         isSearchable={true}
         isDisabled={false}
         isLoading={false}
         isRtl={false}
+        filterOptions={null}
         closeMenuOnSelect={false}
       />
     </>

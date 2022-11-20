@@ -1,18 +1,40 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
+import debounce from 'lodash.debounce';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { useAppContext } from '../../../context/appContext';
 import Wrapper from '../../../assets/wrappers/InputForm';
 import Editor from 'ckeditor5-custom-build/build/ckeditor';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
+import { decode } from 'html-entities';
+import { db } from '../../../firebase.config';
+import { collection, doc, updateDoc, addDoc } from 'firebase/firestore';
 import './FreeStyle.css';
+import { getAuth } from '@firebase/auth';
 
 const FreeStyle = () => {
   const { displayAlert, isLoading } = useAppContext();
-
-  const [completion, setCompletion] = useState('');
+  const [completion, setCompletion] = useState({
+    generatedText: '',
+  });
+  const debouncedTextChangeHandler = useCallback(
+    debounce(handleEditorTextOnChange, 300),
+    [completion]
+  );
   const [subject, setSubject] = useState('');
+
+  async function saveCompletionToDB(collectionName, data) {
+    const auth = getAuth();
+    const user = auth.currentUser;
+    data = {
+      ...data,
+      userId: user.uid,
+      timestamp: Date.now(),
+    };
+    const ref = await addDoc(collection(db, collectionName), data);
+    return ref;
+  }
 
   async function fetchApi(subject) {
     const myHeaders = new Headers();
@@ -36,7 +58,25 @@ const FreeStyle = () => {
       .then(response => response.json())
       .then(result => {
         console.log('FreeStyleCompletion ===', result);
-        setCompletion(result.choices[0].text);
+
+        let textResult = decode(result.choices[0].text);
+        textResult = nl2br(textResult);
+
+        const dataToSave = {
+          subject,
+          application: 'AI Freestyle',
+          generatedText: textResult,
+        };
+
+        saveCompletionToDB('completions', dataToSave)
+          .then(ref => {
+            setCompletion({
+              ...dataToSave,
+              id: ref.id,
+            });
+            console.log('Saved succesfully, ref: ', ref);
+          })
+          .catch(error => console.log('error', error));
       })
       .catch(error => console.log('error', error));
   }
@@ -51,10 +91,23 @@ const FreeStyle = () => {
   };
 
   const handleChange = (event, editor) => {
-    if (!event) return;
-    const valueOfCKEditor = editor.getData();
+    const valueOfCKEditor = document.querySelector(
+      '.form-center .ck-content'
+    ).innerText;
+    console.log(valueOfCKEditor);
     return setSubject(valueOfCKEditor);
   };
+
+  async function handleEditorTextOnChange(event, editor) {
+    if (!completion.id) return console.log('No completion selected');
+
+    const data = editor.getData();
+    console.log('Saving data ...');
+    const docRef = doc(db, 'completions', completion.id);
+    await updateDoc(docRef, {
+      generatedText: data,
+    });
+  }
 
   // // useEffect(() => {
   // const div = document.querySelector(
@@ -94,8 +147,24 @@ const FreeStyle = () => {
               <h4>AI Freestyle 🚀</h4>
               <CKEditor
                 className="editorOne"
+                onReadyJustInCase={editor => {
+                  const editorDoc = editor.editing.view.document;
+                  editorDoc.on('paste', (evt, data) => {
+                    setTimeout(() => {
+                      const pastedContent = data.domTarget.innerText;
+                      setSubject(pastedContent);
+                    }, 300);
+                  });
+                }}
+                onReady={editor => {
+                  editor.plugins
+                    .get('ClipboardPipeline')
+                    .on('inputTransformation', (event, data) => {
+                      setTimeout(handleChange, 300);
+                    });
+                }}
+                config={{ placeholder: 'Type your text here...' }}
                 editor={Editor}
-                data="Prompt goes here..."
                 onChange={handleChange}
               ></CKEditor>
               <button
@@ -118,8 +187,8 @@ const FreeStyle = () => {
       <div className="editor">
         <CKEditor
           editor={Editor}
-          data={nl2br(completion)}
-          onchange={console.log('Editor has changed!')}
+          data={completion.generatedText}
+          onChange={debouncedTextChangeHandler}
         ></CKEditor>
       </div>
     </Wrapper>

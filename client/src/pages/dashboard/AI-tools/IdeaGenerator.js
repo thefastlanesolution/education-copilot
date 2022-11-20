@@ -63,7 +63,7 @@ const IdeaGenerator = () => {
         };
 
         saveCompletionToDB('completions', dataToSave)
-          .then(() => console.log('hi'))
+          .then(() => console.log('Saved succesfully'))
           .catch(err => console.log('error', err));
       })
       .catch(error => console.log('error', error));
