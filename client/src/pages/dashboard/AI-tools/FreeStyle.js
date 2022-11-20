@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Card from '@mui/material/Card';
-import FormRow from '../../../components/FormRow';
 import CardContent from '@mui/material/CardContent';
 import { useAppContext } from '../../../context/appContext';
 import Wrapper from '../../../assets/wrappers/InputForm';
@@ -51,12 +50,18 @@ const FreeStyle = () => {
     fetchApi(subject);
   };
 
-  const handleChange = event => {
-    const div = document.querySelector(
-      '#root > section > main > div > div > main > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiCard-root.input-card.css-1gnog30-MuiPaper-root-MuiCard-root > div > form > div > div.ck.ck-reset.ck-editor.ck-rounded-corners > div.ck.ck-editor__main > div'
-    );
-    return setSubject(div.innerText);
+  const handleChange = (event, editor) => {
+    if (!event) return;
+    const valueOfCKEditor = editor.getData();
+    return setSubject(valueOfCKEditor);
   };
+
+  // // useEffect(() => {
+  // const div = document.querySelector(
+  //   '#root > section > main > div > div > main > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiCard-root.input-card.css-1gnog30-MuiPaper-root-MuiCard-root > div > form > div > div.ck.ck-reset.ck-editor.ck-rounded-corners > div.ck.ck-editor__main > div'
+  // );
+  // setSubject(div.innerText);
+  // // }, []);
 
   function nl2br(str, is_xhtml) {
     var breakTag =
@@ -90,7 +95,7 @@ const FreeStyle = () => {
               <CKEditor
                 className="editorOne"
                 editor={Editor}
-                data="Coming soon..."
+                data="Prompt goes here..."
                 onChange={handleChange}
               ></CKEditor>
               <button
