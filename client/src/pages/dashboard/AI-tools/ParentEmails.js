@@ -77,7 +77,6 @@ const ParentEmails = () => {
       .then(result => {
         setIsLoading(false);
         console.log('parentEmailsCompletion ===', result);
-        setCompletion(result.choices[0].text);
 
         let textResult = decode(result.choices[0].text);
         textResult = nl2br(textResult);
