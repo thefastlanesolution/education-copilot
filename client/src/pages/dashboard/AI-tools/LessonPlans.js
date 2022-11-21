@@ -10,6 +10,9 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import { db } from '../../../firebase.config';
 import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
 import { getAuth } from '@firebase/auth';
+import 'react-modal-video/scss/modal-video.scss';
+import Model from './videoModal';
+import '../AI-tools-css/ModalStyling.css';
 
 const LessonPlan = () => {
   const { displayAlert, isLoading } = useAppContext();
@@ -97,7 +100,10 @@ const LessonPlan = () => {
         <CardContent>
           <form onSubmit={handleSubmit}>
             <div className="form-center">
-              <h4>Lesson Planner 📝</h4>
+              <div className="titleAndVideo">
+                <h4>Lesson Planner 📝</h4>
+                <Model />
+              </div>
               <FormRow
                 type="text"
                 labelText="Subject or lesson plan to generate benefits for:"

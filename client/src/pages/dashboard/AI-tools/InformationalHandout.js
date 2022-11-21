@@ -12,6 +12,9 @@ import { db } from '../../../firebase.config';
 import { addDoc, collection, doc, updateDoc } from 'firebase/firestore';
 import { getAuth } from '@firebase/auth';
 import { decode } from 'html-entities';
+import 'react-modal-video/scss/modal-video.scss';
+import Model from './videoModal';
+import '../AI-tools-css/ModalStyling.css';
 
 const InformationalHandout = () => {
   const { displayAlert, isLoading } = useAppContext();
@@ -135,7 +138,10 @@ const InformationalHandout = () => {
         <CardContent>
           <form onSubmit={handleSubmit}>
             <div className="form-center">
-              <h4>Informational Handout Generator 📝</h4>
+              <div className="titleAndVideo">
+                <h4>Informational Handout 📝</h4>
+                <Model />
+              </div>
               <FormRow
                 type="text"
                 labelText="Subject or lesson to generate handout for:"

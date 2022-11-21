@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
+import debounce from 'lodash.debounce';
 import Card from '@mui/material/Card';
 import FormRow from '../../../components/FormRow';
 import CardContent from '@mui/material/CardContent';
@@ -8,15 +9,26 @@ import Wrapper from '../../../assets/wrappers/InputForm';
 import Editor from 'ckeditor5-custom-build/build/ckeditor';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import { db } from '../../../firebase.config';
-import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
+import { addDoc, collection, doc, updateDoc } from 'firebase/firestore';
 import { getAuth } from '@firebase/auth';
+import { decode } from 'html-entities';
+import 'react-modal-video/scss/modal-video.scss';
+import Model from './videoModal';
+import '../AI-tools-css/ModalStyling.css';
 
 const WritingPrompt = () => {
   const { displayAlert, isLoading } = useAppContext();
 
-  const [completion, setCompletion] = useState('');
+  const [completion, setCompletion] = useState({
+    generatedText: '',
+  });
   const [subject, setSubject] = useState('');
   const [text, setText] = useState('');
+
+  const debouncedTextChangeHandler = useCallback(
+    debounce(handleEditorTextOnChange, 300),
+    [completion]
+  );
 
   async function saveCompletionToDB(collectionName, data) {
     const auth = getAuth();
@@ -27,6 +39,7 @@ const WritingPrompt = () => {
       timestamp: Date.now(),
     };
     const ref = await addDoc(collection(db, collectionName), data);
+    return ref;
   }
 
   async function fetchApi(subject) {
@@ -51,19 +64,35 @@ const WritingPrompt = () => {
       .then(response => response.json())
       .then(result => {
         console.log('writingPromptCompletion ===', result);
-        setCompletion(result.choices[0].text);
+        let textResult = decode(result.choices[0].text);
+        textResult = nl2br(textResult);
 
         const dataToSave = {
           subject,
           application: 'Writing Prompt',
-          generatedText: result.choices[0].text,
+          generatedText: textResult,
         };
 
         saveCompletionToDB('completions', dataToSave)
-          .then(() => console.log('hi'))
+          .then(ref => {
+            setCompletion({
+              ...dataToSave,
+              id: ref.id,
+            });
+            console.log('Saved succesfully, ref: ', ref);
+          })
           .catch(err => console.log('error', err));
       })
       .catch(error => console.log('error', error));
+  }
+
+  function nl2br(str, is_xhtml) {
+    var breakTag =
+      is_xhtml || typeof is_xhtml === 'undefined' ? '<br />' : '<br>';
+    return (str + '').replace(
+      /([^>\r\n]?)(\r\n|\n\r|\r|\n)/g,
+      '$1' + breakTag + '$2'
+    );
   }
 
   const handleSubmit = event => {
@@ -74,6 +103,18 @@ const WritingPrompt = () => {
     }
     fetchApi(subject);
   };
+
+  async function handleEditorTextOnChange(event, editor) {
+    if (!completion.id) return console.log('No completion selected');
+
+    const data = editor.getData();
+    console.log('Saving data ...');
+    const docRef = doc(db, 'completions', completion.id);
+    await updateDoc(docRef, {
+      generatedText: data,
+    });
+  }
+
   return (
     <Wrapper>
       <Card
@@ -93,7 +134,10 @@ const WritingPrompt = () => {
         <CardContent>
           <form onSubmit={handleSubmit}>
             <div className="form-center">
-              <h4>Writing Prompt Generator 📝</h4>
+              <div className="titleAndVideo">
+                <h4>Writing Prompt Generator 📝</h4>
+                <Model />
+              </div>
               <FormRow
                 type="text"
                 labelText="Topic/Prompt:"
@@ -132,11 +176,8 @@ const WritingPrompt = () => {
       <div className="editor">
         <CKEditor
           editor={Editor}
-          data={completion}
-          onchange={(event, editor) => {
-            const data = editor.setData('hello world');
-            setText(data);
-          }}
+          data={completion.generatedText}
+          onChange={debouncedTextChangeHandler}
         ></CKEditor>
       </div>
     </Wrapper>

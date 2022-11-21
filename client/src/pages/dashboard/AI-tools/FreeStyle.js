@@ -10,11 +10,15 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import { decode } from 'html-entities';
 import { db } from '../../../firebase.config';
 import { collection, doc, updateDoc, addDoc } from 'firebase/firestore';
-import './FreeStyle.css';
+import '../AI-tools-css/FreeStyle.css';
 import { getAuth } from '@firebase/auth';
+import 'react-modal-video/scss/modal-video.scss';
+import Model from './videoModal';
+import '../AI-tools-css/ModalStyling.css';
 
 const FreeStyle = () => {
-  const { displayAlert, isLoading } = useAppContext();
+  //Loading State
+
   const [completion, setCompletion] = useState({
     generatedText: '',
   });
@@ -84,7 +88,7 @@ const FreeStyle = () => {
   const handleSubmit = event => {
     event.preventDefault();
     if (!subject) {
-      displayAlert();
+      console.log('You must enter in a prompt');
       return;
     }
     fetchApi(subject);
@@ -108,13 +112,6 @@ const FreeStyle = () => {
       generatedText: data,
     });
   }
-
-  // // useEffect(() => {
-  // const div = document.querySelector(
-  //   '#root > section > main > div > div > main > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiCard-root.input-card.css-1gnog30-MuiPaper-root-MuiCard-root > div > form > div > div.ck.ck-reset.ck-editor.ck-rounded-corners > div.ck.ck-editor__main > div'
-  // );
-  // setSubject(div.innerText);
-  // // }, []);
 
   function nl2br(str, is_xhtml) {
     var breakTag =
@@ -144,7 +141,10 @@ const FreeStyle = () => {
         <CardContent>
           <form onSubmit={handleSubmit}>
             <div className="form-center">
-              <h4>AI Freestyle 🚀</h4>
+              <div className="titleAndVideo">
+                <h4>AI Freestyle 🚀</h4>
+                <Model />
+              </div>
               <CKEditor
                 className="editorOne"
                 onReadyJustInCase={editor => {
@@ -170,7 +170,7 @@ const FreeStyle = () => {
               <button
                 className="btn btn-block"
                 type="submit"
-                disabled={isLoading}
+                // disabled={isLoading}
               >
                 Generate Output
               </button>

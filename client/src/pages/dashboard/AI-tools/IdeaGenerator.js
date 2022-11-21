@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
+import debounce from 'lodash.debounce';
 import Card from '@mui/material/Card';
 import FormRow from '../../../components/FormRow';
 import CardContent from '@mui/material/CardContent';
@@ -7,14 +8,23 @@ import { useAppContext } from '../../../context/appContext';
 import Wrapper from '../../../assets/wrappers/InputForm';
 import Editor from 'ckeditor5-custom-build/build/ckeditor';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
+import { decode } from 'html-entities';
 import { db } from '../../../firebase.config';
-import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
+import { collection, doc, updateDoc, addDoc } from 'firebase/firestore';
 import { getAuth } from '@firebase/auth';
-import axios from 'axios';
+import 'react-modal-video/scss/modal-video.scss';
+import Model from './videoModal';
+import '../AI-tools-css/ModalStyling.css';
 
 const IdeaGenerator = () => {
   const { displayAlert, isLoading } = useAppContext();
-  const [completion, setCompletion] = useState('');
+  const [completion, setCompletion] = useState({
+    generatedText: '',
+  });
+  const debouncedTextChangeHandler = useCallback(
+    debounce(handleEditorTextOnChange, 300),
+    [completion]
+  );
   const [subject, setSubject] = useState('');
   const [gradeLevel, setGradeLevel] = useState('');
   const [text, setText] = useState('');
@@ -28,6 +38,7 @@ const IdeaGenerator = () => {
       timestamp: Date.now(),
     };
     const ref = await addDoc(collection(db, collectionName), data);
+    return ref;
   }
 
   async function fetchApi(subject, gradeLevel) {
@@ -53,20 +64,36 @@ const IdeaGenerator = () => {
       .then(response => response.json())
       .then(result => {
         console.log('shotgunCompletion ===', result);
-        setCompletion(result.choices[0].text);
+        let textResult = decode(result.choices[0].text);
+        textResult = nl2br(textResult);
 
         const dataToSave = {
           subject,
           gradeLevel,
           application: 'Idea Generator',
-          generatedText: result.choices[0].text,
+          generatedText: textResult,
         };
 
         saveCompletionToDB('completions', dataToSave)
-          .then(() => console.log('Saved succesfully'))
+          .then(ref => {
+            setCompletion({
+              ...dataToSave,
+              id: ref.id,
+            });
+            console.log('Saved succesfully, ref: ', ref);
+          })
           .catch(err => console.log('error', err));
       })
       .catch(error => console.log('error', error));
+  }
+
+  function nl2br(str, is_xhtml) {
+    var breakTag =
+      is_xhtml || typeof is_xhtml === 'undefined' ? '<br />' : '<br>';
+    return (str + '').replace(
+      /([^>\r\n]?)(\r\n|\n\r|\r|\n)/g,
+      '$1' + breakTag + '$2'
+    );
   }
 
   const handleSubmit = event => {
@@ -77,6 +104,17 @@ const IdeaGenerator = () => {
     }
     fetchApi(subject, gradeLevel);
   };
+
+  async function handleEditorTextOnChange(event, editor) {
+    if (!completion.id) return console.log('No completion selected');
+
+    const data = editor.getData();
+    console.log('Saving data ...');
+    const docRef = doc(db, 'completions', completion.id);
+    await updateDoc(docRef, {
+      generatedText: data,
+    });
+  }
 
   return (
     <Wrapper>
@@ -97,7 +135,10 @@ const IdeaGenerator = () => {
         <CardContent>
           <form onSubmit={handleSubmit}>
             <div className="form-center">
-              <h4>Assessment Generator 🧠</h4>
+              <div className="titleAndVideo">
+                <h4>Assessment Generator 🧠</h4>
+                <Model />
+              </div>
               <FormRow
                 type="text"
                 labelText="Topic to generate ideas for:"
@@ -137,11 +178,8 @@ const IdeaGenerator = () => {
       <div className="editor">
         <CKEditor
           editor={Editor}
-          data={completion}
-          onchange={(event, editor) => {
-            const data = editor.setData('hello world');
-            setText(data);
-          }}
+          data={completion.generatedText}
+          onChange={debouncedTextChangeHandler}
         ></CKEditor>
       </div>
     </Wrapper>

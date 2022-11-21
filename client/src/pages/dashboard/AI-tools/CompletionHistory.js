@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import debounce from 'lodash.debounce';
 import Card from '@mui/material/Card';
 import FormRow from '../../../components/FormRow';
@@ -31,10 +31,14 @@ const CompletionHistory = () => {
   const [gradeLevel, setGradeLevel] = useState('');
   const [text, setText] = useState('');
   const [completionsForUser, setCompletionsForUser] = useState([]);
+
   const debouncedTextChangeHandler = useCallback(
     debounce(handleEditorTextOnChange, 300),
-    [completion]
+    [completion.id]
   );
+
+  const completionRef = useRef(null);
+  completionRef.current = completion;
 
   async function getFilteredDataFromDBForUser(collectionName, filter) {
     const auth = getAuth();
@@ -73,21 +77,48 @@ const CompletionHistory = () => {
     []
   );
 
+  React.useEffect(() => {
+    completionRef.current = completion;
+  }, [completion]);
+
   function handleClickAndDisplayCompletion(event, id) {
     const completionFound = completionsForUser.find(
       completion => completion.id === id
     );
     if (completionFound) {
       setCompletion(completionFound);
+    } else {
+      console.log('error', 'No completion found');
     }
   }
 
+  function updateCurrentChosenCompletion(textData) {
+    const newCompletionForUserArray = completionsForUser.map(_completion => {
+      if (completion.id === _completion.id) {
+        return { ..._completion, generatedText: textData };
+      } else {
+        return _completion;
+      }
+    });
+    setCompletionsForUser(newCompletionForUserArray);
+    setCompletion({ ...completion, generatedText: textData });
+  }
+
   async function handleEditorTextOnChange(event, editor) {
-    if (!completion.id) return console.log('No completion selected');
+    const updatedCompletion = completionRef.current;
+    if (!updatedCompletion) return;
+    if (!updatedCompletion.id) return console.log('No completion selected');
 
     const data = editor.getData();
-    console.log('Saving data ...');
-    const docRef = doc(db, 'completions', completion.id);
+
+    if (updatedCompletion.generatedText === data)
+      return console.log('No change');
+
+    console.log('Changing');
+    setCompletion({ ...completionRef?.current, generatedText: data });
+
+    // alert(`Saving changes to completion ${updatedCompletion.id}`);
+    const docRef = doc(db, 'completions', completionRef.current.id);
     await updateDoc(docRef, {
       generatedText: data,
     });
@@ -106,7 +137,7 @@ const CompletionHistory = () => {
   }
 
   return (
-    <React.Fragment>
+    <>
       <div className="pageheader">
         {<ImHistory className="historyicon" />} Completion History
       </div>
@@ -155,16 +186,16 @@ const CompletionHistory = () => {
             </div>
           </CardContent>
         </Card>
-
         <div className="editor">
           <CKEditor
             editor={Editor}
-            data={completion.generatedText}
+            data={completionRef.current?.generatedText || ''}
             onChange={debouncedTextChangeHandler}
-          ></CKEditor>
+          />
         </div>
+        Shouldnt update the other
       </Wrapper>
-    </React.Fragment>
+    </>
   );
 };
 

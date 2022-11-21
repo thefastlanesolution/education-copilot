@@ -10,6 +10,9 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import { db } from '../../../firebase.config';
 import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
 import { getAuth } from '@firebase/auth';
+import 'react-modal-video/scss/modal-video.scss';
+import Model from './videoModal';
+import '../AI-tools-css/ModalStyling.css';
 
 const ParentEmails = () => {
   const { displayAlert, isLoading } = useAppContext();
@@ -108,7 +111,10 @@ const ParentEmails = () => {
         <CardContent>
           <form onSubmit={handleSubmit}>
             <div className="form-center">
-              <h4>Parent-Teacher Email Composer 🎉</h4>
+              <div className="titleAndVideo">
+                <h4>Parent Emails 🎉</h4>
+                <Model />
+              </div>
               <FormRow
                 type="text"
                 labelText="First feedback to address:"

@@ -7,14 +7,14 @@ const animatedComponents = makeAnimated();
 
 const options = [
   { value: 'All Tools', label: 'All Tools' },
-  { value: 'Informational Handout', label: 'Informational Handout' },
-  { value: 'Writing Prompt', label: 'Writing Prompt' },
+  { value: 'AI Freestyle', label: 'AI Freestyle' },
   { value: 'Idea Generator', label: 'Idea Generator' },
-  { value: 'Weekly Newsletter', label: 'Weekly Newsletter' },
-  { value: 'Research Project Generator', label: 'Research Project Generator' },
-  { value: 'Real World Benefits', label: 'Real World Benefits' },
+  { value: 'Informational Handout', label: 'Informational Handout' },
   { value: 'Lesson Planner', label: 'Lesson Planner' },
   { value: 'Parent emails', label: 'Parent emails' },
+  { value: 'Real World Benefits', label: 'Real World Benefits' },
+  { value: 'Research Project Generator', label: 'Research Project Generator' },
+  { value: 'Writing Prompt', label: 'Writing Prompt' },
 ];
 
 export const MultiSelect = props => {
