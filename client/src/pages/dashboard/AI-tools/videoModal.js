@@ -23,7 +23,7 @@ export class videoModal extends Component {
             className="modal"
             channel="youtube"
             isOpen={this.state.isOpen}
-            videoId="O6AxxYhCxeQ"
+            videoId=""
             onClose={() => this.setState({ isOpen: false })}
           />
           <button className="modalbtn" onClick={this.openModal}>

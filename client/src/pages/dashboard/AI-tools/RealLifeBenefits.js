@@ -15,10 +15,9 @@ import { decode } from 'html-entities';
 import 'react-modal-video/scss/modal-video.scss';
 import Model from './videoModal';
 import '../AI-tools-css/ModalStyling.css';
+import Loading from './Loading';
 
 const RealLifeBenefits = () => {
-  const [isOpen, setOpen] = useState(false);
-
   const { displayAlert, isLoading } = useAppContext();
 
   const [completion, setCompletion] = useState({
@@ -177,7 +176,7 @@ const RealLifeBenefits = () => {
         <div className="editor">
           <CKEditor
             editor={Editor}
-            ata={completion.generatedText}
+            data={completion.generatedText}
             onChange={debouncedTextChangeHandler}
           ></CKEditor>
         </div>
