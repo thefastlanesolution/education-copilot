@@ -21,40 +21,34 @@ class Editor extends ClassicEditor {}
 
 // Plugins to include in the build.
 Editor.builtinPlugins = [
-	Alignment,
-	Autoformat,
-	Bold,
-	DocumentList,
-	Essentials,
-	FontSize,
-	Heading,
-	Highlight,
-	Italic,
-	Link,
-	Paragraph,
-	TextTransformation,
-	Underline
+  Alignment,
+  Autoformat,
+  Bold,
+  DocumentList,
+  Essentials,
+  Heading,
+  Highlight,
+  Italic,
+  Paragraph,
+  TextTransformation,
+  Underline,
 ];
 
 // Editor configuration.
 Editor.defaultConfig = {
-	toolbar: {
-		items: [
-			'heading',
-			'fontSize',
-			'bold',
-			'underline',
-			'italic',
-			'link',
-			'bulletedList',
-			'numberedList',
-			'alignment',
-			'|',
-			'undo',
-			'redo'
-		]
-	},
-	language: 'en'
+  toolbar: {
+    items: [
+      'heading',
+      'bold',
+      'underline',
+      'italic',
+      'alignment',
+      '|',
+      'undo',
+      'redo',
+    ],
+  },
+  language: 'en',
 };
 
 export default Editor;
