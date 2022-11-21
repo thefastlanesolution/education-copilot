@@ -17,7 +17,7 @@ import Model from './videoModal';
 import '../AI-tools-css/ModalStyling.css';
 
 const ResearchProjectGenerator = () => {
-  const { displayAlert, isLoading } = useAppContext();
+  const { displayAlert } = useAppContext();
 
   const [completion, setCompletion] = useState({
     generatedText: '',
@@ -29,7 +29,7 @@ const ResearchProjectGenerator = () => {
 
   const [subject, setSubject] = useState('');
   const [gradeLevel, setGradeLevel] = useState('');
-  const [text, setText] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   async function saveCompletionToDB(collectionName, data) {
     const auth = getAuth();
@@ -44,6 +44,7 @@ const ResearchProjectGenerator = () => {
   }
 
   async function fetchApi(subject, gradeLevel) {
+    setIsLoading(true);
     const myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
 
@@ -65,6 +66,7 @@ const ResearchProjectGenerator = () => {
     )
       .then(response => response.json())
       .then(result => {
+        setIsLoading(false);
         console.log('researchProjectCompletion ===', result);
         let textResult = decode(result.choices[0].text);
         textResult = nl2br(textResult);

@@ -14,7 +14,7 @@ import { getAuth } from '@firebase/auth';
 import { decode } from 'html-entities';
 
 const WeeklyNewsletter = () => {
-  const { displayAlert, isLoading } = useAppContext();
+  const { displayAlert } = useAppContext();
 
   const [completion, setCompletion] = useState({
     generatedText: '',
@@ -29,6 +29,7 @@ const WeeklyNewsletter = () => {
   const [fourthTopic, setFourthTopic] = useState('');
   const [fifthTopic, setFifthTopic] = useState('');
   const [gradeLevel, setGradeLevel] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   async function saveCompletionToDB(collectionName, data) {
     const auth = getAuth();
@@ -50,6 +51,7 @@ const WeeklyNewsletter = () => {
     fifthTopic,
     gradeLevel
   ) {
+    setIsLoading(true);
     const myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
 
@@ -75,6 +77,7 @@ const WeeklyNewsletter = () => {
     )
       .then(response => response.json())
       .then(result => {
+        setIsLoading(false);
         console.log('weeklyNewsletterCompletion ===', result);
 
         let textResult = decode(result.choices[0].text);

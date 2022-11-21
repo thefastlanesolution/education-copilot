@@ -17,7 +17,7 @@ import Model from './videoModal';
 import '../AI-tools-css/ModalStyling.css';
 
 const IdeaGenerator = () => {
-  const { displayAlert, isLoading } = useAppContext();
+  const { displayAlert } = useAppContext();
   const [completion, setCompletion] = useState({
     generatedText: '',
   });
@@ -27,7 +27,7 @@ const IdeaGenerator = () => {
   );
   const [subject, setSubject] = useState('');
   const [gradeLevel, setGradeLevel] = useState('');
-  const [text, setText] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   async function saveCompletionToDB(collectionName, data) {
     const auth = getAuth();
@@ -42,6 +42,7 @@ const IdeaGenerator = () => {
   }
 
   async function fetchApi(subject, gradeLevel) {
+    setIsLoading(true);
     const myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
 
@@ -63,6 +64,7 @@ const IdeaGenerator = () => {
     )
       .then(response => response.json())
       .then(result => {
+        setIsLoading(false);
         console.log('shotgunCompletion ===', result);
         let textResult = decode(result.choices[0].text);
         textResult = nl2br(textResult);

@@ -193,7 +193,6 @@ const CompletionHistory = () => {
             onChange={debouncedTextChangeHandler}
           />
         </div>
-        Shouldnt update the other
       </Wrapper>
     </>
   );

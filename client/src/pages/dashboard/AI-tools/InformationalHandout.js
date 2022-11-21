@@ -17,14 +17,14 @@ import Model from './videoModal';
 import '../AI-tools-css/ModalStyling.css';
 
 const InformationalHandout = () => {
-  const { displayAlert, isLoading } = useAppContext();
+  const { displayAlert } = useAppContext();
 
   const [completion, setCompletion] = useState({
     generatedText: '',
   });
   const [subject, setSubject] = useState('');
   const [gradeLevel, setGradeLevel] = useState('');
-  const [text, setText] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const debouncedTextChangeHandler = useCallback(
     debounce(handleEditorTextOnChange, 300),
@@ -44,6 +44,7 @@ const InformationalHandout = () => {
   }
 
   async function fetchApi(subject, gradeLevel) {
+    setIsLoading(true);
     const myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
 
@@ -65,6 +66,7 @@ const InformationalHandout = () => {
     )
       .then(response => response.json())
       .then(result => {
+        setIsLoading(false);
         console.log('infoHandoutCompletion ===', result);
 
         let textResult = decode(result.choices[0].text);

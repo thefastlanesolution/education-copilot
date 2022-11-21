@@ -27,6 +27,7 @@ const FreeStyle = () => {
     [completion]
   );
   const [subject, setSubject] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   async function saveCompletionToDB(collectionName, data) {
     const auth = getAuth();
@@ -41,6 +42,7 @@ const FreeStyle = () => {
   }
 
   async function fetchApi(subject) {
+    setIsLoading(true);
     const myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
 
@@ -61,6 +63,7 @@ const FreeStyle = () => {
     )
       .then(response => response.json())
       .then(result => {
+        setIsLoading(false);
         console.log('FreeStyleCompletion ===', result);
 
         let textResult = decode(result.choices[0].text);
@@ -170,9 +173,9 @@ const FreeStyle = () => {
               <button
                 className="btn btn-block"
                 type="submit"
-                // disabled={isLoading}
+                disabled={isLoading}
               >
-                Generate Output
+                {isLoading ? 'Please Wait...' : 'Generate Output'}
               </button>
             </div>
           </form>

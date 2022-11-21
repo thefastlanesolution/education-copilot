@@ -15,10 +15,9 @@ import { decode } from 'html-entities';
 import 'react-modal-video/scss/modal-video.scss';
 import Model from './videoModal';
 import '../AI-tools-css/ModalStyling.css';
-import Loading from './Loading';
 
 const RealLifeBenefits = () => {
-  const { displayAlert, isLoading } = useAppContext();
+  const { displayAlert } = useAppContext();
 
   const [completion, setCompletion] = useState({
     generatedText: '',
@@ -29,7 +28,7 @@ const RealLifeBenefits = () => {
   );
 
   const [subject, setSubject] = useState('');
-  const [text, setText] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   async function saveCompletionToDB(collectionName, data) {
     const auth = getAuth();
@@ -44,6 +43,7 @@ const RealLifeBenefits = () => {
   }
 
   async function fetchApi(subject) {
+    setIsLoading(true);
     const myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
 
@@ -64,7 +64,9 @@ const RealLifeBenefits = () => {
     )
       .then(response => response.json())
       .then(result => {
+        setIsLoading(false);
         console.log('benefitsCompletion ===', result);
+
         let textResult = decode(result.choices[0].text);
         textResult = nl2br(textResult);
 

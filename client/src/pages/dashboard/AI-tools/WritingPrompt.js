@@ -17,13 +17,13 @@ import Model from './videoModal';
 import '../AI-tools-css/ModalStyling.css';
 
 const WritingPrompt = () => {
-  const { displayAlert, isLoading } = useAppContext();
+  const { displayAlert } = useAppContext();
 
   const [completion, setCompletion] = useState({
     generatedText: '',
   });
   const [subject, setSubject] = useState('');
-  const [text, setText] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const debouncedTextChangeHandler = useCallback(
     debounce(handleEditorTextOnChange, 300),
@@ -43,6 +43,7 @@ const WritingPrompt = () => {
   }
 
   async function fetchApi(subject) {
+    setIsLoading(true);
     const myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
 
@@ -63,7 +64,9 @@ const WritingPrompt = () => {
     )
       .then(response => response.json())
       .then(result => {
+        setIsLoading(false);
         console.log('writingPromptCompletion ===', result);
+
         let textResult = decode(result.choices[0].text);
         textResult = nl2br(textResult);
 
