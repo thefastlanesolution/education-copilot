@@ -173,10 +173,7 @@ const InformationalHandout = () => {
               any subject matter or lesson plan.
             </h5>
             <p>
-              ✅ Great for preparing the class with information about the day's
-              lesson.
-              <br />✅ Feel free to be granular with details, or let the AI do
-              it for you!
+              ✅ <strong>Examples</strong>
             </p>
           </div>
         </CardContent>

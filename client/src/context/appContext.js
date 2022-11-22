@@ -6,6 +6,7 @@ import {
   DISPLAY_ALERT,
   CLEAR_ALERT,
   HANDLE_CHANGE,
+  TOGGLE_SIDEBAR,
   CLEAR_VALUES,
   CREATE_STUDENT_BEGIN,
   CREATE_STUDENT_SUCCESS,
@@ -94,6 +95,10 @@ const AppProvider = ({ children }) => {
     }, 3000);
   };
 
+  const toggleSidebar = () => {
+    dispatch({ type: TOGGLE_SIDEBAR });
+  };
+
   const handleChange = ({ name, value }) => {
     dispatch({ type: HANDLE_CHANGE, payload: { name, value } });
   };
@@ -175,6 +180,7 @@ const AppProvider = ({ children }) => {
         clearValues,
         createStudent,
         getStudents,
+        toggleSidebar,
       }}
     >
       {children}
