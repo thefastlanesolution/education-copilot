@@ -109,7 +109,7 @@ const LessonPlan = () => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    if ((!studentName, potential, improvement, gradeLevel)) {
+    if (!studentName || !gradeLevel || !potential || !improvement) {
       displayAlert();
       return;
     }
