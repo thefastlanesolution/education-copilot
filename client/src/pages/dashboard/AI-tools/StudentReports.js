@@ -16,14 +16,17 @@ import 'react-modal-video/scss/modal-video.scss';
 import Model from './videoModal';
 import '../AI-tools-css/ModalStyling.css';
 
-const InformationalHandout = () => {
+const LessonPlan = () => {
   const { displayAlert } = useAppContext();
 
   const [completion, setCompletion] = useState({
     generatedText: '',
   });
-  const [subject, setSubject] = useState('');
+  const [studentName, setStudentName] = useState('');
   const [gradeLevel, setGradeLevel] = useState('');
+  const [potential, setPotential] = useState('');
+  const [improvement, setImprovement] = useState('');
+
   const [isLoading, setIsLoading] = useState(false);
 
   const debouncedTextChangeHandler = useCallback(
@@ -43,13 +46,15 @@ const InformationalHandout = () => {
     return ref;
   }
 
-  async function fetchApi(subject, gradeLevel) {
+  async function fetchApi(studentName, potential, improvement, gradeLevel) {
     setIsLoading(true);
     const myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
 
     const raw = JSON.stringify({
-      subject,
+      studentName,
+      potential,
+      improvement,
       gradeLevel,
     });
 
@@ -61,22 +66,23 @@ const InformationalHandout = () => {
     };
 
     fetch(
-      `${window.location.origin}/api/v1/completions/infoHandoutCompletion`,
+      `${window.location.origin}/api/v1/completions/studentReportsCompletion`,
       requestOptions
     )
       .then(response => response.json())
       .then(result => {
         setIsLoading(false);
-        console.log('infoHandoutCompletion ===', result);
-
+        console.log('studentReportCompletion ===', result);
         let textResult = decode(result.choices[0].text);
         textResult = nl2br(textResult);
 
         const dataToSave = {
-          subject,
+          studentName,
+          potential,
+          improvement,
           gradeLevel,
-          application: 'Informational Handout',
-          generatedText: textResult,
+          application: 'Student Reports',
+          generatedText: result.choices[0].text,
         };
 
         saveCompletionToDB('completions', dataToSave)
@@ -103,11 +109,11 @@ const InformationalHandout = () => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    if (!subject) {
+    if ((!studentName, potential, improvement, gradeLevel)) {
       displayAlert();
       return;
     }
-    fetchApi(subject, gradeLevel);
+    fetchApi(studentName, potential, improvement, gradeLevel);
   };
 
   async function handleEditorTextOnChange(event, editor) {
@@ -141,19 +147,33 @@ const InformationalHandout = () => {
           <form onSubmit={handleSubmit}>
             <div className="form-center">
               <div className="titleAndVideo">
-                <h4>Informational Handout 📝</h4>
-                <Model videoId="Nd6Pf1927xQ" />
+                <h4>Lesson Planner 📝</h4>
+                <Model />
               </div>
               <FormRow
                 type="text"
-                labelText="Subject or lesson to generate handout for:"
-                name="subject"
-                value={subject}
-                handleChange={e => setSubject(e.target.value)}
+                labelText="Students Name:"
+                name="studentName"
+                value={studentName}
+                handleChange={e => setStudentName(e.target.value)}
               />
               <FormRow
                 type="text"
-                labelText="Grade Level:"
+                labelText="Areas where student excels/shows potential:"
+                name="potential"
+                value={potential}
+                handleChange={e => setPotential(e.target.value)}
+              />
+              <FormRow
+                type="text"
+                labelText="Areas where student needs improvement:"
+                name="improvement"
+                value={improvement}
+                handleChange={e => setImprovement(e.target.value)}
+              />
+              <FormRow
+                type="text"
+                labelText="Your grade level and subject:"
                 name="gradeLevel"
                 value={gradeLevel}
                 handleChange={e => setGradeLevel(e.target.value)}
@@ -163,17 +183,16 @@ const InformationalHandout = () => {
                 type="submit"
                 disabled={isLoading}
               >
-                {isLoading ? 'Please Wait...' : 'Generate Handout'}
+                {isLoading ? 'Please Wait...' : 'Generate Lesson Plan'}
               </button>
             </div>
           </form>
           <div className="bodyText">
             <h5>
-              Save time and quickly draft structured informational handouts for
-              any subject matter or lesson plan.
+              Save time and quickly create student reports to send to parents.
             </h5>
             <p>
-              ✅ <strong>Examples</strong>
+              ✅ The more details you provide, the better the report will be.
             </p>
           </div>
         </CardContent>
@@ -190,4 +209,4 @@ const InformationalHandout = () => {
   );
 };
 
-export default InformationalHandout;
+export default LessonPlan;

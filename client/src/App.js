@@ -26,6 +26,7 @@ import IdeaGenerator from './pages/dashboard/AI-tools/IdeaGenerator.js';
 import InformationalHandout from './pages/dashboard/AI-tools/InformationalHandout.js';
 import PricingPage from './pages/pricing/PricingPage.js';
 import CompletionHistory from './pages/dashboard/AI-tools/CompletionHistory.js';
+import StudentReports from './pages/dashboard/AI-tools/StudentReports.js';
 import React from 'react';
 
 function App() {
@@ -51,6 +52,7 @@ function App() {
               <Route path="lesson-planner" element={<LessonPlan />} />
               <Route path="real-life-benefits" element={<RealLifeBenefits />} />
               <Route path="weekly-newsletter" element={<WeeklyNewsletter />} />
+              <Route path="student-reports" element={<StudentReports />} />
               <Route
                 path="informational-handout"
                 element={<InformationalHandout />}

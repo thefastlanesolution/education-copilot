@@ -10,70 +10,66 @@ import { parentEmailsCompletion } from '../controllers/AI Tools/parentEmailContr
 import { weeklyNewsletterCompletion } from '../controllers/AI Tools/weeklyNewsletterController.js';
 import { researchProjectCompletion } from '../controllers/AI Tools/researchProjectController.js';
 import { freeStyleCompletion } from '../controllers/AI Tools/freeStyleController.js';
-
-// router.route('/').post(benefitsCompletion);
+import { studentReportsCompletion } from '../controllers/AI Tools/studentReportsController.js';
 
 // Real Life Benefits
 router.post('/benefitsCompletion', (req, res) => {
   console.log('benefitsCompletion api call ===');
   benefitsCompletion(req, res);
-  // res.send('RealLifeBenefits');
 });
 
 // Idea Generator
 router.post('/shotgunCompletion', (req, res) => {
   console.log('shotgunCompletion api call ===');
   shotgunCompletion(req, res);
-  // res.send('RealLifeBenefits');
 });
 
 // Lesson Planner
 router.post('/lessonPlannerCompletion', (req, res) => {
   console.log('lessonPlannerCompletion api call ===');
   lessonPlannerCompletion(req, res);
-  // res.send('RealLifeBenefits');
 });
 
 // Informational handout
 router.post('/infoHandoutCompletion', (req, res) => {
   console.log('infoHandoutCompletion api call ===');
   infoHandoutCompletion(req, res);
-  // res.send('RealLifeBenefits');
 });
 
 // Writing Prompt
 router.post('/writingPromptCompletion', (req, res) => {
   console.log('writingPromptCompletion api call ===');
   writingPromptCompletion(req, res);
-  // res.send('RealLifeBenefits');
 });
 
 // Free Style
 router.post('/freeStyleCompletion', (req, res) => {
   console.log('freeStyleCompletion api call ===');
   freeStyleCompletion(req, res);
-  // res.send('RealLifeBenefits');
 });
 
 // Parent Emails
 router.post('/parentEmailsCompletion', (req, res) => {
   console.log('parentEmailsCompletion api call ===');
   parentEmailsCompletion(req, res);
-  // res.send('RealLifeBenefits');
 });
 
 // Weekly Newsletter
 router.post('/weeklyNewsletterCompletion', (req, res) => {
   console.log('weeklyNewsletterCompletion api call ===');
   weeklyNewsletterCompletion(req, res);
-  // res.send('RealLifeBenefits');
 });
 
 // Research Project Template
 router.post('/researchProjectCompletion', (req, res) => {
   console.log('researchProjectCompletion api call ===');
   researchProjectCompletion(req, res);
-  // res.send('RealLifeBenefits');
+});
+
+// Student Reports
+router.post('/studentReportsCompletion', (req, res) => {
+  console.log('studentReportsCompletion api call ===');
+  studentReportsCompletion(req, res);
 });
 
 export default router;
