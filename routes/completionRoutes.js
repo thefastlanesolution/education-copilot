@@ -11,6 +11,7 @@ import { weeklyNewsletterCompletion } from '../controllers/AI Tools/weeklyNewsle
 import { researchProjectCompletion } from '../controllers/AI Tools/researchProjectController.js';
 import { freeStyleCompletion } from '../controllers/AI Tools/freeStyleController.js';
 import { studentReportsCompletion } from '../controllers/AI Tools/studentReportsController.js';
+import { vocabCompletion } from '../controllers/AI Tools/comprehensiveVocabController.js';
 
 // Real Life Benefits
 router.post('/benefitsCompletion', (req, res) => {
@@ -70,6 +71,12 @@ router.post('/researchProjectCompletion', (req, res) => {
 router.post('/studentReportsCompletion', (req, res) => {
   console.log('studentReportsCompletion api call ===');
   studentReportsCompletion(req, res);
+});
+
+// Comprehensive Vocabulary
+router.post('/vocabCompletion', (req, res) => {
+  console.log('vocabCompletion api call ===');
+  vocabCompletion(req, res);
 });
 
 export default router;

@@ -28,6 +28,7 @@ import PricingPage from './pages/pricing/PricingPage.js';
 import CompletionHistory from './pages/dashboard/AI-tools/CompletionHistory.js';
 import StudentReports from './pages/dashboard/AI-tools/StudentReports.js';
 import React from 'react';
+import ComprehensiveVocabulary from './pages/dashboard/AI-tools/ComprehensiveVocabulary';
 
 function App() {
   return (
@@ -50,6 +51,10 @@ function App() {
               <Route path="parent-emails" element={<ParentEmails />} />
               <Route path="freestyle" element={<FreeStyle />} />
               <Route path="lesson-planner" element={<LessonPlan />} />
+              <Route
+                path="comprehensive-vocab"
+                element={<ComprehensiveVocabulary />}
+              />
               <Route path="real-life-benefits" element={<RealLifeBenefits />} />
               <Route path="weekly-newsletter" element={<WeeklyNewsletter />} />
               <Route path="student-reports" element={<StudentReports />} />

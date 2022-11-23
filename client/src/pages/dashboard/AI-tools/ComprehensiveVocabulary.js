@@ -16,17 +16,14 @@ import 'react-modal-video/scss/modal-video.scss';
 import Model from './videoModal';
 import '../AI-tools-css/ModalStyling.css';
 
-const LessonPlan = () => {
+const InformationalHandout = () => {
   const { displayAlert } = useAppContext();
 
   const [completion, setCompletion] = useState({
     generatedText: '',
   });
-  const [studentName, setStudentName] = useState('');
+  const [subject, setSubject] = useState('');
   const [gradeLevel, setGradeLevel] = useState('');
-  const [potential, setPotential] = useState('');
-  const [improvement, setImprovement] = useState('');
-
   const [isLoading, setIsLoading] = useState(false);
 
   const debouncedTextChangeHandler = useCallback(
@@ -46,15 +43,13 @@ const LessonPlan = () => {
     return ref;
   }
 
-  async function fetchApi(studentName, potential, improvement, gradeLevel) {
+  async function fetchApi(subject, gradeLevel) {
     setIsLoading(true);
     const myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
 
     const raw = JSON.stringify({
-      studentName,
-      potential,
-      improvement,
+      subject,
       gradeLevel,
     });
 
@@ -66,23 +61,22 @@ const LessonPlan = () => {
     };
 
     fetch(
-      `${window.location.origin}/api/v1/completions/studentReportsCompletion`,
+      `${window.location.origin}/api/v1/completions/vocabCompletion`,
       requestOptions
     )
       .then(response => response.json())
       .then(result => {
         setIsLoading(false);
-        console.log('studentReportCompletion ===', result);
+        console.log('/vocabCompletion ===', result);
+
         let textResult = decode(result.choices[0].text);
         textResult = nl2br(textResult);
 
         const dataToSave = {
-          studentName,
-          potential,
-          improvement,
+          subject,
           gradeLevel,
-          application: 'Student Reports',
-          generatedText: result.choices[0].text,
+          application: 'Vocabulary Builder',
+          generatedText: textResult,
         };
 
         saveCompletionToDB('completions', dataToSave)
@@ -109,11 +103,11 @@ const LessonPlan = () => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    if (!studentName || !gradeLevel || !potential || !improvement) {
+    if (!subject) {
       displayAlert();
       return;
     }
-    fetchApi(studentName, potential, improvement, gradeLevel);
+    fetchApi(subject, gradeLevel);
   };
 
   async function handleEditorTextOnChange(event, editor) {
@@ -147,33 +141,19 @@ const LessonPlan = () => {
           <form onSubmit={handleSubmit}>
             <div className="form-center">
               <div className="titleAndVideo">
-                <h4>Student Report Generator 📝</h4>
-                <Model />
+                <h4>Vocabulary Builder</h4>
+                <Model videoId="" />
               </div>
               <FormRow
                 type="text"
-                labelText="Students Name:"
-                name="studentName"
-                value={studentName}
-                handleChange={e => setStudentName(e.target.value)}
+                labelText="Concept or lesson to generate vocabulary for:"
+                name="subject"
+                value={subject}
+                handleChange={e => setSubject(e.target.value)}
               />
               <FormRow
                 type="text"
-                labelText="Areas where student excels/shows potential:"
-                name="potential"
-                value={potential}
-                handleChange={e => setPotential(e.target.value)}
-              />
-              <FormRow
-                type="text"
-                labelText="Areas where student needs improvement:"
-                name="improvement"
-                value={improvement}
-                handleChange={e => setImprovement(e.target.value)}
-              />
-              <FormRow
-                type="text"
-                labelText="Your grade level and subject:"
+                labelText="Grade Level and Subject:"
                 name="gradeLevel"
                 value={gradeLevel}
                 handleChange={e => setGradeLevel(e.target.value)}
@@ -183,17 +163,19 @@ const LessonPlan = () => {
                 type="submit"
                 disabled={isLoading}
               >
-                {isLoading ? 'Please Wait...' : 'Generate Lesson Plan'}
+                {isLoading ? 'Please Wait...' : 'Generate Handout'}
               </button>
             </div>
           </form>
           <div className="bodyText">
             <h5>
-              Save time and quickly create student reports to send to parents.
+              Quickly generate a structured list of 10 must know vocabulary
+              words tied to any concept.
+              <br />
+              <br />
+              This tool will also provide the definition of each word and use it
+              in two different sentences to help provide students with context.
             </h5>
-            <p>
-              ✅ The more details you provide, the better the report will be.
-            </p>
           </div>
         </CardContent>
       </Card>
@@ -209,4 +191,4 @@ const LessonPlan = () => {
   );
 };
 
-export default LessonPlan;
+export default InformationalHandout;
