@@ -16,14 +16,14 @@ import 'react-modal-video/scss/modal-video.scss';
 import Model from './videoModal';
 import '../AI-tools-css/ModalStyling.css';
 
-const ComprehensiveVocab = () => {
+const EnglishSpanish = () => {
   const { displayAlert } = useAppContext();
 
   const [completion, setCompletion] = useState({
     generatedText: '',
   });
   const [subject, setSubject] = useState('');
-  const [gradeLevel, setGradeLevel] = useState('');
+  // const [gradeLevel, setGradeLevel] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   const debouncedTextChangeHandler = useCallback(
@@ -43,14 +43,13 @@ const ComprehensiveVocab = () => {
     return ref;
   }
 
-  async function fetchApi(subject, gradeLevel) {
+  async function fetchApi(subject) {
     setIsLoading(true);
     const myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
 
     const raw = JSON.stringify({
       subject,
-      gradeLevel,
     });
 
     const requestOptions = {
@@ -61,21 +60,20 @@ const ComprehensiveVocab = () => {
     };
 
     fetch(
-      `${window.location.origin}/api/v1/completions/vocabCompletion`,
+      `${window.location.origin}/api/v1/completions/englishToSpanishCompletion`,
       requestOptions
     )
       .then(response => response.json())
       .then(result => {
         setIsLoading(false);
-        console.log('/vocabCompletion ===', result);
+        console.log('/englishToSpanishCompletion ===', result);
 
         let textResult = decode(result.choices[0].text);
         textResult = nl2br(textResult);
 
         const dataToSave = {
           subject,
-          gradeLevel,
-          application: 'Vocabulary Builder',
+          application: 'English to Spanish',
           generatedText: textResult,
         };
 
@@ -107,7 +105,7 @@ const ComprehensiveVocab = () => {
       displayAlert();
       return;
     }
-    fetchApi(subject, gradeLevel);
+    fetchApi(subject);
   };
 
   async function handleEditorTextOnChange(event, editor) {
@@ -151,13 +149,13 @@ const ComprehensiveVocab = () => {
                 value={subject}
                 handleChange={e => setSubject(e.target.value)}
               />
-              <FormRow
+              {/* <FormRow
                 type="text"
                 labelText="Grade Level and Subject:"
                 name="gradeLevel"
                 value={gradeLevel}
                 handleChange={e => setGradeLevel(e.target.value)}
-              />
+              /> */}
               <button
                 className="btn btn-block"
                 type="submit"
@@ -169,12 +167,15 @@ const ComprehensiveVocab = () => {
           </form>
           <div className="bodyText">
             <h5>
-              Quickly generate a structured list of 10 must know vocabulary
-              words tied to any concept.
+              Quickly generate a structured list of 10 vocabulary words in both
+              english and spanish.
               <br />
               <br />
               This tool will also provide the definition of each word and use it
               in two different sentences to help provide students with context.
+              <br />
+              <br />
+              ✔️ Perfect for teachers of english as a second language.
             </h5>
           </div>
         </CardContent>
@@ -191,4 +192,4 @@ const ComprehensiveVocab = () => {
   );
 };
 
-export default ComprehensiveVocab;
+export default EnglishSpanish;
