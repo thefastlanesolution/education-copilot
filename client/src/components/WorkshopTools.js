@@ -48,7 +48,7 @@ const JobsContainer = () => {
             return <Student key={student._id} {...student} />;
           })}
         </div>
-        {numOfPages > 1 && <PageBtnContainer />}
+        {/* {numOfPages > 1 && <PageBtnContainer />} */}
       </Wrapper>
     </>
   );
