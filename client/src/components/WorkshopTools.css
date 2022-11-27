@@ -1,0 +1,14 @@
+.pageheader {
+  display: flex;
+  justify-content: space-between;
+}
+
+.pageheader a {
+  color: black !important;
+}
+
+.plusicon {
+  width: 0.8em;
+  height: 0.8em;
+  color: #7d5ff5;
+}

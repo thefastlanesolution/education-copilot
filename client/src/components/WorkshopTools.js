@@ -5,6 +5,8 @@ import Student from './Tool';
 import Wrapper from '../assets/wrappers/WorkshopTools';
 import PageBtnContainer from './PageBtnContainer';
 import { ImMagicWand } from 'react-icons/im';
+import { ImPlus } from 'react-icons/im';
+import './WorkshopTools.css';
 
 const JobsContainer = () => {
   const {
@@ -37,7 +39,12 @@ const JobsContainer = () => {
   return (
     <>
       <div className="pageheader">
-        {<ImMagicWand className="historyicon" />} Workshop Tools
+        <div>{<ImMagicWand className="historyicon" />} Workshop Tools</div>
+        <div>
+          <a target="_blank" href="https://educationcopilot.com/requests/">
+            {<ImPlus className="historyicon plusicon" />} Request a New Tool
+          </a>
+        </div>
       </div>
       <Wrapper>
         <h5>

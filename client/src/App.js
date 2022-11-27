@@ -48,7 +48,7 @@ function App() {
             <Route path="/" element={<PrivateRoute />}>
               <Route path="/profile" element={<Profile />} />
               <Route index element={<DashboardHome />} />
-              <Route path="all-students" element={<Workshop />} />
+              <Route path="workshop-tools" element={<Workshop />} />
               <Route path="parent-emails" element={<ParentEmails />} />
               <Route path="freestyle" element={<FreeStyle />} />
               <Route path="lesson-planner" element={<LessonPlan />} />
