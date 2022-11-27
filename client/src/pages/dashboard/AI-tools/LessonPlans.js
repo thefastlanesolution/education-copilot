@@ -145,7 +145,7 @@ const LessonPlan = () => {
               </div>
               <FormRow
                 type="text"
-                labelText="Subject or lesson plan to generate benefits for:"
+                labelText="Topic or lesson to generate lesson for:"
                 name="subject"
                 value={subject}
                 handleChange={e => setSubject(e.target.value)}
@@ -168,13 +168,29 @@ const LessonPlan = () => {
           </form>
           <div className="bodyText">
             <h5>
-              Save time and quickly draft lesson plans for any subject matter
-              (even rocket science 🚀)
+              Save time and quickly draft lesson plans for any subject matter.
             </h5>
             <p>
-              ✅ When providing the subject, be specific.
-              <br />✅ Currently uses the Madeline Hunter Lesson Plan model.
-              More to be added soon!
+              ✔️ Currently uses the Madeline Hunter Lesson Plan model. More to
+              be added soon!
+              <br />
+              ✔️ The more specific you are, the better the results will be.
+              <br />
+              🔄 If you don't like the results, simply click 'Generate Lesson
+              Plan' again.
+            </p>
+            <h5>Examples</h5>
+            <p>
+              ✔️ Periodic Table
+              <br />
+              ✔️ Newton's law of universal gravitation
+              <br />
+              ✔️ Adjectives
+              <br />
+              ❌ Chemistry
+              <br />
+              ❌ Physics
+              <br />❌ English
             </p>
           </div>
         </CardContent>

@@ -138,7 +138,7 @@ const IdeaGenerator = () => {
           <form onSubmit={handleSubmit}>
             <div className="form-center">
               <div className="titleAndVideo">
-                <h4>Assessment Generator 🧠</h4>
+                <h4>Idea Generator 🧠</h4>
                 <Model />
               </div>
               <FormRow

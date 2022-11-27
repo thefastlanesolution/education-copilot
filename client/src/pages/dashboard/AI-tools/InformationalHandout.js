@@ -173,7 +173,22 @@ const InformationalHandout = () => {
               any subject matter or lesson plan.
             </h5>
             <p>
-              ✅ <strong>Examples</strong>
+              ✔️ The more detailed you are, the better the results will be.
+              <br />
+              🔄 If you don't like the results, simple click 'generate handout'
+              again.
+            </p>
+            <h5>Examples</h5>
+            <p>
+              ✔️ Periodic Table
+              <br />
+              ✔️ Introduction to the Scientific Method
+              <br />
+              ✔️ Adjectives
+              <br />
+              ✔️ What is a solar system?
+              <br />
+              ✔️ Artificial Intelligence in education
             </p>
           </div>
         </CardContent>
