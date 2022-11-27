@@ -144,7 +144,7 @@ const EnglishSpanish = () => {
               </div>
               <FormRow
                 type="text"
-                labelText="Concept or lesson to generate vocabulary for:"
+                labelText="Concept or topic to generate vocabulary for:"
                 name="subject"
                 value={subject}
                 handleChange={e => setSubject(e.target.value)}
@@ -161,22 +161,31 @@ const EnglishSpanish = () => {
                 type="submit"
                 disabled={isLoading}
               >
-                {isLoading ? 'Please Wait...' : 'Generate Handout'}
+                {isLoading ? 'Please Wait...' : 'Generate Vocabulary List'}
               </button>
             </div>
           </form>
           <div className="bodyText">
             <h5>
-              Quickly generate a structured list of 10 vocabulary words in both
-              english and spanish.
-              <br />
-              <br />
-              This tool will also provide the definition of each word and use it
-              in two different sentences to help provide students with context.
-              <br />
-              <br />
-              ✔️ Perfect for teachers of english as a second language.
+              Quickly generate a structured list of 10 must know vocabulary
+              words related to any topic. The list will include definitions and
+              examples in both English and Spanish.
             </h5>
+            <p>✔️ Perfect for teachers of english as a second language.</p>
+            <h5>Input Examples</h5>
+            <p>
+              ✔️ Periodic Table
+              <br />
+              ✔️ Ordering food at a restaurant
+              <br />
+              ✔️ Taking a vacation to the beach
+              <br />
+              ✔️ Real Estate Investing
+              <br />
+              ✔️ Enseñando
+              <br />
+              ✔️ Real Estate Investing
+            </p>
           </div>
         </CardContent>
       </Card>

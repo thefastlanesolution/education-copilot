@@ -163,19 +163,26 @@ const ComprehensiveVocab = () => {
                 type="submit"
                 disabled={isLoading}
               >
-                {isLoading ? 'Please Wait...' : 'Generate Handout'}
+                {isLoading ? 'Please Wait...' : 'Generate Vocabulary List'}
               </button>
             </div>
           </form>
           <div className="bodyText">
             <h5>
               Quickly generate a structured list of 10 must know vocabulary
-              words tied to any concept.
-              <br />
-              <br />
-              This tool will also provide the definition of each word and use it
-              in two different sentences to help provide students with context.
+              words related to any topic. List includes definitions and
+              examples.
             </h5>
+            <h5>Input Examples</h5>
+            <p>
+              ✔️ Periodic Table
+              <br />
+              ✔️ Computer Programming
+              <br />
+              ✔️ Macroeconomics
+              <br />
+              ✔️ Urbanization in the United States
+            </p>
           </div>
         </CardContent>
       </Card>

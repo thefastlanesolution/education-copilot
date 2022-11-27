@@ -183,7 +183,7 @@ const LessonPlan = () => {
                 type="submit"
                 disabled={isLoading}
               >
-                {isLoading ? 'Please Wait...' : 'Generate Lesson Plan'}
+                {isLoading ? 'Please Wait...' : 'Generate Report'}
               </button>
             </div>
           </form>
