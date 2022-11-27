@@ -12,3 +12,17 @@
   height: 0.8em;
   color: #7d5ff5;
 }
+
+.request {
+  border: 2.5px solid #7d5ff5;
+  border-radius: 20px;
+  padding-bottom: 0.2em;
+  padding-top: 0.2em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  font-size: 20px;
+}
+
+.request:hover {
+  box-shadow: 0 0 10px #7d5ff5;
+}

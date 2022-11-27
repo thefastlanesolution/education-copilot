@@ -40,11 +40,11 @@ const JobsContainer = () => {
     <>
       <div className="pageheader">
         <div>{<ImMagicWand className="historyicon" />} Workshop Tools</div>
-        <div>
-          <a target="_blank" href="https://educationcopilot.com/requests/">
+        <a target="_blank" href="https://educationcopilot.com/requests/">
+          <div className="request">
             {<ImPlus className="historyicon plusicon" />} Request a New Tool
-          </a>
-        </div>
+          </div>
+        </a>
       </div>
       <Wrapper>
         <h5>
