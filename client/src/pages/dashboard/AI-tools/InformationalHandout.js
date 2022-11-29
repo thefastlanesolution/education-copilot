@@ -141,7 +141,7 @@ const InformationalHandout = () => {
           <form onSubmit={handleSubmit}>
             <div className="form-center">
               <div className="titleAndVideo">
-                <h4>Informational Handout 📝</h4>
+                <h4>Educational Handout 📝</h4>
                 <Model videoId="Nd6Pf1927xQ" />
               </div>
               <FormRow
@@ -169,7 +169,7 @@ const InformationalHandout = () => {
           </form>
           <div className="bodyText">
             <h5>
-              Save time and quickly draft structured informational handouts for
+              Save time and quickly draft structured educational handouts for
               any subject matter or lesson plan.
             </h5>
             <p>
