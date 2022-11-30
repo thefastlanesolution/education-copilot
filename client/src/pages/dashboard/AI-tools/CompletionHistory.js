@@ -170,7 +170,7 @@ const CompletionHistory = () => {
                     <strong>Tool:</strong> {doc.application}
                   </div>
                   <strong>Topic: </strong>
-                  {doc.subject}
+                  {truncateText(stripHTMLTags(doc.subject))}
                   {doc.gradeLevel && (
                     <React.Fragment>
                       <br />
