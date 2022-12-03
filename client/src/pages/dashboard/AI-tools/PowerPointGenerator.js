@@ -16,6 +16,7 @@ import 'react-modal-video/scss/modal-video.scss';
 import Model from './videoModal';
 import '../AI-tools-css/ModalStyling.css';
 import PPTXGenJS from 'pptxgenjs';
+import { ImDownload } from 'react-icons/im';
 
 const SlideGenerator = () => {
   const { displayAlert } = useAppContext();
@@ -595,15 +596,15 @@ const SlideGenerator = () => {
 
         generatePowerpoint();
 
-        saveCompletionToDB('completions', dataToSave)
-          .then(ref => {
-            setCompletion({
-              ...dataToSave,
-              id: ref.id,
-            });
-            console.log('Saved succesfully, ref: ', ref);
-          })
-          .catch(err => console.log('error', err));
+        // saveCompletionToDB('completions', dataToSave)
+        //   .then(ref => {
+        //     setCompletion({
+        //       ...dataToSave,
+        //       id: ref.id,
+        //     });
+        //     console.log('Saved succesfully, ref: ', ref);
+        //   })
+        //   .catch(err => console.log('error', err));
       })
       .catch(error => console.log('error', error));
   }
@@ -708,13 +709,18 @@ const SlideGenerator = () => {
         </CardContent>
       </Card>
 
-      <div className="editor">
+      <div className="downloadInfo">
+        {<ImDownload className="downloadicon" />}
+        Your slideshow will automatically download once it is complete!
+      </div>
+
+      {/* <div className="editor">
         <CKEditor
           editor={Editor}
           data={completion.generatedText}
           onChange={debouncedTextChangeHandler}
         ></CKEditor>
-      </div>
+      </div> */}
     </Wrapper>
   );
 };

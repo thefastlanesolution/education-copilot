@@ -23,3 +23,29 @@
   background-color: #7d5ff5;
   color: #fff;
 }
+
+.downloadInfo {
+  padding-left: 20%;
+  padding-right: 20%;
+  color: rgb(98, 98, 98);
+  font-size: 1.7rem;
+  font-family: inter;
+  font-weight: 600;
+}
+
+.downloadInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20%;
+}
+
+.downloadicon {
+  margin-bottom: 3rem;
+  width: 4.5rem;
+  height: 4.5rem;
+}
+
+.downloadicon {
+  color: #7d5ff5;
+}
