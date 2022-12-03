@@ -30,6 +30,7 @@ import StudentReports from './pages/dashboard/AI-tools/StudentReports.js';
 import React from 'react';
 import ComprehensiveVocab from './pages/dashboard/AI-tools/ComprehensiveVocabulary';
 import EnglishSpanish from './pages/dashboard/AI-tools/EnglishSpanish';
+import GoogleSlide from './pages/dashboard/AI-tools/PowerPointGenerator';
 
 function App() {
   return (
@@ -75,10 +76,13 @@ function App() {
               <Route path="english-to-spanish" element={<EnglishSpanish />} />
               <Route path="add-student" element={<AddStudent />} />
               <Route path="history" element={<CompletionHistory />} />
+              <Route path="powerpoint" element={<GoogleSlide />} />
             </Route>
           </Route>
+
           <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="pricing" element={<PricingPage />} />
+
+          {/* <Route path="/pricing" element={<PricingPage />} /> */}
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/landing" element={<Landing />} />

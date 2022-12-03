@@ -13,6 +13,7 @@ import { freeStyleCompletion } from '../controllers/AI Tools/freeStyleController
 import { studentReportsCompletion } from '../controllers/AI Tools/studentReportsController.js';
 import { vocabCompletion } from '../controllers/AI Tools/comprehensiveVocabController.js';
 import { englishToSpanishCompletion } from '../controllers/AI Tools/EnglishtoSpanishController.js';
+import { powerPointCompletion } from '../controllers/AI Tools/powerPointController.js';
 
 // Real Life Benefits
 router.post('/benefitsCompletion', (req, res) => {
@@ -84,6 +85,12 @@ router.post('/vocabCompletion', (req, res) => {
 router.post('/englishToSpanishCompletion', (req, res) => {
   console.log('englishToSpanishCompletion api call ===');
   englishToSpanishCompletion(req, res);
+});
+
+// Powerpoint Creator
+router.post('/powerPointCompletion', (req, res) => {
+  console.log('powerPointCompletion api call ===');
+  powerPointCompletion(req, res);
 });
 
 export default router;
