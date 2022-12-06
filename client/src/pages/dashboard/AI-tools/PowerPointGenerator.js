@@ -6,14 +6,11 @@ import FormRow from '../../../components/FormRow';
 import CardContent from '@mui/material/CardContent';
 import { useAppContext } from '../../../context/appContext';
 import Wrapper from '../../../assets/wrappers/InputForm';
-import Editor from 'ckeditor5-custom-build/build/ckeditor';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
 import { db } from '../../../firebase.config';
 import { addDoc, collection, doc, updateDoc } from 'firebase/firestore';
 import { getAuth } from '@firebase/auth';
 import { decode } from 'html-entities';
 import 'react-modal-video/scss/modal-video.scss';
-import Model from './videoModal';
 import '../AI-tools-css/ModalStyling.css';
 import PPTXGenJS from 'pptxgenjs';
 import { ImDownload } from 'react-icons/im';
@@ -659,7 +656,6 @@ const SlideGenerator = () => {
             <div className="form-center">
               <div className="titleAndVideo">
                 <h4>Slideshow Generator 📝</h4>
-                <Model />
               </div>
               <FormRow
                 type="text"

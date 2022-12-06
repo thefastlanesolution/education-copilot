@@ -18,6 +18,7 @@ import {
 import ParentEmails from './pages/dashboard/AI-tools/ParentEmails.js';
 import FreeStyle from './pages/dashboard/AI-tools/FreeStyle.js';
 import LessonPlan from './pages/dashboard/AI-tools/LessonPlans.js';
+import LessonPlannerV2 from './pages/dashboard/AI-tools/LessonPlannerV2';
 import RealLifeBenefits from './pages/dashboard/AI-tools/RealLifeBenefits.js';
 import WritingPrompt from './pages/dashboard/AI-tools/WritingPrompt.js';
 import WeeklyNewsletter from './pages/dashboard/AI-tools/WeeklyNewsletter.js';
@@ -77,6 +78,7 @@ function App() {
               <Route path="add-student" element={<AddStudent />} />
               <Route path="history" element={<CompletionHistory />} />
               <Route path="powerpoint" element={<GoogleSlide />} />
+              <Route path="lessonplannerv2" element={<LessonPlannerV2 />} />
             </Route>
           </Route>
 

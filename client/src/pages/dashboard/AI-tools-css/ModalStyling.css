@@ -49,3 +49,14 @@
 .downloadicon {
   color: #7d5ff5;
 }
+
+.pdfDownloadLink {
+  margin: 5% !important;
+  text-align: center;
+}
+
+.pdfDownloadBtn {
+  font-size: 1em;
+  font-family: inter;
+  font-weight: 600;
+}

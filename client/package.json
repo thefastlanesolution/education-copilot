@@ -12,6 +12,7 @@
     "@mui/icons-material": "^5.10.9",
     "@mui/material": "^5.10.11",
     "@mui/styled-engine-sc": "^5.10.6",
+    "@react-pdf/renderer": "^3.0.1",
     "@stripe/stripe-js": "^1.44.1",
     "@testing-library/jest-dom": "^5.15.0",
     "@testing-library/react": "^11.2.7",

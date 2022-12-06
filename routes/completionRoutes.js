@@ -14,6 +14,7 @@ import { studentReportsCompletion } from '../controllers/AI Tools/studentReports
 import { vocabCompletion } from '../controllers/AI Tools/comprehensiveVocabController.js';
 import { englishToSpanishCompletion } from '../controllers/AI Tools/EnglishtoSpanishController.js';
 import { powerPointCompletion } from '../controllers/AI Tools/powerPointController.js';
+import { lessonPlannerV2Completion } from '../controllers/AI Tools/lessonPlanV2Controller.js';
 
 // Real Life Benefits
 router.post('/benefitsCompletion', (req, res) => {
@@ -31,6 +32,12 @@ router.post('/shotgunCompletion', (req, res) => {
 router.post('/lessonPlannerCompletion', (req, res) => {
   console.log('lessonPlannerCompletion api call ===');
   lessonPlannerCompletion(req, res);
+});
+
+// Lesson Planner V2
+router.post('/lessonPlannerV2Completion', (req, res) => {
+  console.log('lessonPlannerV2Completion api call ===');
+  lessonPlannerV2Completion(req, res);
 });
 
 // Informational handout
