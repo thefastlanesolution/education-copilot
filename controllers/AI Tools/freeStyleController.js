@@ -10,12 +10,12 @@ const freeStyleCompletion = async (req, res) => {
   const openai = new OpenAIApi(configuration);
   openai
     .createCompletion({
-      model: 'text-davinci-002',
-      prompt: `${subject}`,
-      temperature: 0.7,
+      model: 'text-davinci-003',
+      prompt: `Rules: Give detailed, thorough responses that will help a teacher as they navigate through their day. Task/Question: ${subject}. Answer:`,
+      temperature: 0.8,
       max_tokens: 1500,
       top_p: 1,
-      frequency_penalty: 0.3,
+      frequency_penalty: 0.2,
       presence_penalty: 0,
       stop: [' ###'],
     })

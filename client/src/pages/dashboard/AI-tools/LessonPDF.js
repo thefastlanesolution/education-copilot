@@ -7,21 +7,24 @@ import {
   Font,
 } from '@react-pdf/renderer';
 
-const MyReactPDF = props => {
-  const { aimSection } = props;
-  const { objectivesSection } = props;
-  const { materialsSection } = props;
-  const { anticipatorySection } = props;
-  const { modeledSection } = props;
-  const { guidedSection } = props;
-  const { independentPractice } = props;
-  const { struggleSection } = props;
-  const { closureSection } = props;
+Font.register({
+  family: 'Oswald',
+  src: 'https://fonts.gstatic.com/s/oswald/v13/Y_TKV6o8WovbUd3m_X9aAA.ttf',
+});
 
-  Font.register({
-    family: 'Oswald',
-    src: 'https://fonts.gstatic.com/s/oswald/v13/Y_TKV6o8WovbUd3m_X9aAA.ttf',
-  });
+const PDF = props => {
+  const {
+    subject,
+    aimSection,
+    objectivesSection,
+    materialsSection,
+    anticipatorySection,
+    modeledSection,
+    guidedSection,
+    independentPractice,
+    struggleSection,
+    closureSection,
+  } = props;
 
   const styles = StyleSheet.create({
     wrapper: {
@@ -39,13 +42,6 @@ const MyReactPDF = props => {
       paddingLeft: 20,
       paddingRight: 20,
       textAlign: 'left',
-    },
-    bodyFont: {
-      paddingLeft: 20,
-      paddingRight: 60,
-      fontSize: 12,
-      textAlign: 'left',
-      paddingBottom: 20,
     },
     body: {
       paddingTop: 10,
@@ -75,35 +71,6 @@ const MyReactPDF = props => {
       textAlign: 'left',
       marginBottom: 20,
     },
-    guidedPractice: {
-      paddingTop: 15,
-      paddingLeft: 20,
-      paddingRight: 60,
-      fontSize: 12,
-      textAlign: 'left',
-      paddingBottom: 20,
-    },
-    subtitle: {
-      fontSize: 18,
-      margin: 12,
-      fontFamily: 'Oswald',
-    },
-    text: {
-      margin: 12,
-      fontSize: 14,
-      textAlign: 'justify',
-      fontFamily: 'Times-Roman',
-    },
-    image: {
-      marginVertical: 15,
-      marginHorizontal: 100,
-    },
-    header: {
-      fontSize: 12,
-      marginBottom: 20,
-      textAlign: 'center',
-      color: 'grey',
-    },
     pageNumber: {
       position: 'absolute',
       fontSize: 12,
@@ -114,14 +81,13 @@ const MyReactPDF = props => {
       color: 'grey',
     },
   });
-
   return (
     <Document>
       <Page style={styles.body}>
-        <Text style={styles.title}>Lesson Plan: Ecosystems</Text>
+        <Text style={styles.title}>Lesson Plan: {subject}</Text>
 
         <Text style={styles.wrapper}>
-          <Text style={styles.headerFont}>Lesson Aim</Text>
+          <Text style={styles.headerFont}>Aim</Text>
           <Text style={styles.aim}>
             {'\n'}
             {aimSection}
@@ -129,7 +95,7 @@ const MyReactPDF = props => {
         </Text>
 
         <Text style={styles.wrapper}>
-          <Text style={styles.headerFont}>Student Objectives & Goals</Text>
+          <Text style={styles.headerFont}>Objectives</Text>
           <Text style={styles.goal}>
             {'\n'}
             {objectivesSection}
@@ -152,55 +118,25 @@ const MyReactPDF = props => {
           </Text>
         </Text>
 
-        <Text
-          style={{
-            fontFamily: 'Oswald',
-            fontSize: 12,
-            marginTop: 10,
-            textAlign: 'left',
-          }}
-          break
-        >
-          Lesson Plan: Ecosystems
-        </Text>
-        <Text style={{ fontFamily: 'Oswald', fontSize: 20 }}>
-          Modeled Practice & Guided Practice
-        </Text>
-
-        <Text style={styles.wrapper}>
-          <Text style={styles.headerFont}>Modeled Practice Ideas</Text>
-          <Text style={styles.bodyFont}>
+        <Text style={styles.wrapper} break>
+          <Text style={styles.headerFont}>Modeled Practice</Text>
+          <Text style={styles.goal}>
             {'\n'}
             {modeledSection}
           </Text>
         </Text>
 
         <Text style={styles.wrapper}>
-          <Text style={styles.headerFont}>Guided Practice Ideas</Text>
-          <Text style={styles.bodyFont}>
+          <Text style={styles.headerFont}>Guided Practice</Text>
+          <Text style={styles.goal}>
             {'\n'}
             {guidedSection}
           </Text>
         </Text>
 
-        <Text
-          style={{
-            fontFamily: 'Oswald',
-            fontSize: 12,
-            marginTop: 10,
-            textAlign: 'left',
-          }}
-          break
-        >
-          Lesson Plan: Ecosystems
-        </Text>
-        <Text style={{ fontFamily: 'Oswald', fontSize: 20 }}>
-          Independent Practice, Areas of Struggle & Closure
-        </Text>
-
-        <Text style={styles.wrapper}>
-          <Text style={styles.headerFont}>Independent Practice Ideas</Text>
-          <Text style={styles.bodyFont}>
+        <Text style={styles.wrapper} break>
+          <Text style={styles.headerFont}>Independent Practice</Text>
+          <Text style={styles.goal}>
             {'\n'}
             {independentPractice}
           </Text>
@@ -208,29 +144,29 @@ const MyReactPDF = props => {
 
         <Text style={styles.wrapper}>
           <Text style={styles.headerFont}>Common Areas of Struggle</Text>
-          <Text style={styles.bodyFont}>
+          <Text style={styles.goal}>
             {'\n'}
             {struggleSection}
           </Text>
         </Text>
 
         <Text style={styles.wrapper}>
-          <Text style={styles.headerFont}>Closure/Assessment</Text>
-          <Text style={styles.bodyFont}>
+          <Text style={styles.headerFont}>Closure</Text>
+          <Text style={styles.goal}>
             {'\n'}
             {closureSection}
           </Text>
         </Text>
 
-        <Text
+        {/* <Text
           style={styles.pageNumber}
           render={({ pageNumber, totalPages }) =>
             `${pageNumber} / ${totalPages}`
           }
           fixed
-        />
+        /> */}
       </Page>
     </Document>
   );
 };
-export default MyReactPDF;
+export default PDF;

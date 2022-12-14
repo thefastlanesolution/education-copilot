@@ -1,7 +1,7 @@
 .form-center .ck-editor__editable:not(.ck-focused) {
-  max-height: 300px;
+  max-height: 500px;
 }
 
 .form-center .ck-editor__editable:is(.ck-focused) {
-  max-height: 300px !important;
+  max-height: 500px !important;
 }

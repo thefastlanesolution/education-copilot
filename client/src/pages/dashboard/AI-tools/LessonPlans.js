@@ -22,8 +22,12 @@ const LessonPlan = () => {
   const [completion, setCompletion] = useState({
     generatedText: '',
   });
+
+  // API Request & Response States
   const [subject, setSubject] = useState('');
   const [gradeLevel, setGradeLevel] = useState('');
+
+  // Loading State
   const [isLoading, setIsLoading] = useState(false);
 
   const debouncedTextChangeHandler = useCallback(

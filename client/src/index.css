@@ -5,6 +5,8 @@
 }
 
 /* fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700;800&display=swap');
+
 @import url('https://fonts.googleapis.com/css2?family=Cabin&family=Roboto+Condensed:wght@400;700&display=swap');
 
 @import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&display=swap');
@@ -226,7 +228,7 @@ ul {
 .form-label {
   display: block;
   font-size: var(--smallText);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.1rem;
   text-transform: capitalize;
   letter-spacing: var(--letterSpacing);
 }
@@ -236,7 +238,7 @@ ul {
   width: 100%;
   padding: 0.375rem 0.75rem;
   border-radius: var(--borderRadius);
-  background: var(--backgroundColor);
+  background: white;
   border: 1px solid var(--grey-200);
 }
 .form-input,

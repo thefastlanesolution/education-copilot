@@ -4,7 +4,6 @@ const Wrapper = styled.main`
   text-align: center;
   display: grid;
   grid-template-columns: 1fr;
-  grid-gap: 20px;
 
   .input-card {
     overflow-y: auto;
@@ -45,7 +44,7 @@ const Wrapper = styled.main`
 
   @media (min-width: 800px) {
     grid-template-columns: 1fr 1fr;
-    height: 90vh;
+    height: 100vh;
     overflow: hidden;
     width: 100%;
   }

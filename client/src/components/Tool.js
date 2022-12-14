@@ -7,8 +7,9 @@ import Typography from '@mui/material/Typography';
 import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
 import { useAppContext } from '../context/appContext';
 import { Link } from 'react-router-dom';
+import './Tool.css';
 
-const Tool = ({ _id, firstName, lastName, studentEmail }) => {
+const Tool = ({ _id, firstName, lastName, studentEmail, emoji }) => {
   const { setEditStudent, deleteStudent } = useAppContext();
 
   return (
@@ -17,12 +18,13 @@ const Tool = ({ _id, firstName, lastName, studentEmail }) => {
         sx={{
           width: '100%',
           maxWidth: '100%',
-          border: 'none',
+          border: '2px solid #cdc1fb',
           boxShadow: '0px 0px 2px rgba(0, 0, 0, 0.15)',
           borderRadius: '10px',
           height: '100%',
           '&:hover': {
             boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.25)',
+            border: '2px solid #a665ff',
           },
         }}
       >
@@ -36,7 +38,8 @@ const Tool = ({ _id, firstName, lastName, studentEmail }) => {
           >
             <div>
               <article>
-                <AutoFixHighIcon
+                <div className="emoji">{emoji}</div>
+                {/* <AutoFixHighIcon
                   sx={{
                     fontSize: '2.5rem',
                     color: '#fff',
@@ -47,9 +50,18 @@ const Tool = ({ _id, firstName, lastName, studentEmail }) => {
                     padding: '0.5rem',
                     margin: '10px 0 10px 0',
                   }}
-                />
+                /> */}
               </article>
-              <Typography variant="h5" component="div">
+              <Typography
+                variant="h5"
+                component="div"
+                className="toolTitle"
+                sx={{
+                  fontSize: '1.3rem',
+                  fontFamily: 'inter',
+                  fontWeight: '600',
+                }}
+              >
                 {firstName}
               </Typography>
               <Typography sx={{ mb: 1.5 }} color="text.secondary"></Typography>

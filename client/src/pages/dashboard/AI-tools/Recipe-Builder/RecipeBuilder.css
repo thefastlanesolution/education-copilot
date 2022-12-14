@@ -1,0 +1,115 @@
+.folder-card {
+  border-radius: 0 !important;
+}
+
+.generatedfilecard {
+  width: 100%;
+  /* padding: 0.5rem; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* background-color: #f7f7f7; */
+  /* border-top: 1px solid lightgray; */
+  transition: all 0.2s ease-in-out;
+}
+
+.labels {
+  display: flex;
+  width: 100%;
+  font-family: 'inter';
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.75rem;
+  justify-content: space-between;
+}
+
+.namelabel {
+  flex: 1;
+  text-align: left;
+  padding-left: 1.5rem;
+}
+
+.actionslabel {
+  flex: 1;
+  text-align: right;
+  padding-right: 1.5rem;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.action-button {
+  background-color: #00a8cc;
+  color: #ffffff;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.3rem 0.7rem;
+  border-radius: 5px;
+  margin-left: 0.5rem;
+  cursor: pointer;
+  font-family: 'inter';
+  font-weight: 600;
+}
+
+.dashboard-page {
+  padding: 0;
+}
+
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.check1,
+.check2,
+.check3,
+.check4,
+.check5 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-top: 0.5rem;
+}
+
+.check1 label,
+.check2 label,
+.check3 label,
+.check4 label,
+.check5 label {
+  font-size: 14px;
+  font-weight: 500;
+  font-family: 'inter';
+  color: #000;
+  margin-right: 5px;
+  padding-left: 1rem;
+}
+
+.check1 input,
+.check2 input,
+.check3 input,
+.check4 input,
+.check5 input {
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
+  outline: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.generatebtn {
+  margin-top: 1.5rem;
+}
+
+.subHeader {
+  font-size: 1rem;
+  font-weight: 500;
+  font-family: 'inter';
+  color: #000;
+  text-align: left;
+  padding-bottom: 0.5rem;
+}

@@ -1,0 +1,189 @@
+.pageTitle {
+  font-family: inter;
+  font-size: 1.7rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.pdfCard {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.pdfContainer {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  border: 1px solid #ccc;
+  background-color: #3f3f3f;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+/* inset box shadow  */
+.pdfContainer {
+  box-shadow: inset 0 0 20px 1px rgba(0, 0, 0, 0.2);
+}
+
+.pdfContainer {
+  position: relative;
+  min-height: 250px;
+}
+
+.preview {
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: rgba(255, 255, 255, 0.666);
+  font-style: italic;
+}
+
+.preview-text {
+  font-family: 'inter';
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 1.5rem;
+}
+
+.preview-icon .icon {
+  font-size: 4rem;
+  color: #cdc1fb;
+}
+
+.renderedPDF {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}
+
+::-webkit-scrollbar {
+  width: 0.5em;
+  height: 0.5em;
+}
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+  border-radius: 3px;
+}
+
+input:focus {
+  outline: none;
+}
+
+input:focus {
+  /* box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5); */
+  outline: 2px solid #a665ff;
+  transition: outline 0.13s ease;
+}
+
+input:not(:focus) {
+  outline: 0px solid rgb(212, 212, 212);
+  transition: outline 0.13s ease;
+}
+
+.form-label {
+  font-family: inter;
+  font-weight: 550;
+  font-size: 0.8rem;
+}
+
+input {
+  font-size: 1rem;
+  font-weight: 400;
+  /* box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.1); */
+}
+
+.subHeadline {
+  font-family: 'inter';
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.pageControls {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 0.8;
+}
+
+.pdfControls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.userActions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.pageControls p {
+  margin: 0;
+  font-size: 14px;
+  color: #444;
+}
+
+.pageControls button {
+  background: #7d5ff5;
+  border: none;
+  color: #fff;
+  border-radius: 4px;
+  padding: 6px 16px;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  cursor: pointer;
+  font-family: 'inter';
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.pageControls button:disabled {
+  background: #ccc;
+  color: #999;
+  cursor: not-allowed;
+}
+
+/* darker background, barely noticeable drop shadow, and animation delay*/
+.pageControls button:hover:enabled {
+  background: #6951cc;
+  box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.1);
+  transition: background 0.16s ease;
+}
+
+.pageControls button:active:enabled {
+  background: #2f245a;
+}
+
+/* Transform the printIcon down about 10px */
+.printIcon {
+  transform: translateY(8px);
+  cursor: pointer;
+}
+
+/* Style the history link and then ensure it's anchored to the bottom of its parent div */
+.historylink {
+  color: #2196f3 !important;
+  font-family: 'inter';
+  font-weight: 500;
+  font-size: 0.85rem;
+  text-align: left;
+  margin-left: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+a,
+a:hover,
+a:visited,
+a:active {
+  color: inherit;
+  text-decoration: none;
+}

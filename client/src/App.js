@@ -32,6 +32,17 @@ import React from 'react';
 import ComprehensiveVocab from './pages/dashboard/AI-tools/ComprehensiveVocabulary';
 import EnglishSpanish from './pages/dashboard/AI-tools/EnglishSpanish';
 import GoogleSlide from './pages/dashboard/AI-tools/PowerPointGenerator';
+import Sample from './pages/dashboard/AI-tools/Sample';
+import Creations from './pages/dashboard/dashboard-pages/creationPages/Creations';
+import LessonPlanHistory from './pages/dashboard/dashboard-pages/creationPages/LessonPlanHistory';
+import PowerpointHistory from './pages/dashboard/dashboard-pages/creationPages/PowerpointHistory';
+import ContextBuilderHistory from './pages/dashboard/dashboard-pages/creationPages/ContextBuilderHistory';
+import RecipeHistory from './pages/dashboard/dashboard-pages/creationPages/RecipeHistory';
+import ContextBuilder from './pages/dashboard/AI-tools/ContextBuilder';
+import RecipeBuilder from './pages/dashboard/AI-tools/Recipe-Builder/RecipeBuilder';
+import EducationalHandout from './pages/dashboard/AI-tools/EducationalHandout';
+import EducationalHandoutHistory from './pages/dashboard/dashboard-pages/creationPages/EducationalHandoutHistory.js';
+import WritingPromptHistory from './pages/dashboard/dashboard-pages/creationPages/writingPromptHistory.js';
 
 function App() {
   return (
@@ -50,7 +61,7 @@ function App() {
             <Route path="/" element={<PrivateRoute />}>
               <Route path="/profile" element={<Profile />} />
               <Route index element={<DashboardHome />} />
-              <Route path="workshop-tools" element={<Workshop />} />
+              <Route path="workshop" element={<Workshop />} />
               <Route path="parent-emails" element={<ParentEmails />} />
               <Route path="freestyle" element={<FreeStyle />} />
               <Route path="lesson-planner" element={<LessonPlan />} />
@@ -69,16 +80,41 @@ function App() {
                 path="research-project-generator"
                 element={<ResearchProjectGenerator />}
               />
-              <Route
-                path="shotgun-idea-generator"
-                element={<IdeaGenerator />}
-              />
+              <Route path="idea-generator" element={<IdeaGenerator />} />
               <Route path="writing-prompts" element={<WritingPrompt />} />
               <Route path="english-to-spanish" element={<EnglishSpanish />} />
               <Route path="add-student" element={<AddStudent />} />
               <Route path="history" element={<CompletionHistory />} />
-              <Route path="powerpoint" element={<GoogleSlide />} />
+              <Route path="powerpoints" element={<GoogleSlide />} />
+              <Route
+                path="educational-handout"
+                element={<EducationalHandout />}
+              />
               <Route path="lessonplannerv2" element={<LessonPlannerV2 />} />
+              <Route path="creations" element={<Creations />} />
+              <Route path="context-builder" element={<ContextBuilder />} />
+              <Route path="recipe-builder" element={<RecipeBuilder />} />
+              <Route
+                path="creations/educational-handouts"
+                element={<EducationalHandoutHistory />}
+              />
+              <Route
+                path="creations/lesson-plans"
+                element={<LessonPlanHistory />}
+              />
+              <Route
+                path="creations/writing-prompts"
+                element={<WritingPromptHistory />}
+              />
+              <Route
+                path="creations/powerpoints"
+                element={<PowerpointHistory />}
+              />
+              <Route
+                path="creations/context-builders"
+                element={<ContextBuilderHistory />}
+              />
+              <Route path="creations/recipes" element={<RecipeHistory />} />
             </Route>
           </Route>
 

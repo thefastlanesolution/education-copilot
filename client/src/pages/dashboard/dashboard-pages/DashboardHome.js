@@ -1,4 +1,6 @@
-import React from 'react';
+// import { getAuth } from '@firebase/auth';
+import React, { useEffect } from 'react';
+// import auth from 'firebase/auth';
 import { redirect, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import './DashboardHome.css';
@@ -13,6 +15,8 @@ const Header = styled.header`
 `;
 
 const DashboardHome = () => {
+  // const auth = getAuth();
+
   return (
     <Header>
       <h1>

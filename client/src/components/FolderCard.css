@@ -1,0 +1,148 @@
+/* Disable Styles */
+
+.css-bhp9pd-MuiPaper-root-MuiCard-root {
+  box-shadow: none !important;
+}
+
+/* Enable Styles */
+
+.folder-card {
+  width: auto;
+  height: 65px;
+  background-color: #fafafa;
+  border-radius: 0px 0px 8px 8px !important;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  border: 1px solid #dadce0;
+}
+
+.folder-card:hover {
+  background-color: #f0f0f0;
+  cursor: pointer;
+}
+
+.folder-card-content {
+  display: flex;
+  align-items: center;
+}
+
+.folder-icon {
+  width: 30px;
+  height: 30px;
+  margin-right: 8px;
+  color: #5f6368;
+}
+
+.folder-card-title {
+  width: 100%;
+  text-align: left;
+  font-size: 13px;
+  font-family: 'Roboto', 'sans-serif';
+  color: #3c4043;
+  font-weight: 500;
+  padding-left: 1rem;
+}
+
+.folder-header {
+  font-family: 'Roboto', 'sans-serif';
+  font-weight: 500 !important;
+  font-size: 13px;
+  color: grey;
+}
+
+/* Creation History Archive Cards */
+
+.archives {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 1.3rem;
+}
+
+@media (min-width: 640px) {
+  .archives {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+}
+@media (min-width: 992px) {
+  .archives {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+}
+@media (min-width: 1100px) {
+  .archives {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+  }
+}
+@media (min-width: 1250px) {
+  .archives {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 1rem;
+  }
+}
+
+/* Styling for pdf svg icon inside of the card */
+
+.pdfIcon {
+  width: 2.2rem;
+  height: 2.2rem;
+}
+
+.pdf-document {
+  max-height: 200px;
+  height: 200px;
+  /* max-width: 100%; */
+  object-fit: fill;
+  overflow: hidden;
+  border-radius: 8px 8px 0 0;
+  border: 1px solid #dadce0;
+  background-color: #f5f5f5;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  padding-top: 3rem;
+}
+
+.pdf-page {
+  /* justify-content: center; */
+  /* align-items: center; */
+  /* display: flex; */
+  max-width: ;
+  margin-top: 70%;
+  box-shadow: 0 0 6px 0 rgb(0 0 0 / 12%);
+}
+
+.ppt-box {
+  background-color: white;
+  max-height: 200px;
+  height: 200px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px 8px 0px 0px;
+  border: 1px solid #dadce0;
+  padding-top: 15px;
+}
+
+.pptIconBig {
+  width: 8rem;
+  height: 8rem;
+}
+
+.pdfIconBig {
+  width: 8rem;
+  height: 8rem;
+}
+
+.pdf-document {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

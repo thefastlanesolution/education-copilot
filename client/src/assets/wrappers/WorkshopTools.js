@@ -8,6 +8,7 @@ const Wrapper = styled.section`
   & > h5 {
     font-weight: 700;
   }
+
   .jobs {
     display: grid;
     grid-template-columns: 1fr;

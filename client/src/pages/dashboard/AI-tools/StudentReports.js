@@ -13,8 +13,9 @@ import { addDoc, collection, doc, updateDoc } from 'firebase/firestore';
 import { getAuth } from '@firebase/auth';
 import { decode } from 'html-entities';
 import 'react-modal-video/scss/modal-video.scss';
-import Model from './videoModal';
 import '../AI-tools-css/ModalStyling.css';
+import { Link } from 'react-router-dom';
+import { ImArrowLeft2, ImHistory } from 'react-icons/im';
 
 const LessonPlan = () => {
   const { displayAlert } = useAppContext();
@@ -131,24 +132,31 @@ const LessonPlan = () => {
     <Wrapper>
       <Card
         sx={{
+          backgroundColor: '#f8fafc',
           width: '100%',
           maxWidth: '100%',
           border: 'none',
           boxShadow: '0px 0px 2px rgba(0, 0, 0, 0.15)',
-          borderRadius: '5px',
+          borderRadius: '0px',
           height: '100%',
           '&:hover': {
             boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.25)',
+            boxShadow: 'inset 0px 0px 5px rgba(0, 0, 0, 0.25)',
           },
+          boxShadow: 'inset 0px 0px 5px rgba(0, 0, 0, 0.15)',
         }}
         className="input-card"
       >
         <CardContent>
+          <div className="historylink">
+            <Link to={'../workshop'}>
+              {<ImArrowLeft2 className="historyicon" />}Workshop
+            </Link>
+          </div>
           <form onSubmit={handleSubmit}>
             <div className="form-center">
               <div className="titleAndVideo">
-                <h4>Student Report Generator 📝</h4>
-                <Model />
+                <h4 className="pageTitle">Student Report Generator 📝</h4>
               </div>
               <FormRow
                 type="text"
