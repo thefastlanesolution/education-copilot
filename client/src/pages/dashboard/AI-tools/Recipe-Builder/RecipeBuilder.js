@@ -132,6 +132,42 @@ const RecipeBuilder = () => {
   const [firstDefinition, setFirstDefinition] = useState('');
   const [firstExample, setFirstExample] = useState('');
   const [firstExample2, setFirstExample2] = useState('');
+  const [secondWord, setSecondWord] = useState('');
+  const [secondDefinition, setSecondDefinition] = useState('');
+  const [secondExample, setSecondExample] = useState('');
+  const [secondExample2, setSecondExample2] = useState('');
+  const [thirdWord, setThirdWord] = useState('');
+  const [thirdDefinition, setThirdDefinition] = useState('');
+  const [thirdExample, setThirdExample] = useState('');
+  const [thirdExample2, setThirdExample2] = useState('');
+  const [fourthWord, setFourthWord] = useState('');
+  const [fourthDefinition, setFourthDefinition] = useState('');
+  const [fourthExample, setFourthExample] = useState('');
+  const [fourthExample2, setFourthExample2] = useState('');
+  const [fifthWord, setFifthWord] = useState('');
+  const [fifthDefinition, setFifthDefinition] = useState('');
+  const [fifthExample, setFifthExample] = useState('');
+  const [fifthExample2, setFifthExample2] = useState('');
+  const [sixthWord, setSixthWord] = useState('');
+  const [sixthDefinition, setSixthDefinition] = useState('');
+  const [sixthExample, setSixthExample] = useState('');
+  const [sixthExample2, setSixthExample2] = useState('');
+  const [seventhWord, setSeventhWord] = useState('');
+  const [seventhDefinition, setSeventhDefinition] = useState('');
+  const [seventhExample, setSeventhExample] = useState('');
+  const [seventhExample2, setSeventhExample2] = useState('');
+  const [eighthWord, setEighthWord] = useState('');
+  const [eighthDefinition, setEighthDefinition] = useState('');
+  const [eighthExample, setEighthExample] = useState('');
+  const [eighthExample2, setEighthExample2] = useState('');
+  const [ninthWord, setNinthWord] = useState('');
+  const [ninthDefinition, setNinthDefinition] = useState('');
+  const [ninthExample, setNinthExample] = useState('');
+  const [ninthExample2, setNinthExample2] = useState('');
+  const [tenthWord, setTenthWord] = useState('');
+  const [tenthDefinition, setTenthDefinition] = useState('');
+  const [tenthExample, setTenthExample] = useState('');
+  const [tenthExample2, setTenthExample2] = useState('');
 
   // Writing Prompt States
   const [promptTitle, setPromptTitle] = useState('');
@@ -261,6 +297,43 @@ const RecipeBuilder = () => {
         setFirstDefinition,
         setFirstExample,
         setFirstWord,
+        setFirstExample2,
+        setSecondDefinition,
+        setSecondExample,
+        setSecondWord,
+        setSecondExample2,
+        setThirdDefinition,
+        setThirdExample,
+        setThirdWord,
+        setThirdExample2,
+        setFourthDefinition,
+        setFourthExample,
+        setFourthWord,
+        setFourthExample2,
+        setFifthDefinition,
+        setFifthExample,
+        setFifthWord,
+        setFifthExample2,
+        setSixthDefinition,
+        setSixthExample,
+        setSixthWord,
+        setSixthExample2,
+        setSeventhDefinition,
+        setSeventhExample,
+        setSeventhWord,
+        setSeventhExample2,
+        setEighthDefinition,
+        setEighthExample,
+        setEighthWord,
+        setEighthExample2,
+        setNinthDefinition,
+        setNinthExample,
+        setNinthWord,
+        setNinthExample2,
+        setTenthDefinition,
+        setTenthExample,
+        setTenthWord,
+        setTenthExample2,
         setDocumentHasChanged
       );
     }
@@ -315,6 +388,42 @@ const RecipeBuilder = () => {
         firstDefinition={firstDefinition}
         firstExample={firstExample}
         firstExample2={firstExample2}
+        secondWord={secondWord}
+        secondDefinition={secondDefinition}
+        secondExample={secondExample}
+        secondExample2={secondExample2}
+        thirdWord={thirdWord}
+        thirdDefinition={thirdDefinition}
+        thirdExample={thirdExample}
+        thirdExample2={thirdExample2}
+        fourthWord={fourthWord}
+        fourthDefinition={fourthDefinition}
+        fourthExample={fourthExample}
+        fourthExample2={fourthExample2}
+        fifthWord={fifthWord}
+        fifthDefinition={fifthDefinition}
+        fifthExample={fifthExample}
+        fifthExample2={fifthExample2}
+        sixthWord={sixthWord}
+        sixthDefinition={sixthDefinition}
+        sixthExample={sixthExample}
+        sixthExample2={sixthExample2}
+        seventhWord={seventhWord}
+        seventhDefinition={seventhDefinition}
+        seventhExample={seventhExample}
+        seventhExample2={seventhExample2}
+        eighthWord={eighthWord}
+        eighthDefinition={eighthDefinition}
+        eighthExample={eighthExample}
+        eighthExample2={eighthExample2}
+        ninthWord={ninthWord}
+        ninthDefinition={ninthDefinition}
+        ninthExample={ninthExample}
+        ninthExample2={ninthExample2}
+        tenthWord={tenthWord}
+        tenthDefinition={tenthDefinition}
+        tenthExample={tenthExample}
+        tenthExample2={tenthExample2}
       />
     ).toBlob();
 

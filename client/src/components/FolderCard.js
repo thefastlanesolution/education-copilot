@@ -30,7 +30,7 @@ const FolderCard = ({ _id, toolName, lastName, fileUrl, type }) => {
               </div>
             }
           >
-            <Page className="pdf-page" scale={0.5} pageNumber={1} />
+            <Page className="pdf-page" width={250} pageNumber={1} />
           </Document>
         )}
 

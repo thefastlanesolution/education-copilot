@@ -183,10 +183,10 @@ const Creations = () => {
             ></FolderCard>
           </Link>
         </div>
-      </Wrapper>
-      <Wrapper className="recentFiles">
-        <h5 className="folder-header">Recent Creations</h5>
-        <div className="files">{sortedCreationCards}</div>
+        <div className="recentFiles">
+          <h5 className="folder-header">Recent Creations</h5>
+          <div className="files">{sortedCreationCards}</div>
+        </div>
       </Wrapper>
     </div>
   );
