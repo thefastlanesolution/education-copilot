@@ -37,7 +37,8 @@ const EducationalHandoutHistory = () => {
           const name = itemRef.name.replace(/\d/g, '');
 
           function truncateText(name) {
-            const words = name.split('');
+            // const words = name.split('');
+            const words = name;
             const truncatedWords = words.slice(0, 21);
             return truncatedWords.join('') + '...';
           }
