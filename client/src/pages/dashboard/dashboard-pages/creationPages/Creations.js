@@ -65,8 +65,7 @@ const Creations = () => {
               const name = itemRef.name;
 
               function truncateText(name) {
-                // const words = name.split('');
-                const words = name;
+                const words = name.split('');
                 const truncatedWords = words.slice(0, 25);
                 return truncatedWords.join('') + '...';
               }

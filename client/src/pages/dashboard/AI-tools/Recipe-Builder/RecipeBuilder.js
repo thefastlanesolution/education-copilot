@@ -680,8 +680,7 @@ const RecipeBuilder = () => {
           // If name is longer than 50 characters, run this function.
 
           function truncateText(name) {
-            // const words = name.split('');
-            const words = name
+            const words = name.split('');
             const truncatedWords = words.slice(0, 35);
             return truncatedWords.join('') + '...';
           }

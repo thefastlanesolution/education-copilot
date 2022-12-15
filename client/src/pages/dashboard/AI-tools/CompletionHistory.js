@@ -126,9 +126,9 @@ const CompletionHistory = () => {
 
   // Shorten Output text in the output history card
   function truncateText(text) {
-    const words = text.split('');
+    const words = text.split(' ');
     const truncatedWords = words.slice(0, 14);
-    return truncatedWords.join('') + ' ...';
+    return truncatedWords.join(' ') + ' ...';
   }
 
   // Strips the output of HTML formatting

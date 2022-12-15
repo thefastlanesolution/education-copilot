@@ -54,8 +54,7 @@ const PowerpointHistory = () => {
           const name = itemRef.name.replace(/\d/g, '');
 
           function truncateText(name) {
-            // const words = name.split('');
-            const words = name;
+            const words = name.split('');
             const truncatedWords = words.slice(0, 22);
             return truncatedWords.join('') + '...';
           }
