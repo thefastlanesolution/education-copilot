@@ -162,7 +162,6 @@
 }
 
 /* Transform up 5 px */
-.folder-card-title,
 .subtext {
   transform: translateY(-3px) !important;
 }
