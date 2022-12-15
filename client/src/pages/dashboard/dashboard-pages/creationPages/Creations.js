@@ -184,7 +184,7 @@ const Creations = () => {
           </Link>
         </div>
         <div className="recentFiles">
-          <h5 className="folder-header">Recent Creations</h5>
+          <h5 className="folder-header creations-header">Recent Creations</h5>
           <div className="files">{sortedCreationCards}</div>
         </div>
       </Wrapper>
