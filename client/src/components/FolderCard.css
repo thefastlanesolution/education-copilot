@@ -17,6 +17,10 @@
   border: 1px solid #dadce0;
 }
 
+.icon-type {
+  margin-left: 0.5rem;
+}
+
 .folder-card:hover {
   background-color: #f0f0f0;
   cursor: pointer;
@@ -145,4 +149,20 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.subtext {
+  font-family: 'inter';
+  font-size: 12px;
+  color: rgb(147, 147, 147);
+  font-weight: 400;
+  font-style: italic;
+  white-space: nowrap;
+  margin-right: 1.5rem;
+}
+
+/* Transform up 5 px */
+.folder-card-title,
+.subtext {
+  transform: translateY(-3px) !important;
 }

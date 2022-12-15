@@ -29,16 +29,17 @@ const FileCard = ({ _id, toolName, lastName, fileUrl, type }) => {
     <Card className="folder-card">
       <CardContent>
         <div className="folder-card-content">
-          {type === 'ppt' && (
-            <img src={pptIcon} alt="bed" className="pdfIcon" />
-          )}
-          {type === 'pdf' && (
-            <img src={pdfIcon} alt="bed" className="pdfIcon" />
-          )}
-          {type === 'folder' && <ImFolder className="folder-icon" />}
-
+          <div className="icon-type">
+            {type === 'ppt' && (
+              <img src={pptIcon} alt="bed" className="pdfIcon" />
+            )}
+            {type === 'pdf' && (
+              <img src={pdfIcon} alt="bed" className="pdfIcon" />
+            )}
+            {type === 'folder' && <ImFolder className="folder-icon" />}
+          </div>
           <div className="folder-card-title">{toolName}</div>
-          {actionButtons}
+          <div className="subtext">click to download</div>
         </div>
       </CardContent>
     </Card>

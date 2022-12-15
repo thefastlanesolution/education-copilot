@@ -58,11 +58,12 @@ const RecipeBuilder = () => {
   // URL States
   const [fileUrl, setFileUrl] = useState(null);
   const [lessonUrl, setLessonUrl] = useState(null);
-  const [powerpointUrl, setPowerpointUrl] = useState(null);
+  const [powerpointUrl, setPowerpointUrl2] = useState(null);
   const [educationUrl, setEducationUrl] = useState(null);
   const [writingUrl, setWritingUrl] = useState(null);
 
   // Powerpoint State
+  const [pptBlob, setPPTBlob] = useState(null);
   const [name, setName] = useState('');
   const [headerText, setHeaderText] = useState('');
   const [bodyText, setBodyText] = useState('');
@@ -219,7 +220,7 @@ const RecipeBuilder = () => {
 
   // API Request Function to get the generated text and set the states for the lesson plan sections
 
-  const handleSubmit = event => {
+  const handleSubmit = async event => {
     event.preventDefault();
     // Check if the user has entered a subject
     if (!subject) {
@@ -289,7 +290,7 @@ const RecipeBuilder = () => {
 
     // If the Context checkbox is checked, make the API request
     if (checkbox3) {
-      fetchApi(
+      await fetchApi(
         subject,
         gradeLevel,
         setIsLoading,
@@ -582,6 +583,7 @@ const RecipeBuilder = () => {
 
   const handlePowerpointDownload = async () => {
     await generatePowerpoint(
+      setPowerpointUrl2,
       subject,
       gradeLevel,
       headerText,
@@ -613,8 +615,13 @@ const RecipeBuilder = () => {
       headerText14,
       bodyText14,
       headerText15,
-      bodyText15
+      bodyText15,
+      powerpointHasChanged,
+      setPPTBlob,
+      pptBlob,
+      powerpointUrl
     );
+    console.log('the generate PowerPoint Function is done');
   };
 
   // React Hooks
@@ -681,17 +688,19 @@ const RecipeBuilder = () => {
           return (
             <>
               <div className="generatedfilecard">
-                <FileCard
-                  key={itemRef.name}
-                  type={name.includes('pptx') ? 'ppt' : 'pdf'}
-                  toolName={name.length > 50 ? truncateText(name) : name}
-                  // fileUrl={downloadURL}
-                  lastName={
-                    <Document file={downloadURL}>
-                      <Page pageNumber={1} scale={0.3} />
-                    </Document>
-                  }
-                />
+                <a href={`${downloadURL}`} target="_blank">
+                  <FileCard
+                    key={itemRef.name}
+                    type={name.includes('pptx') ? 'ppt' : 'pdf'}
+                    toolName={name.length > 50 ? truncateText(name) : name}
+                    // fileUrl={downloadURL}
+                    lastName={
+                      <Document file={downloadURL}>
+                        <Page pageNumber={1} scale={0.3} />
+                      </Document>
+                    }
+                  />
+                </a>
               </div>
             </>
           );

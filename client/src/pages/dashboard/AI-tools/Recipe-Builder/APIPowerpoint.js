@@ -1,4 +1,5 @@
 import { decode } from 'html-entities';
+import { useEffect, useState } from 'react';
 
 // Powerpoint Imports
 import PPTXGenJS from 'pptxgenjs';
@@ -42,7 +43,9 @@ export async function fetchPowerpoint(
   setHeaderText14,
   setBodyText14,
   setHeaderText15,
-  setBodyText15
+  setBodyText15,
+  bodyText14,
+  powerpointHasChanged
 ) {
   console.log(
     'fetchApi has started, this is the first line of code rendered from this function'
@@ -72,73 +75,70 @@ export async function fetchPowerpoint(
     .then(response => response.json())
     .then(result => {
       setIsLoading(false);
-      console.log('powerPointCompletion ===', result);
       let textResult = decode(result.choices[0].text);
-      // textResult = nl2br(textResult);
-      console.log('textResult ===', textResult);
 
       // Header 1
       var regex = /<header1>(.*?)<header1>/s;
       var match = regex.exec(textResult);
-      console.log(match);
+      //console.log(match);
       var header1 = match[1];
       setHeaderText(header1);
 
       // Body 1
       var regex = /<body1>(.*?)<body1>/s;
       var match = regex.exec(textResult);
-      console.log(match);
+      //console.log(match);
       var body1 = match[1];
       setBodyText(body1);
 
       // Header 2
       var regex = /<header2>(.*?)<header2>/s;
       var match = regex.exec(textResult);
-      console.log(match);
+      //console.log(match);
       var header2 = match[1];
       setHeaderText2(header2);
 
       // Body 2
       var regex = /<body2>(.*?)<body2>/s;
       var match = regex.exec(textResult);
-      console.log(match);
+      //console.log(match);
       var body2 = match[1];
       setBodyText2(body2);
 
       // Header 3
       var regex = /<header3>(.*?)<header3>/s;
       var match = regex.exec(textResult);
-      console.log(match);
+      //console.log(match);
       setHeaderText3(match[1]);
 
       // Body 3
       var regex = /<body3>(.*?)<body3>/s;
       var match = regex.exec(textResult);
-      console.log(match);
+      //console.log(match);
       setBodyText3(match[1]);
 
       // Header 4
       var regex = /<header4>(.*?)<header4>/s;
       var match = regex.exec(textResult);
-      console.log(match);
+      //console.log(match);
       setHeaderText4(match[1]);
 
       // Body 4
       var regex = /<body4>(.*?)<body4>/s;
       var match = regex.exec(textResult);
-      console.log(match);
+      //console.log(match);
       setBodyText4(match[1]);
 
       // Header 5
       var regex = /<header5>(.*?)<header5>/s;
       var match = regex.exec(textResult);
-      console.log(match);
+      //console.log(match);
       setHeaderText5(match[1]);
 
       // Body 5
       var regex = /<body5>(.*?)<body5>/s;
       var match = regex.exec(textResult);
-      console.log(match);
+      //console.log(match);
       setBodyText5(match[1]);
 
       // Header 6
@@ -230,6 +230,7 @@ export async function fetchPowerpoint(
       var regex = /<body14>(.*?)<body14>/s;
       var match = regex.exec(textResult);
       setBodyText14(match[1]);
+      console.log(bodyText14);
 
       // Header 15
       if (textResult.includes('<header15>')) {
@@ -252,6 +253,20 @@ export async function fetchPowerpoint(
         generatedText: result.choices[0].text,
       };
 
+      // setPowerpointHasChanged(true);
+
+      // console.log('powerpointHasChanged ===', powerpointHasChanged);
+
+      // // wait 100 ms before setting the documentHasChanged state to false
+      // setTimeout(() => {
+      //   setPowerpointHasChanged(false);
+      // }, 100);
+
+      // console.log('powerpointHasChanged ===', powerpointHasChanged);
+      console.log('last line of the fetchApi function');
+    })
+    .then(() => {
+      console.log('this should come after the fetch');
       setPowerpointHasChanged(true);
 
       // wait 100 ms before setting the documentHasChanged state to false
@@ -265,6 +280,7 @@ export async function fetchPowerpoint(
 // Outside of the fetchApi function, we will now create the generatePowerpoint
 
 export async function generatePowerpoint(
+  setPowerpointUrl2,
   subject,
   gradeLevel,
   headerText,
@@ -296,11 +312,14 @@ export async function generatePowerpoint(
   headerText14,
   bodyText14,
   headerText15,
-  bodyText15
+  bodyText15,
+  powerpointUrl
 ) {
   let pptx = new PPTXGenJS();
 
-  console.log(subject);
+  console.log(
+    'Now we are inside of the generatePowerpoint function, inside of the APIpowerpoint.js file.'
+  );
 
   // Create slide 1 Header
   let slide1 = pptx.addSlide();
@@ -678,12 +697,24 @@ export async function generatePowerpoint(
 
   console.log(storageRef);
 
-  await pptx.write('blob').then(data => {
-    const blobData = new Blob([data], {
-      type: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-    });
+  const powerpoint = await pptx.write('blob');
 
-    uploadBytes(recipeRef, blobData);
-    uploadBytes(storageRef, blobData);
+  const blobData = new Blob([powerpoint], {
+    type: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
   });
+
+  await uploadBytes(recipeRef, blobData).then(snapshot => {
+    console.log('Uploaded a blob or file!');
+  });
+
+  await uploadBytes(storageRef, blobData).then(snapshot => {
+    console.log('Uploaded a blob or file!');
+  });
+
+  const url = await getDownloadURL(storageRef);
+  console.log(url);
+
+  setPowerpointUrl2(url);
+
+  console.log('pptx uploaded');
 }
