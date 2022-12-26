@@ -5,8 +5,8 @@ const lessonPlannerV2Completion = async (req, res) => {
   const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
   });
-  const { subject, gradeLevel } = req.body;
-  console.log('req param', req.body, subject, gradeLevel);
+  const { subject, gradeLevel, overviewText } = req.body;
+  console.log('req param', req.body);
   const openai = new OpenAIApi(configuration);
   openai
     .createCompletion({

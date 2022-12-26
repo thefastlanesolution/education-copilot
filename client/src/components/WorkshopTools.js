@@ -1,26 +1,10 @@
-import { useAppContext } from '../context/appContext';
-import { useEffect } from 'react';
-import Loading from './Loading';
 import Student from './Tool';
 import Wrapper from '../assets/wrappers/WorkshopTools';
-import PageBtnContainer from './PageBtnContainer';
 import { ImMagicWand } from 'react-icons/im';
 import { ImPlus } from 'react-icons/im';
 import './WorkshopTools.css';
 
 const JobsContainer = () => {
-  const {
-    getStudents,
-    students,
-    isLoading,
-    page,
-    totalStudents,
-    search,
-    searchStatus,
-    sort,
-    numOfPages,
-  } = useAppContext();
-
   return (
     <div className="workshop">
       <div className="pageheader">
@@ -130,10 +114,6 @@ const JobsContainer = () => {
             lastName="parent-emails"
             studentEmail="Generate a parent email for a student. This tool is great for keeping parents informed about their child's progress."
           />
-
-          {students.map(student => {
-            return <Student key={student._id} {...student} />;
-          })}
         </div>
         {/* {numOfPages > 1 && <PageBtnContainer />} */}
       </Wrapper>

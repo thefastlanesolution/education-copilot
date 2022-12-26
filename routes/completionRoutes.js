@@ -16,6 +16,11 @@ import { englishToSpanishCompletion } from '../controllers/AI Tools/EnglishtoSpa
 import { powerPointCompletion } from '../controllers/AI Tools/powerPointController.js';
 import { lessonPlannerV2Completion } from '../controllers/AI Tools/lessonPlanV2Controller.js';
 import { educationalHandoutCompletion } from '../controllers/AI Tools/educationalController.js';
+import { unitOverviewCompletion } from '../controllers/Unit Planner/unitOverviewCompletion.js';
+import { studentObjectivesCompletion } from '../controllers/Unit Planner/studentObjectivesCompletion.js';
+import { essentialQuestionsCompletion } from '../controllers/Unit Planner/essentialQuestionsCompletion.js';
+import { contextBuilderCompletionUnit } from '../controllers/Unit Planner/contextBuilderCompletionUnit.js';
+import { educationalHandoutCompletionUnit } from '../controllers/Unit Planner/educationalHandoutCompletionUnit.js';
 
 // Real Life Benefits
 router.post('/benefitsCompletion', (req, res) => {
@@ -105,6 +110,36 @@ router.post('/powerPointCompletion', (req, res) => {
 router.post('/educationalHandoutCompletion', (req, res) => {
   console.log('educationalHandoutCompletion api call ===');
   educationalHandoutCompletion(req, res);
+});
+
+// Unit Overview
+router.post('/unitOverviewCompletion', (req, res) => {
+  console.log('unitOverviewCompletion api call ===');
+  unitOverviewCompletion(req, res);
+});
+
+// Student Objectives
+router.post('/studentObjectivesCompletion', (req, res) => {
+  console.log('studentObjectivesCompletion api call ===');
+  studentObjectivesCompletion(req, res);
+});
+
+// Essential Questions
+router.post('/essentialQuestionsCompletion', (req, res) => {
+  console.log('essentialQuestionsCompletion api call ===');
+  essentialQuestionsCompletion(req, res);
+});
+
+// contextBuilderCompletionUnit
+router.post('/contextBuilderCompletionUnit', (req, res) => {
+  console.log('contextBuilderCompletionUnit api call ===');
+  contextBuilderCompletionUnit(req, res);
+});
+
+// educationalHandoutCompletionUnit
+router.post('/educationalHandoutCompletionUnit', (req, res) => {
+  console.log('educationalHandoutCompletionUnit api call ===');
+  educationalHandoutCompletionUnit(req, res);
 });
 
 export default router;

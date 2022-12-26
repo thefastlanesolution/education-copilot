@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import './VideoList.css';
 
 function VideoList(props) {
   const [videos, setVideos] = useState([]);
 
   useEffect(() => {
     async function getVideos() {
-      const API_KEY = 'AIzaSyA3Pad8R-7NgSM213hPpfGOoAhxfeMxluY';
-      const query = 'Introduction to the California Gold Rush';
+      const API_KEY = 'AIzaSyADxCUxI5kMANSjaWLe358Jk3_NGhPYvlk';
+      const query = props.lessonTopic;
       const result = await axios.get(
         'https://www.googleapis.com/youtube/v3/search',
         {
@@ -17,11 +18,11 @@ function VideoList(props) {
             type: 'video',
             part: 'id,snippet',
             maxResults: 3,
-            order: 'viewCount',
+            videoDuration: 'medium',
           },
         }
       );
-
+      console.log('getting videos');
       setVideos(result.data.items);
     }
 
@@ -31,16 +32,17 @@ function VideoList(props) {
   return (
     <div>
       {videos.map(video => (
-        <div key={video.id.videoId}>
-          <h2>{video.snippet.title}</h2>
-          <p>{video.snippet.description}</p>
+        <div key={video.id.videoId} className="video-container">
           <iframe
+            className="video"
             title={video.snippet.title}
             src={`https://www.youtube.com/embed/${video.id.videoId}`}
             frameBorder="0"
             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
+            width={320}
           ></iframe>
+          <div className="video-title">{video.snippet.title}</div>
         </div>
       ))}
     </div>

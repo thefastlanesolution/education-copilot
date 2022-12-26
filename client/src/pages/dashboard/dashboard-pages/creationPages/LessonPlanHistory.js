@@ -60,6 +60,7 @@ const LessonPlanHistory = () => {
             </>
           );
         });
+
         Promise.all(creationCardsPromises).then(creationCards => {
           setCreationCards(creationCards);
           setDataLoaded(true);

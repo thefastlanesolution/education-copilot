@@ -71,3 +71,27 @@
 .creations-header {
   margin-top: 1.5rem;
 }
+
+.unitpage {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2rem;
+}
+
+.bodyText {
+  border-radius: 7px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+}
+
+.completion {
+  padding: 1rem;
+  border-radius: 7px;
+  background-color: white;
+  border: #7d5ff5 2px solid;
+}
+
+.completion:hover {
+  box-shadow: 0 0 8px #614abe;
+}

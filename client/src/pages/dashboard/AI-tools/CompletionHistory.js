@@ -131,10 +131,10 @@ const CompletionHistory = () => {
     return truncatedWords.join(' ') + ' ...';
   }
 
-  // Strips the output of HTML formatting
-  function stripHTMLTags(str) {
-    return str.replace(/<[^>]*>/g, ' ');
-  }
+  // // Strips the output of HTML formatting
+  // function stripHTMLTags(str) {
+  //   return str.replace(/<[^>]*>/g, ' ');
+  // }
 
   return (
     <>
@@ -170,7 +170,7 @@ const CompletionHistory = () => {
                     <strong>Tool:</strong> {doc.application}
                   </div>
                   <strong>Topic: </strong>
-                  {truncateText(stripHTMLTags(doc.subject))}
+                  {/* {truncateText(stripHTMLTags(doc.subject))} */}
                   {doc.gradeLevel && (
                     <React.Fragment>
                       <br />
@@ -180,7 +180,7 @@ const CompletionHistory = () => {
                   )}
                   <br />
                   <strong>Output: </strong>
-                  {truncateText(stripHTMLTags(doc.generatedText))}
+                  {/* {truncateText(stripHTMLTags(doc.generatedText))} */}
                 </p>
               ))}
             </div>

@@ -1,6 +1,15 @@
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
+import {
+  collection,
+  getDocs,
+  query,
+  where,
+  orderBy,
+  doc,
+  updateDoc,
+} from 'firebase/firestore';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -22,3 +31,6 @@ const app = initializeApp(firebaseConfig);
 export const storage = getStorage(app);
 
 export const db = getFirestore();
+
+export const unitsCollection = collection(db, 'units');
+export const unitDoc = doc(db, 'units', 'VFrRmfZwzLVh6F91Xln1');

@@ -9,7 +9,6 @@ const NavLinks = ({ toggleSidebar }) => {
 
         return (
           <NavLink
-            exact
             to={path}
             key={id}
             onClick={toggleSidebar}
