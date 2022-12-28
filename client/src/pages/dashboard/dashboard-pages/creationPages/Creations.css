@@ -72,18 +72,12 @@
   margin-top: 1.5rem;
 }
 
-.unitpage {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 2rem;
-}
-
-.bodyText {
+/* .bodyText {
   border-radius: 7px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 1rem;
-}
+} */
 
 .completion {
   padding: 1rem;

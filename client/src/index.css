@@ -222,9 +222,9 @@ ul {
   margin: 3rem auto;
   transition: var(--transition);
 }
-.form:hover {
+/* .form:hover {
   box-shadow: var(--shadow-4);
-}
+} */
 .form-label {
   display: block;
   font-size: var(--smallText);

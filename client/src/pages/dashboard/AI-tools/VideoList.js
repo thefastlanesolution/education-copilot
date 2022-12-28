@@ -7,7 +7,7 @@ function VideoList(props) {
 
   useEffect(() => {
     async function getVideos() {
-      const API_KEY = 'AIzaSyADxCUxI5kMANSjaWLe358Jk3_NGhPYvlk';
+      const API_KEY = 'AIzaSyA3Pad8R-7NgSM213hPpfGOoAhxfeMxluY';
       const query = props.lessonTopic;
       const result = await axios.get(
         'https://www.googleapis.com/youtube/v3/search',
