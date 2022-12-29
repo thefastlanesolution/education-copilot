@@ -44,6 +44,8 @@ import EducationalHandout from './pages/dashboard/AI-tools/EducationalHandout';
 import EducationalHandoutHistory from './pages/dashboard/dashboard-pages/creationPages/EducationalHandoutHistory.js';
 import WritingPromptHistory from './pages/dashboard/dashboard-pages/creationPages/writingPromptHistory.js';
 import UnitPlanner from './pages/dashboard/UnitPlanner/UnitPlanner.js';
+import UnitPlanner1 from './pages/dashboard/UnitPlanner/UnitPlanner1.js';
+import UnitHistory from './pages/dashboard/UnitPlanner/UnitHistory.js';
 import UnitPreview from './pages/dashboard/UnitPlanner/UnitPreview.js';
 import VideoList from './pages/dashboard/AI-tools/VideoList.js';
 
@@ -98,7 +100,9 @@ function App() {
               <Route path="lessonplannerv2" element={<LessonPlannerV2 />} />
               <Route path="creations" element={<Creations />} />
               <Route path="context-builder" element={<ContextBuilder />} />
+              <Route path="unit-history" element={<UnitHistory />} />
               <Route path="unit-planner" element={<UnitPlanner />} />
+              <Route path="unit-planner1" element={<UnitPlanner1 />} />
               <Route path="recipe-builder" element={<RecipeBuilder />} />
               <Route
                 path="creations/educational-handouts"

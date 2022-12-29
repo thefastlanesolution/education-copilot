@@ -21,6 +21,8 @@ import { studentObjectivesCompletion } from '../controllers/Unit Planner/student
 import { essentialQuestionsCompletion } from '../controllers/Unit Planner/essentialQuestionsCompletion.js';
 import { contextBuilderCompletionUnit } from '../controllers/Unit Planner/contextBuilderCompletionUnit.js';
 import { educationalHandoutCompletionUnit } from '../controllers/Unit Planner/educationalHandoutCompletionUnit.js';
+import { unitIdeaCompletion } from '../controllers/Unit Planner/unitIdeaCompletion.js';
+import { unitObjectivesCompletion } from '../controllers/Unit Planner/unitObjectivesCompletion.js';
 
 // Real Life Benefits
 router.post('/benefitsCompletion', (req, res) => {
@@ -140,6 +142,18 @@ router.post('/contextBuilderCompletionUnit', (req, res) => {
 router.post('/educationalHandoutCompletionUnit', (req, res) => {
   console.log('educationalHandoutCompletionUnit api call ===');
   educationalHandoutCompletionUnit(req, res);
+});
+
+// unitIdeaCompletion
+router.post('/unitIdeaCompletion', (req, res) => {
+  console.log('unitIdeaCompletion api call ===');
+  unitIdeaCompletion(req, res);
+});
+
+// unitObjectivesCompletion
+router.post('/unitObjectivesCompletion', (req, res) => {
+  console.log('unitObjectivesCompletion api call ===');
+  unitObjectivesCompletion(req, res);
 });
 
 export default router;

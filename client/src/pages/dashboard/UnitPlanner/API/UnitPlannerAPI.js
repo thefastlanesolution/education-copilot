@@ -5,12 +5,6 @@ import { useEffect, useState, useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { decode } from 'html-entities';
 
-// Design Imports
-import FormRow from '../../../components/FormRow';
-import Wrapper from '../../../assets/wrappers/WorkshopTools';
-import { ImHistory } from 'react-icons/im';
-import '../dashboard-pages/creationPages/Creations.css';
-
 // Firebase Imports
 import {
   collection,
@@ -24,21 +18,13 @@ import {
   addDoc,
 } from 'firebase/firestore';
 import { getAuth } from '@firebase/auth';
-import { db } from '../../../firebase.config';
+import { db } from '../../../../firebase.config';
 
-const UnitPlanner = () => {
+const UnitPlanner = props => {
   // States
   const [completionsForUser, setCompletionsForUser] = useState([]);
   const [unitUpdated, setUnitUpdated] = useState(false);
-  const [unitCovers, setUnitCovers] = useState('');
-  const [standards, setStandards] = useState('');
   const [unitID, setUnitID] = useState('');
-  const [unitName, setUnitName] = useState('');
-  const [unitStandards, setUnitStandards] = useState('');
-  const [unitDetails, setUnitDetails] = useState('');
-  const [unitLength, setUnitLength] = useState('');
-  const [time, setTime] = useState('');
-  const [gradeLevel, setGradeLevel] = useState('');
   const [completion, setCompletion] = useState({
     unitName: '',
     unitLength: '',
@@ -46,6 +32,18 @@ const UnitPlanner = () => {
     gradeLevel: '',
     id: '',
   });
+
+  const unitName = props.unitName;
+  const unitStandards = props.unitStandards;
+  const unitDetails = props.unitDetails;
+  const unitLength = props.unitLength;
+
+  useEffect(() => {
+    console.log('unitName', unitName);
+    console.log('unitStandards', unitStandards);
+    console.log('unitDetails', unitDetails);
+    console.log('unitLength', unitLength);
+  }, [unitName, unitStandards, unitDetails, unitLength]);
 
   // Match States
   const [matchTitle, setMatchTitle] = useState(null);
@@ -542,106 +540,12 @@ const UnitPlanner = () => {
 
   // eslint-disable
   return (
-    <div className="creations">
-      <div className="pageheader">
-        <div>{<ImHistory className="historyicon" />} Unit Planner</div>
-      </div>
-      <Wrapper>
-        <div className="unitpage">
-          <div
-            className="createUnit"
-            style={{ maxWidth: '400px', marginBottom: '2rem' }}
-          >
-            <form onSubmit={onSubmit}>
-              <div
-                style={{
-                  fontSize: '1.3rem',
-                  fontFamily: 'inter',
-                  fontWeight: '700',
-                  marginBottom: '1rem',
-                }}
-              >
-                Create a New Unit
-              </div>
-              <FormRow
-                type="text"
-                placeHolder="Ancient Egypt"
-                labelText="Topic:"
-                name="unitName"
-                value={unitName}
-                handleChange={e => setUnitName(e.target.value)}
-              />
-              <FormRow
-                type="text"
-                labelText="This unit plan should cover:"
-                placeHolder="Students analyze the geographic, political, economic, religious, and social structures of the early civilizations of Mesopotamia, Egypt, and Kush"
-                name="unitName"
-                value={unitDetails}
-                handleChange={e => setUnitDetails(e.target.value)}
-              />
-              <FormRow
-                type="text"
-                labelText="Unit Length:"
-                name="unitLength"
-                placeHolder={'10 days'}
-                value={unitLength}
-                handleChange={e => setUnitLength(e.target.value)}
-              />
-              <FormRow
-                type="text"
-                labelText="Time per Day:"
-                name="time"
-                placeHolder={'1 hour'}
-                value={time}
-                handleChange={e => setTime(e.target.value)}
-              />
-              <FormRow
-                type="text"
-                labelText="Standards:"
-                placeHolder="1. Locate and describe the major river systems and discuss the physical settings that supported permanent settlement and early civilizations. 2. Trace the development of agricultural techniques that permitted the production of economic surplus and the emergence of cities as centers of culture and power. 3. Understand the relationship between religion and the social and political order in Mesopotamia and Egypt. 4. Know the significance of Hammurabi's Code. 5. Discuss the main features of Egyptian art and architecture. 6. Describe the role of Egyptian trade in the eastern Mediterranean and Nile valley. 7. Understand the significance of Queen Hatshepsut and Ramses the Great. 8. Identify the location of the Kush civilization and describe its political, commercial, and cultural relations with Egypt. 9. Trace the evolution of language and its written forms."
-                name="standards"
-                value={unitStandards}
-                handleChange={e => setUnitStandards(e.target.value)}
-              />
-              <button className="btn btn-block" type="submit">
-                Create New Unit
-              </button>
-            </form>
-          </div>
-          <div className="unithistory">
-            <div
-              className="historyheader"
-              style={{
-                fontSize: '1.3rem',
-                fontFamily: 'inter',
-                fontWeight: '700',
-                marginBottom: '1rem',
-              }}
-            >
-              {' '}
-              Unit History
-            </div>
-            <div className="bodyText">
-              {completionsForUser.map((doc, index) => (
-                <p
-                  className="completion"
-                  key={index}
-                  onClick={() => navigate(`/unit-planner/${doc.id}`)}
-                  style={{ cursor: 'pointer' }}
-                >
-                  <div>
-                    <strong>Unit Topic: </strong>
-                    {doc.unitName}
-                  </div>
-                  <div>
-                    <strong>Unit Length:</strong> {doc.unitLength} days
-                  </div>
-                </p>
-              ))}
-            </div>
-          </div>
-        </div>
-      </Wrapper>
+    <div className="unitpage">
+      <form onSubmit={onSubmit}>
+        <button className="btn btn-block create" type="submit">
+          Create Unit 🚀
+        </button>
+      </form>
     </div>
   );
 };

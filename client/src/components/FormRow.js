@@ -5,6 +5,10 @@ const FormRow = ({
   handleChange,
   labelText,
   placeHolder,
+  min,
+  max,
+  disabled,
+  style,
 }) => {
   return (
     <div className="form-row">
@@ -13,12 +17,16 @@ const FormRow = ({
       </label>
       <input
         type={type}
+        min={min}
+        max={max}
+        disabled={disabled}
         value={value}
         name={name}
         autoComplete="smartystreets"
         onChange={handleChange}
         className="form-input"
         placeholder={placeHolder}
+        style={style}
       />
     </div>
   );

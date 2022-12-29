@@ -6,12 +6,7 @@ import { Link, useParams } from 'react-router-dom';
 // CSS & Design Component Imports
 import { decode } from 'html-entities';
 
-// PDF Imports
-import { PDFDownloadLink, pdf } from '@react-pdf/renderer';
-import PDF from '../../AI-tools/LessonPDF';
-
 // Firebase Imports
-import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { db } from '../../../../firebase.config';
 import { addDoc, collection, doc, updateDoc, getDoc } from 'firebase/firestore';
 import { getAuth } from '@firebase/auth';
@@ -22,7 +17,7 @@ import { getAuth } from '@firebase/auth';
 //
 ///////////////////////////
 
-const EssentialQuestions = ({ overview, dayNumber, unitDetails }) => {
+const UnitIdeaButton = ({ overview, dayNumber, unitDetails }) => {
   // API Request & Response States
 
   const [studentObjectives, setStudentObjectives] = useState('');
@@ -94,13 +89,13 @@ const EssentialQuestions = ({ overview, dayNumber, unitDetails }) => {
     };
 
     fetch(
-      `${window.location.origin}/api/v1/completions/essentialQuestionsCompletion`,
+      `${window.location.origin}/api/v1/completions/unitIdeaCompletion`,
       requestOptions
     )
       .then(response => response.json())
       .then(result => {
         setIsLoading(false);
-        console.log('essentialQuestionsCompletion ===', result);
+        console.log('unitIdeaCompletion ===', result);
         let textResult = result.choices[0].text;
         setCompletion({
           generatedText: textResult,
@@ -223,4 +218,4 @@ const EssentialQuestions = ({ overview, dayNumber, unitDetails }) => {
   return <div>{buttonJSX}</div>;
 };
 
-export default EssentialQuestions;
+export default UnitIdeaButton;
