@@ -557,6 +557,26 @@ const UnitPlanner = props => {
     }
   }, [unitUpdated]);
 
+  const countdown = () => {
+    let timeLeft = unitLength * 4;
+
+    // Create a timer loop
+    const timer = setInterval(() => {
+      // If time left is greater than 0
+      if (timeLeft > 0) {
+        // Update timeLeft
+        timeLeft -= 1;
+
+        // Update the timer
+        document.querySelector('.countdown').innerHTML = `${timeLeft} seconds`;
+      }
+      // Else clear the timer
+      else {
+        clearInterval(timer);
+      }
+    }, 1000);
+  };
+
   // eslint-disable
   return (
     <div className="unitpage">
@@ -571,12 +591,8 @@ const UnitPlanner = props => {
             <RiseLoader color={'white'} loading={isLoading} size={7} />
           )}
         </button>
+        {isLoading && <div className="countdown">{countdown()}</div>}
       </form>
-      {/* <div>
-        <ClipLoader color={'#7d5ff5'} loading={isLoading} size={150} />
-        <RingLoader color={'#7d5ff5'} loading={isLoading} size={150} />
-        <PacmanLoader color={'#7d5ff5'} loading={isLoading} size={90} />
-      </div> */}
     </div>
   );
 };

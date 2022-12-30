@@ -1,0 +1,46 @@
+.unithistory-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 1.5rem;
+  margin: 1rem 0;
+}
+
+.unithistory-name {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0;
+  font-family: 'inter';
+}
+
+.unithistory-length {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0;
+  font-family: 'inter';
+}
+
+.unithistory-icon {
+  margin-right: 5px;
+  transform: translateY(2px);
+}
+
+.unithistory-card {
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 1rem;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+}
+
+.unithistory-card:hover {
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  background-color: #f5f5f5;
+}
+
+.history-text {
+  margin-left: 5px !important;
+  font-size: 0.9rem;
+  font-weight: 400;
+  margin: 0;
+  font-family: 'inter';
+  transform: translate(-5px, 0.5px);
+}

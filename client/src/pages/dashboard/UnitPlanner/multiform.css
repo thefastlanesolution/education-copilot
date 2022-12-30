@@ -214,3 +214,25 @@
 .unit-loader {
   transform: translateY(-9px);
 }
+
+.history-btn {
+  background-color: white;
+  color: #7d5ff5;
+}
+
+.history-btn:hover {
+  background-color: #7d5ff5;
+  color: white;
+}
+
+.history-text {
+  margin-right: 8px;
+}
+
+.countdown {
+  text-align: center;
+  font-style: italic;
+  font-size: 0.8rem;
+  color: #777777;
+  margin-top: 0.2rem;
+}

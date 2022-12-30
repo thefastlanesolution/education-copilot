@@ -12,6 +12,7 @@ import EducationalHandoutButton from '../pages/dashboard/UnitPlanner/API/Educati
 import ContextBuilderButton from '../pages/dashboard/UnitPlanner/API/ContextBuilderAPI';
 import VideoList from '../pages/dashboard/AI-tools/VideoList';
 import { decode } from 'html-entities';
+import { IoEyeSharp, IoTimerOutline } from 'react-icons/io5';
 
 // Acordian imports
 import Accordion from '@mui/material/Accordion';
@@ -133,7 +134,12 @@ const Tool = ({ title, lastName, overview, day, dayNumber, unitDetails }) => {
                     <Typography
                       variant="body2"
                       // onClick={handleClick}
-                      style={{ marginBottom: '1rem', padding: '1rem' }}
+                      style={{
+                        marginBottom: '1rem',
+                        padding: '1.5rem',
+                        fontFamily: 'cabin',
+                        fontSize: '16px',
+                      }}
                       dangerouslySetInnerHTML={{
                         __html: overview1.replace(
                           /<br\s*\n?>/gi,
@@ -299,6 +305,8 @@ const Tool = ({ title, lastName, overview, day, dayNumber, unitDetails }) => {
                     fontWeight: '600',
                   }}
                 >
+                  {' '}
+                  <IoTimerOutline className="button-icon" />
                   {day}
                 </div>
               </article>
@@ -330,6 +338,8 @@ const Tool = ({ title, lastName, overview, day, dayNumber, unitDetails }) => {
                 className="btn btn-block drawerbtn"
                 onClick={() => setIsDrawerOpen(true)}
               >
+                {' '}
+                <IoEyeSharp className="button-icon" />
                 View Resources
               </button>
             </div>

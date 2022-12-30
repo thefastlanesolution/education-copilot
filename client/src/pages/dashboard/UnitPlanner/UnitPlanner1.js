@@ -1,6 +1,6 @@
 // React Imports
 import React, { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { decode } from 'html-entities';
 
@@ -10,8 +10,8 @@ import FormRow from '../../../components/FormRow';
 import {
   IoArrowDown,
   IoArrowForward,
-  IoBulb,
-  IoBulbOutline,
+  IoTimerOutline,
+  IoTimerSharp,
   IoBulbSharp,
 } from 'react-icons/io5';
 import UnitPlannerButton from '../UnitPlanner/API/UnitPlannerAPI';
@@ -152,6 +152,8 @@ const MultiStepForm = () => {
     setSubmittedData(formData);
   };
 
+  const navigate = useNavigate();
+
   switch (currentStep) {
     case 1:
       return (
@@ -162,17 +164,13 @@ const MultiStepForm = () => {
           </div>
           <IoArrowDown className="arrow" />
           <div className="form">
-            {/* <div className="form-subheader">Unit Overview</div>
-            <div className="form-subtext">
-              Let's create a unit plan using AI. We'll start with the basics.
-            </div> */}
             <form onSubmit={handleSubmit}>
               <button
                 className="btn btn-block"
                 type="button"
                 onClick={() => setCurrentStep(2)}
                 style={{
-                  height: '3rem',
+                  height: '2.8rem',
                   width: '100%',
                   display: 'flex',
                   justifyContent: 'center',
@@ -192,6 +190,43 @@ const MultiStepForm = () => {
                 </div>
               </button>
             </form>
+          </div>
+          <div
+            className="dividing-line"
+            style={{
+              width: '70%',
+              height: '2px',
+              backgroundColor: '#E5E5E5',
+              margin: '0 0 2rem 0',
+            }}
+          ></div>
+          <div>
+            <button
+              className="btn btn-block history-btn"
+              type="button"
+              onClick={() => navigate('/unit-history')}
+              style={{
+                height: '2.5rem',
+                width: '100%',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                boxShadow: 'none',
+                border: '2px solid #E5E5E5',
+              }}
+            >
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  gap: '1rem',
+                }}
+              >
+                <IoTimerOutline className="button-icon" />
+                <div className="history-text">Unit History</div>
+              </div>
+            </button>
           </div>
         </div>
       );

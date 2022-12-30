@@ -125,15 +125,15 @@ const Creations = () => {
       <Wrapper>
         <h5 className="folder-header">Folders</h5>
         <div className="archives">
-          {/* <Link to="/creations/recipes">
+          <Link to="/unit-history">
             <FolderCard
               className="creation-card"
               key="recipes"
-              toolName={`Recipes`}
+              toolName={`Unit Plans`}
               toolLink={`creations/recipes`}
               type="folder"
             />
-          </Link> */}
+          </Link>
           <Link to="/creations/lesson-plans">
             <FolderCard
               className="creation-card"

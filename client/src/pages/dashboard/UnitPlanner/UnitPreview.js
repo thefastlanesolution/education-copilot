@@ -6,6 +6,7 @@ import { decode } from 'html-entities';
 // Design Imports
 import Wrapper from '../../../assets/wrappers/WorkshopTools';
 import { ImMagicWand, ImArrowLeft2 } from 'react-icons/im';
+import { IoCalendarSharp, IoEyeSharp, IoTimerOutline } from 'react-icons/io5';
 import '../dashboard-pages/creationPages/Creations.css';
 import Day from '../../../components/UnitDay';
 import { Drawer, Box, Typography } from '@mui/material';
@@ -193,40 +194,38 @@ const UnitPreview = () => {
   return (
     <div className="creations">
       <Link to={'../unit-planner'}>
-        {<ImArrowLeft2 className="historyicon" />}Workshop
+        {<ImArrowLeft2 className="historyicon" />}Back to Unit Planner
       </Link>
-      <div className="pageheader">
-        <div>{<ImMagicWand className="historyicon" />} Unit Planner</div>
+      <div
+        className="pageheader"
+        style={{
+          marginTop: '1rem',
+        }}
+      >
+        <div>
+          {
+            <ImMagicWand
+              className="historyicon"
+              style={{ fontSize: '1.2rem' }}
+            />
+          }{' '}
+          {unitName}
+        </div>
+      </div>
+      <div
+        style={{
+          marginBottom: '1.3rem',
+          fontFamily: 'inter',
+          fontWeight: '500',
+          fontSize: '1.2rem',
+          transform: 'translateY(-.5rem)',
+          color: '#000000',
+        }}
+      >
+        {<IoCalendarSharp className="historyicon" />} {unitDetails.unitLength}{' '}
+        days
       </div>
       <Wrapper>
-        <div>
-          <Drawer
-            anchor="right"
-            open={isDrawerOpen}
-            onClose={() => setIsDrawerOpen(false)}
-          >
-            <Box sx={{ width: 400 }} p={2} role="presentation">
-              <Typography variant="h4">Unit Details</Typography>
-              <Typography variant="h6">Unit Name: {unitName}</Typography>
-              <Typography variant="h6">Unit Length: {unitLength}</Typography>
-              <Typography variant="h6">Time: {time}</Typography>
-              <Typography variant="h6">Grade Level: {gradeLevel}</Typography>
-            </Box>
-          </Drawer>
-        </div>
-        <button
-          style={{ width: '200px', marginBottom: '1.5rem' }}
-          className="btn btn-block"
-          onClick={() => setIsDrawerOpen(true)}
-        >
-          Unit Overview
-        </button>
-        <div>
-          <strong>Unit Name:</strong> {unitDetails.unitName}
-        </div>
-        <div style={{ marginBottom: '1.5rem' }}>
-          <strong>Unit Length</strong> {unitDetails.unitLength} days
-        </div>
         <div className="jobs">{dayCards}</div>
       </Wrapper>
     </div>

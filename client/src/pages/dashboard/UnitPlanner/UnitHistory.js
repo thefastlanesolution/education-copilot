@@ -8,7 +8,9 @@ import { decode } from 'html-entities';
 // Design Imports
 import Wrapper from '../../../assets/wrappers/WorkshopTools';
 import { ImHistory } from 'react-icons/im';
+import { IoCalendarSharp, IoEyeSharp, IoTimerOutline } from 'react-icons/io5';
 import '../dashboard-pages/creationPages/Creations.css';
+import './UnitHistory.css';
 
 // Firebase Imports
 import {
@@ -84,37 +86,78 @@ const UnitPlanner = () => {
   return (
     <div className="creations">
       <div className="pageheader">
-        <div>{<ImHistory className="historyicon" />} Unit Planner</div>
+        <div>{<ImHistory className="historyicon" />} Unit History</div>
+        <div>
+          <button
+            className="btn btn-block newunit-btn"
+            type="button"
+            onClick={() => navigate('/unit-planner')}
+            style={{
+              height: '2.5rem',
+              width: '100%',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              boxShadow: 'none',
+              border: '1px solid #E5E5E5',
+            }}
+          >
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                gap: '1rem',
+              }}
+            >
+              <IoCalendarSharp className="button-icon" />
+              <div className="history-text">New Unit</div>
+            </div>
+          </button>
+        </div>
       </div>
       <Wrapper>
         <div className="unithistory">
-          <div
-            className="historyheader"
-            style={{
-              fontSize: '1.3rem',
-              fontFamily: 'inter',
-              fontWeight: '700',
-              marginBottom: '1rem',
-            }}
-          >
-            {' '}
-            Unit History
-          </div>
-          <div className="bodyText">
+          <div className="unithistory-cards">
             {completionsForUser.map((doc, index) => (
               <p
-                className="completion"
+                className="unithistory-card"
                 key={index}
                 onClick={() => navigate(`/unit-planner/${doc.id}`)}
                 style={{ cursor: 'pointer' }}
               >
-                <div>
-                  <strong>Unit Topic: </strong>
-                  {doc.unitName}
+                <div className="unithistory-length">
+                  <IoTimerOutline className="unithistory-icon" />
+                  {doc.unitLength} days
                 </div>
-                <div>
-                  <strong>Unit Length:</strong> {doc.unitLength} days
-                </div>
+                <div className="unithistory-name">{doc.unitName}</div>
+                <button
+                  className="btn btn-block newunit-btn"
+                  type="button"
+                  onClick={() => navigate('/unit-planner')}
+                  style={{
+                    height: '2rem',
+                    width: '150px',
+                    display: 'flex',
+                    marginTop: '10px',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    boxShadow: 'none',
+                    border: '1px solid #E5E5E5',
+                  }}
+                >
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      gap: '1rem',
+                    }}
+                  >
+                    <IoEyeSharp className="button-icon" />
+                    <div className="history-text">View Unit</div>
+                  </div>
+                </button>
               </p>
             ))}
           </div>
