@@ -101,8 +101,8 @@ function App() {
               <Route path="creations" element={<Creations />} />
               <Route path="context-builder" element={<ContextBuilder />} />
               <Route path="unit-history" element={<UnitHistory />} />
-              <Route path="unit-planner" element={<UnitPlanner />} />
-              <Route path="unit-planner1" element={<UnitPlanner1 />} />
+              <Route path="unit-planner1" element={<UnitPlanner />} />
+              <Route path="unit-planner" element={<UnitPlanner1 />} />
               <Route path="recipe-builder" element={<RecipeBuilder />} />
               <Route
                 path="creations/educational-handouts"

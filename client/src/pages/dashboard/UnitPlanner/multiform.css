@@ -210,3 +210,7 @@
 .ai-generate {
   transform: translateY(-10px);
 }
+
+.unit-loader {
+  transform: translateY(-9px);
+}

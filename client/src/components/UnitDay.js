@@ -11,6 +11,7 @@ import EssentialQuestionsButton from '../pages/dashboard/UnitPlanner/API/Essenti
 import EducationalHandoutButton from '../pages/dashboard/UnitPlanner/API/EducationalHandoutAPI';
 import ContextBuilderButton from '../pages/dashboard/UnitPlanner/API/ContextBuilderAPI';
 import VideoList from '../pages/dashboard/AI-tools/VideoList';
+import { decode } from 'html-entities';
 
 // Acordian imports
 import Accordion from '@mui/material/Accordion';
@@ -24,14 +25,6 @@ const Tool = ({ title, lastName, overview, day, dayNumber, unitDetails }) => {
   const [overview1, setOverview] = useState(overview);
 
   // Gets the overview of the unit and splits each line based on the '-'
-  const splitOverview = overview => {
-    let split = overview.split('-');
-    return split.map(item => {
-      if (split.indexOf(item) > 0) {
-        return <div>- {item}</div>;
-      }
-    });
-  };
 
   const overviewState = overview;
 
@@ -93,6 +86,7 @@ const Tool = ({ title, lastName, overview, day, dayNumber, unitDetails }) => {
               className="day-details"
               style={{
                 border: '3px solid lightgrey',
+                marginBottom: '1rem',
               }}
             >
               <Typography
@@ -131,18 +125,22 @@ const Tool = ({ title, lastName, overview, day, dayNumber, unitDetails }) => {
                     <textarea
                       ref={textareaRef}
                       type="text"
-                      value={overview1}
+                      value={overview1.replace(/<br\s*\/?>/gi, '')}
                       onChange={handleChange}
                       className="lessonoverview-textarea"
                     />
                   ) : (
                     <Typography
                       variant="body2"
-                      onClick={handleClick}
-                      style={{ marginBottom: '1rem', padding: '.7rem' }}
-                    >
-                      {splitOverview(overview)}
-                    </Typography>
+                      // onClick={handleClick}
+                      style={{ marginBottom: '1rem', padding: '1rem' }}
+                      dangerouslySetInnerHTML={{
+                        __html: overview1.replace(
+                          /<br\s*\n?>/gi,
+                          '<p style="margin-top: 0.5rem; margin-bottom: 0.5em;">'
+                        ),
+                      }}
+                    />
                   )}
                 </AccordionDetails>
               </Accordion>
@@ -164,13 +162,15 @@ const Tool = ({ title, lastName, overview, day, dayNumber, unitDetails }) => {
                     Student Objectives
                   </Typography>
                 </AccordionSummary>
-                <AccordionDetails>
-                  <StudentObjectivesButton
-                    overview={overviewState}
-                    dayNumber={`day${dayNumber}`}
-                    unitDetails={unitDetails}
-                  />
-                </AccordionDetails>
+                <div className="studentobjectives-container">
+                  <AccordionDetails>
+                    <StudentObjectivesButton
+                      overview={overviewState}
+                      dayNumber={`day${dayNumber}`}
+                      unitDetails={unitDetails}
+                    />
+                  </AccordionDetails>
+                </div>
               </Accordion>
               <Accordion>
                 <AccordionSummary
@@ -190,15 +190,17 @@ const Tool = ({ title, lastName, overview, day, dayNumber, unitDetails }) => {
                     Essential Questions
                   </Typography>
                 </AccordionSummary>
-                <AccordionDetails>
-                  <EssentialQuestionsButton
-                    overview={overviewState}
-                    dayNumber={`day${dayNumber}`}
-                    unitDetails={unitDetails}
-                  />
-                </AccordionDetails>
+                <div className="studentobjectives-container">
+                  <AccordionDetails>
+                    <EssentialQuestionsButton
+                      overview={overviewState}
+                      dayNumber={`day${dayNumber}`}
+                      unitDetails={unitDetails}
+                    />
+                  </AccordionDetails>
+                </div>
               </Accordion>
-              <Accordion>
+              {/* <Accordion>
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
                   aria-controls="panel2a-content"
@@ -223,12 +225,13 @@ const Tool = ({ title, lastName, overview, day, dayNumber, unitDetails }) => {
                     lobortis eget.
                   </Typography>
                 </AccordionDetails>
-              </Accordion>
+              </Accordion> */}
             </div>
             <div
               className="day-resources"
               style={{
                 border: '3px solid lightgrey',
+                marginBottom: '1rem',
               }}
             >
               <Typography
@@ -312,7 +315,15 @@ const Tool = ({ title, lastName, overview, day, dayNumber, unitDetails }) => {
                 {title}
               </Typography>
               <Typography sx={{ mb: 1.5 }} color="text.secondary"></Typography>
-              <Typography variant="body2">{overview}</Typography>
+              <Typography
+                variant="body2"
+                dangerouslySetInnerHTML={{
+                  __html: overview.replace(
+                    /\n/g,
+                    '<p style="margin-top: 0.5em; margin-bottom: 0.5em;">'
+                  ),
+                }}
+              ></Typography>
             </div>
             <div className="actionButtons" style={{ marginTop: '1rem' }}>
               <button

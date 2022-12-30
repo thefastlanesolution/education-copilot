@@ -42,3 +42,33 @@
 .css-15v22id-MuiAccordionDetails-root {
   padding: 0px !important;
 }
+
+/* Currently, all the dayCards are equal in height, but the CTA at the bottom of the card is at a different height for each card because of the content length above the CTA button. How can I fix this?   
+
+Answer in code:*/
+
+.dayCard {
+  display: grid;
+  grid-template-rows: 1fr;
+  height: 100%;
+}
+
+.css-46bh2p-MuiCardContent-root:last-child {
+  height: 100%;
+}
+
+/* Align all of the elements inside of this div in the center of the div */
+.studentobjectives-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.objectives-loader {
+  padding: 2rem;
+}
+
+.objectivestext-container {
+  padding: 0.4rem 0.8rem 0.4rem 0.8rem;
+}

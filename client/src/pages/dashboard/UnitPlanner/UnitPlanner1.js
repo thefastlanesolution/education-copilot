@@ -16,6 +16,7 @@ import {
 } from 'react-icons/io5';
 import UnitPlannerButton from '../UnitPlanner/API/UnitPlannerAPI';
 import UnitIdeaButton from '../UnitPlanner/API/UnitPlannerAPI';
+import RingLoader from 'react-spinners/RingLoader';
 
 // Unit Planner Component
 
@@ -199,10 +200,6 @@ const MultiStepForm = () => {
         <div className="container">
           <div className="headertext">First, let's give our unit a name...</div>
           <div className="form">
-            {/* <div className="form-subheader">Unit Overview</div>
-            <div className="form-subtext">
-              Let's create a unit plan using AI. We'll start with the basics.
-            </div> */}
             <form onSubmit={handleSubmit}>
               <FormRow
                 type="text"
@@ -215,7 +212,7 @@ const MultiStepForm = () => {
               />
               <FormRow
                 type="text"
-                labelText="Subject:"
+                labelText="Subject or Course:"
                 name="subject"
                 value={subject}
                 handleChange={e => setSubject(e.target.value)}
@@ -233,7 +230,8 @@ const MultiStepForm = () => {
                 <button
                   className="btn btn-block"
                   type="submit"
-                  disabled={isLoading}
+                  // disabled={isLoading}
+                  disabled={isLoading || unitName === '' || subject === ''}
                   onClick={() => setCurrentStep(3)}
                 >
                   {isLoading ? 'Please Wait...' : 'Next'}
@@ -259,6 +257,7 @@ const MultiStepForm = () => {
               <div className="label-row">
                 <label className="form-label">This unit should cover:</label>
                 <button
+                  disabled={isLoading}
                   className="ai-generate"
                   style={{
                     backgroundColor: 'white',
@@ -266,7 +265,20 @@ const MultiStepForm = () => {
                   }}
                   onClick={handleDetailsGeneration}
                 >
-                  <IoBulbSharp style={{ color: '#a665ff', fontSize: '1rem' }} />
+                  {!isLoading && (
+                    <>
+                      <IoBulbSharp
+                        style={{ color: '#a665ff', fontSize: '1rem' }}
+                      />
+                    </>
+                  )}
+                  {isLoading && (
+                    <RingLoader
+                      color={'#7d5ff5'}
+                      loading={isLoading}
+                      size={20}
+                    />
+                  )}
                 </button>
               </div>
               <textarea
@@ -277,16 +289,32 @@ const MultiStepForm = () => {
               />
               <div className="label-row" style={{ marginTop: '1.5rem' }}>
                 <label className="form-label">Standards / Objectives:</label>
-                <button
-                  className="ai-generate"
-                  style={{
-                    backgroundColor: 'white',
-                    border: '2px solid #a665ff',
-                  }}
-                  onClick={handleStandardGeneration}
-                >
-                  <IoBulbSharp style={{ color: '#a665ff', fontSize: '1rem' }} />
-                </button>
+                {unitDetails !== '' && (
+                  <button
+                    disabled={isLoading}
+                    className="ai-generate"
+                    style={{
+                      backgroundColor: 'white',
+                      border: '2px solid #a665ff',
+                    }}
+                    onClick={handleStandardGeneration}
+                  >
+                    {!isLoading && (
+                      <>
+                        <IoBulbSharp
+                          style={{ color: '#a665ff', fontSize: '1rem' }}
+                        />
+                      </>
+                    )}
+                    {isLoading && (
+                      <RingLoader
+                        color={'#7d5ff5'}
+                        loading={isLoading}
+                        size={20}
+                      />
+                    )}
+                  </button>
+                )}
               </div>
               <textarea
                 className="unit-textarea"
@@ -306,7 +334,8 @@ const MultiStepForm = () => {
               <button
                 className="btn btn-block"
                 type="submit"
-                disabled={isLoading}
+                // disabled={isLoading}
+                disabled={isLoading || unitDetails === ''}
                 onClick={() => setCurrentStep(4)}
               >
                 {isLoading ? 'Please Wait...' : 'Final Step'}
@@ -369,21 +398,11 @@ const MultiStepForm = () => {
               <button
                 className="btn btn-block back"
                 type="button"
+                disabled={isLoading}
                 onClick={() => setCurrentStep(3)}
               >
                 Back
               </button>
-              {/* <button
-                className="btn btn-block create"
-                type="submit"
-                disabled={isLoading}
-                style={{
-                  width: '110%',
-                  marginLeft: '-5%',
-                }}
-              >
-                {isLoading ? 'Please Wait...' : 'Create Unit 🚀'}
-              </button> */}
               <UnitPlannerButton
                 className="btn btn-block create"
                 unitName={unitName}

@@ -1,9 +1,14 @@
 // Hooks and React Imports
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState, useRef, useCallback } from 'react';
+import { useEffect, useState, useRef, useCallback, CSSProperties } from 'react';
 import { Link } from 'react-router-dom';
 import { decode } from 'html-entities';
+import ClipLoader from 'react-spinners/ClipLoader';
+import RingLoader from 'react-spinners/RingLoader';
+import PropagateLoader from 'react-spinners/PropagateLoader';
+import RiseLoader from 'react-spinners/RiseLoader';
+import '../multiform.css';
 
 // Firebase Imports
 import {
@@ -23,6 +28,7 @@ import { db } from '../../../../firebase.config';
 const UnitPlanner = props => {
   // States
   const [completionsForUser, setCompletionsForUser] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [unitUpdated, setUnitUpdated] = useState(false);
   const [unitID, setUnitID] = useState('');
   const [completion, setCompletion] = useState({
@@ -490,32 +496,45 @@ const UnitPlanner = props => {
 
   const onSubmit = async e => {
     e.preventDefault();
-    console.log('New unit created');
+    setIsLoading(true);
     await fetchApi(unitName, unitLength, unitStandards, unitDetails);
     await storeUnit(unitName, unitLength, unitStandards, unitDetails);
   };
 
+  function nl2br(str, is_xhtml) {
+    var breakTag =
+      is_xhtml || typeof is_xhtml === 'undefined' ? '<br/>' : '<br>';
+    return (str + '').replace(
+      /([^>\r\n]?)(\r\n|\n\r|\r|\n)/g,
+      '$1' + breakTag + '$2'
+    );
+  }
+
   useEffect(() => {
     if (unitUpdated) {
+      // setIsLoading(false);
       const docRef = doc(db, 'units', unitID);
+      console.log('MATCHFIRST TEST ====', nl2br(matchFirst));
       updateDoc(docRef, {
-        // Overviews
-        // Set day1 to an object with a matchFirst property equal to the value of matchFirst if matchFirst is truthy, otherwise set it to an empty string
-        day1: { matchFirst: matchFirst ? matchFirst : '' },
-        day2: { matchSecond: matchSecond ? matchSecond : '' },
-        day3: { matchThird: matchThird ? matchThird : '' },
-        day4: { matchFourth: matchFourth ? matchFourth : '' },
-        day5: { matchFifth: matchFifth ? matchFifth : '' },
-        day6: { matchSixth: matchSixth ? matchSixth : '' },
-        day7: { matchSeventh: matchSeventh ? matchSeventh : '' },
-        day8: { matchEighth: matchEighth ? matchEighth : '' },
-        day9: { matchNinth: matchNinth ? matchNinth : '' },
-        day10: { matchTenth: matchTenth ? matchTenth : '' },
-        day11: { matchEleventh: matchEleventh ? matchEleventh : '' },
-        day12: { matchTwelfth: matchTwelfth ? matchTwelfth : '' },
-        day13: { matchThirteenth: matchThirteenth ? matchThirteenth : '' },
-        day14: { matchFourteenth: matchFourteenth ? matchFourteenth : '' },
-        day15: { matchFifteenth: matchFifteenth ? matchFifteenth : '' },
+        day1: { matchFirst: matchFirst ? nl2br(matchFirst) : '' },
+        day2: { matchSecond: matchSecond ? nl2br(matchSecond) : '' },
+        day3: { matchThird: matchThird ? nl2br(matchThird) : '' },
+        day4: { matchFourth: matchFourth ? nl2br(matchFourth) : '' },
+        day5: { matchFifth: matchFifth ? nl2br(matchFifth) : '' },
+        day6: { matchSixth: matchSixth ? nl2br(matchSixth) : '' },
+        day7: { matchSeventh: matchSeventh ? nl2br(matchSeventh) : '' },
+        day8: { matchEighth: matchEighth ? nl2br(matchEighth) : '' },
+        day9: { matchNinth: matchNinth ? nl2br(matchNinth) : '' },
+        day10: { matchTenth: matchTenth ? nl2br(matchTenth) : '' },
+        day11: { matchEleventh: matchEleventh ? nl2br(matchEleventh) : '' },
+        day12: { matchTwelfth: matchTwelfth ? nl2br(matchTwelfth) : '' },
+        day13: {
+          matchThirteenth: matchThirteenth ? nl2br(matchThirteenth) : '',
+        },
+        day14: {
+          matchFourteenth: matchFourteenth ? nl2br(matchFourteenth) : '',
+        },
+        day15: { matchFifteenth: matchFifteenth ? nl2br(matchFifteenth) : '' },
         // Titles
         title1: titleFirst ? titleFirst : '',
         title2: titleSecond ? titleSecond : '',
@@ -542,10 +561,22 @@ const UnitPlanner = props => {
   return (
     <div className="unitpage">
       <form onSubmit={onSubmit}>
-        <button className="btn btn-block create" type="submit">
-          Create Unit 🚀
+        <button
+          className="btn btn-block create"
+          type="submit"
+          disabled={isLoading}
+        >
+          {!isLoading && <>Create Unit 🚀</>}
+          {isLoading && (
+            <RiseLoader color={'white'} loading={isLoading} size={7} />
+          )}
         </button>
       </form>
+      {/* <div>
+        <ClipLoader color={'#7d5ff5'} loading={isLoading} size={150} />
+        <RingLoader color={'#7d5ff5'} loading={isLoading} size={150} />
+        <PacmanLoader color={'#7d5ff5'} loading={isLoading} size={90} />
+      </div> */}
     </div>
   );
 };

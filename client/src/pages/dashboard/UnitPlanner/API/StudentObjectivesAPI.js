@@ -5,6 +5,7 @@ import { Link, useParams } from 'react-router-dom';
 
 // CSS & Design Component Imports
 import { decode } from 'html-entities';
+import RingLoader from 'react-spinners/RingLoader';
 
 // PDF Imports
 import { PDFDownloadLink, pdf } from '@react-pdf/renderer';
@@ -31,7 +32,7 @@ const StudentObjectives = ({ overview, dayNumber, unitDetails }) => {
   });
   const [subject, setSubject] = useState('');
   const [gradeLevel, setGradeLevel] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [documentHasChanged, setDocumentHasChanged] = useState(false);
   const [documentSnap, setDocumentSnap] = useState('default snap');
   const [fileIsReady, setFileIsReady] = useState(false);
@@ -99,7 +100,6 @@ const StudentObjectives = ({ overview, dayNumber, unitDetails }) => {
     )
       .then(response => response.json())
       .then(result => {
-        setIsLoading(false);
         console.log('studentObjectivesCompletion ===', result);
         let textResult = result.choices[0].text;
         setCompletion({
@@ -178,47 +178,65 @@ const StudentObjectives = ({ overview, dayNumber, unitDetails }) => {
     const docSnap = await getDoc(unitRef);
 
     if (await docSnap.data()[dayNumber].studentobjectives) {
-      setButtonJSX(<div>{decode(documentSnap)}</div>);
+      setButtonJSX(
+        <div className="objectivestext-container">{decode(documentSnap)}</div>
+      );
     } else {
       setButtonJSX(
-        <button
-          className="btn btn-block"
-          type="submit"
-          onClick={handleSubmit}
-          style={{
-            backgroundColor: 'white',
-            color: '#1e90ff',
-            marginBottom: '1.5rem',
-            border: '1px dashed #1e90ff',
-            fontFamily: 'inter',
-            fontWeight: '600',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          Generate Objectives
-        </button>
+        isLoading ? (
+          <div className="objectives-loader">
+            <RingLoader color={'#7d5ff5'} loading={isLoading} size={50} />
+          </div>
+        ) : (
+          <button
+            className="btn btn-block btn-primary"
+            type="submit"
+            onClick={handleSubmit}
+            style={{
+              margin: '1.5rem',
+              width: '300px',
+              alignSelf: 'center',
+              display: 'flex',
+              justifyContent: 'center',
+            }}
+          >
+            <span
+              style={{
+                fontSize: '1.3rem',
+                fontWeight: '600',
+                marginRight: '5px',
+                marginBottom: '3px',
+              }}
+            >
+              +
+            </span>{' '}
+            Student Objectives
+          </button>
+        )
       );
     }
   }
 
   useEffect(() => {
     getUnitDetails();
-  }, [documentSnap]);
+  }, [documentSnap, isLoading]);
 
   useEffect(() => {
     if (fileIsReady) {
       // Map over the array of lines and create a div for each line
       setButtonJSX(
         studentObjectives.map((line, index) => {
-          return <div key={index}>{line}</div>;
+          return (
+            <div className="objectivestext-container" key={index}>
+              {line}
+            </div>
+          );
         })
       );
     }
   }, [fileIsReady]);
 
-  return <div>{buttonJSX}</div>;
+  return <div className="objectivestext-container">{buttonJSX}</div>;
 };
 
 export default StudentObjectives;

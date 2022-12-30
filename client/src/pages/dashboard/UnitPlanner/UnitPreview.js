@@ -93,10 +93,9 @@ const UnitPreview = () => {
     return str?.length > n ? str.substr(0, n - 1) + '...' : str;
   }
 
-  //Gets the Title of the unit
+  //create a function called truncateOverview that gets all the text after the first colon.
   function truncateOverview(str) {
-    const overview = str?.split(':')[1];
-    return overview?.split('-')[0];
+    return str?.split(':')[1];
   }
 
   // Function to render a Day component for each number in the unit length
@@ -145,35 +144,35 @@ const UnitPreview = () => {
           }
           overview={
             i === 1
-              ? truncate(unitDetails.day1.matchFirst, 350)
+              ? unitDetails.day1.matchFirst
               : i === 2
-              ? truncate(unitDetails.day2.matchSecond, 350)
+              ? unitDetails.day2.matchSecond
               : i === 3
-              ? truncate(unitDetails.day3.matchThird, 350)
+              ? unitDetails.day3.matchThird
               : i === 4
-              ? truncate(unitDetails.day4.matchFourth, 350)
+              ? unitDetails.day4.matchFourth
               : i === 5
-              ? truncate(unitDetails.day5.matchFifth, 350)
+              ? unitDetails.day5.matchFifth
               : i === 6
-              ? truncate(unitDetails.day6.matchSixth, 350)
+              ? unitDetails.day6.matchSixth
               : i === 7
-              ? truncate(unitDetails.day7.matchSeventh, 350)
+              ? unitDetails.day7.matchSeventh
               : i === 8
-              ? truncate(unitDetails.day8.matchEighth, 350)
+              ? unitDetails.day8.matchEighth
               : i === 9
-              ? truncate(unitDetails.day9.matchNinth, 350)
+              ? unitDetails.day9.matchNinth
               : i === 10
-              ? truncate(unitDetails.day10.matchTenth, 350)
+              ? unitDetails.day10.matchTenth
               : i === 11
-              ? truncate(unitDetails.day11.matchEleventh, 350)
+              ? unitDetails.day11.matchEleventh
               : i === 12
-              ? truncate(unitDetails.day12.matchTwelfth, 350)
+              ? unitDetails.day12.matchTwelfth
               : i === 13
-              ? truncate(unitDetails.day13.matchThirteenth, 350)
+              ? unitDetails.day13.matchThirteenth
               : i === 14
-              ? truncate(unitDetails.day14.matchFourteenth, 350)
+              ? unitDetails.day14.matchFourteenth
               : i === 15
-              ? truncate(unitDetails.day15.matchFifteenth, 350)
+              ? unitDetails.day15.matchFifteenth
               : ''
           }
         />
@@ -223,7 +222,7 @@ const UnitPreview = () => {
           Unit Overview
         </button>
         <div>
-          <strong>Unit Name</strong> {unitDetails.unitName}
+          <strong>Unit Name:</strong> {unitDetails.unitName}
         </div>
         <div style={{ marginBottom: '1.5rem' }}>
           <strong>Unit Length</strong> {unitDetails.unitLength} days
