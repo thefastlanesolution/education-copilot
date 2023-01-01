@@ -155,7 +155,7 @@ const UnitPlanner = () => {
                     }}
                   >
                     <IoEyeSharp className="button-icon" />
-                    <div className="history-text">View Unit</div>
+                    <div className="history-text">View</div>
                   </div>
                 </button>
               </p>
