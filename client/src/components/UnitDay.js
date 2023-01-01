@@ -150,7 +150,7 @@ const Tool = ({ title, lastName, overview, day, dayNumber, unitDetails }) => {
                   )}
                 </AccordionDetails>
               </Accordion>
-              <Accordion>
+              <Accordion defaultExpanded={true}>
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
                   aria-controls="panel2a-content"
@@ -178,7 +178,7 @@ const Tool = ({ title, lastName, overview, day, dayNumber, unitDetails }) => {
                   </AccordionDetails>
                 </div>
               </Accordion>
-              <Accordion>
+              <Accordion defaultExpanded={true}>
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
                   aria-controls="panel2a-content"
