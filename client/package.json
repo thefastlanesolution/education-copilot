@@ -13,7 +13,6 @@
     "@mui/material": "^5.10.11",
     "@mui/styled-engine-sc": "^5.10.6",
     "@pdfme/generator": "^1.0.17",
-    "@pdfme/ui": "^1.0.17",
     "@react-pdf/renderer": "^3.0.1",
     "@stripe/stripe-js": "^1.44.1",
     "@testing-library/jest-dom": "^5.15.0",
