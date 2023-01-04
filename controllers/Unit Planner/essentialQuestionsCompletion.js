@@ -5,13 +5,13 @@ const essentialQuestionsCompletion = async (req, res) => {
   const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
   });
-  const { overviewText } = req.body;
-  console.log('req param', req.body, overviewText);
+  const { overview } = req.body;
+  console.log('req param', req.body, overview);
   const openai = new OpenAIApi(configuration);
   openai
     .createCompletion({
       model: 'text-davinci-003',
-      prompt: `${overviewText} Create 5 essential questions that student's should be able to answer for this lesson. \n\n Essential Questions: \n\n`,
+      prompt: `${overview} Create 5 essential questions that student's should be able to answer for this lesson.\n Essential Questions:\n`,
       temperature: 0.7,
       max_tokens: 2000,
       top_p: 1,

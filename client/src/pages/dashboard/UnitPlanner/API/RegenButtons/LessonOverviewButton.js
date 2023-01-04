@@ -6,12 +6,12 @@ import { Link, useParams } from 'react-router-dom';
 // CSS & Design Component Imports
 import { decode } from 'html-entities';
 import RingLoader from 'react-spinners/RingLoader';
-import '../API/RegenButtons/overview.css';
+import './overview.css';
 import { IoRefreshSharp } from 'react-icons/io5';
 
 // Firebase Imports
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { db } from '../../../../firebase.config';
+import { db } from '../../../../../firebase.config';
 import { addDoc, collection, doc, updateDoc, getDoc } from 'firebase/firestore';
 import { getAuth } from '@firebase/auth';
 
@@ -21,7 +21,7 @@ import { getAuth } from '@firebase/auth';
 //
 ///////////////////////////
 
-const StudentObjectivesButton = ({
+const LessonOverviewButton = ({
   title,
   day,
   unitName,
@@ -69,7 +69,8 @@ const StudentObjectivesButton = ({
   async function checkIfLessonOverview(dayNumber) {
     const docRef = doc(db, 'units', unitID);
     const docSnap = await getDoc(docRef);
-    const day = docSnap.get(dayNumber).studentobjectives;
+    const day = docSnap.get(dayNumber).match;
+    // const matchFirst = await JSON.parse(day);
     setDocumentSnap(<div>{day}</div>);
   }
 
@@ -77,16 +78,17 @@ const StudentObjectivesButton = ({
     checkIfLessonOverview(dayNumber);
   }, []);
 
-  async function fetchApi(overview) {
+  async function fetchApi(title, day, unitName, lessonOverviewText) {
     setIsLoading(true);
     const myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
 
     const raw = JSON.stringify({
-      overview,
+      title,
+      day,
+      unitName,
+      lessonOverviewText,
     });
-
-    console.log('raw ===', raw);
 
     const requestOptions = {
       method: 'POST',
@@ -96,12 +98,12 @@ const StudentObjectivesButton = ({
     };
 
     fetch(
-      `${window.location.origin}/api/v1/completions/studentObjectivesCompletion`,
+      `${window.location.origin}/api/v1/completions/lessonOverviewCompletion`,
       requestOptions
     )
       .then(response => response.json())
       .then(result => {
-        console.log('studentObjectivesCompletion ===', result);
+        console.log('lessonOverviewCompletion ===', result);
         let textResult = result.choices[0].text;
         setCompletion({
           generatedText: textResult,
@@ -117,8 +119,11 @@ const StudentObjectivesButton = ({
         setStudentObjectives(nl2br(textResult));
 
         const dataToSave = {
-          overview,
-          application: 'Student Objectives',
+          title,
+          day,
+          unitName,
+          lessonOverviewText,
+          application: 'Lesson Overview Regeneration',
           generatedText: result.choices[0].text,
         };
 
@@ -138,10 +143,10 @@ const StudentObjectivesButton = ({
 
   const handleSubmit = event => {
     event.preventDefault();
-    if (!overview) {
+    if (!overviewText) {
       return;
     }
-    fetchApi(overview);
+    fetchApi(title, day, unitName, lessonOverviewText);
   };
 
   useEffect(() => {
@@ -158,7 +163,7 @@ const StudentObjectivesButton = ({
 
       const updatedDay = {
         ...day,
-        studentobjectives: `${nl2br(studentObjectives)}`,
+        match: `${nl2br(studentObjectives)}`,
       };
       await updateDoc(docRef, { [dayNumber]: updatedDay });
     }
@@ -176,8 +181,8 @@ const StudentObjectivesButton = ({
     const unitRef = doc(db, 'units', unitID);
     const docSnap = await getDoc(unitRef);
 
-    if (await docSnap.data()[dayNumber].studentobjectives) {
-      const snap = await docSnap.data()[dayNumber].studentobjectives;
+    if (await docSnap.data()[dayNumber].match) {
+      const snap = await docSnap.data()[dayNumber].match;
       setButtonJSX(
         <div className="lessonoverview-container">
           <div
@@ -234,7 +239,7 @@ const StudentObjectivesButton = ({
             >
               +
             </span>{' '}
-            Student Objectives
+            Lesson Overview
           </button>
         )
       );
@@ -281,4 +286,4 @@ const StudentObjectivesButton = ({
   return <div className="objectivestext-container">{buttonJSX}</div>;
 };
 
-export default StudentObjectivesButton;
+export default LessonOverviewButton;

@@ -87,3 +87,16 @@ Answer in code:*/
   margin-right: 0.5rem;
   transform: translateY(2px);
 }
+
+.lessonOverview-area {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.regenbutton {
+  position: absolute;
+  top: 5.5rem;
+  right: 0.8rem;
+}

@@ -1,23 +1,22 @@
 // const { Configuration, OpenAIApi } = import ('openai');
 import { Configuration, OpenAIApi } from 'openai';
 
-const studentObjectivesCompletion = async (req, res) => {
+const lessonOverviewCompletion = async (req, res) => {
   const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
   });
-  const { overview } = req.body;
-  console.log('req param', req.body, overview);
+  const { lessonOverviewText, unitName, day, title } = req.body;
+  console.log('req param', req.body, lessonOverviewText, unitName, day, title);
   const openai = new OpenAIApi(configuration);
   openai
     .createCompletion({
       model: 'text-davinci-003',
-      prompt: `${overview} Create 5 student objectives for this lesson. \n\n Students will be able to: \n\n`,
+      prompt: `Unit: ${unitName}\n${day}: ${title}\nLesson Overview:\n${lessonOverviewText}\nGenerate a new lesson overview based on what ${day} is about, ${title}\nLesson Overview:\n`,
       temperature: 0.7,
-      max_tokens: 2000,
+      max_tokens: 350,
       top_p: 1,
-      frequency_penalty: 0.0,
-      presence_penalty: 0.0,
-      stop: [' ###'],
+      frequency_penalty: 0,
+      presence_penalty: 0,
     })
     .then(response => {
       console.log('openai res ===', response.data);
@@ -29,4 +28,4 @@ const studentObjectivesCompletion = async (req, res) => {
     });
 };
 
-export { studentObjectivesCompletion };
+export { lessonOverviewCompletion };

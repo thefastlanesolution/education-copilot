@@ -106,12 +106,12 @@ const LessonPlanButton = ({ overview, dayNumber, unitDetails }) => {
     };
 
     fetch(
-      `${window.location.origin}/api/v1/completions/lessonPlannerV2Completion`,
+      `${window.location.origin}/api/v1/completions/lessonPlanCompletionUnit`,
       requestOptions
     )
       .then(response => response.json())
       .then(result => {
-        console.log('lessonPlannerV2Completion ===', result);
+        console.log('lessonPlanCompletionUnit ===', result);
         let textResult = decode(result.choices[0].text);
         setCompletion({
           generatedText: textResult,

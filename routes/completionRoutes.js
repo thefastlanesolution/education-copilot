@@ -23,6 +23,27 @@ import { contextBuilderCompletionUnit } from '../controllers/Unit Planner/contex
 import { educationalHandoutCompletionUnit } from '../controllers/Unit Planner/educationalHandoutCompletionUnit.js';
 import { unitIdeaCompletion } from '../controllers/Unit Planner/unitIdeaCompletion.js';
 import { unitObjectivesCompletion } from '../controllers/Unit Planner/unitObjectivesCompletion.js';
+import { lessonPlanCompletionUnit } from '../controllers/Unit Planner/lessonPlanCompletionUnit.js';
+import { powerPointCompletionUnit } from '../controllers/Unit Planner/powerPointCompletionUnit.js';
+import { lessonOverviewCompletion } from '../controllers/Unit Planner/lessonOverviewCompletion.js';
+
+// lessonOverviewCompletion
+router.post('/lessonOverviewCompletion', (req, res) => {
+  console.log('lessonOverviewCompletion api call ===');
+  lessonOverviewCompletion(req, res);
+});
+
+// powerPointCompletionUnit
+router.post('/powerPointCompletionUnit', (req, res) => {
+  console.log('powerPointCompletionUnit api call ===');
+  powerPointCompletionUnit(req, res);
+});
+
+// lessonPlanCompletionUnit
+router.post('/lessonPlanCompletionUnit', (req, res) => {
+  console.log('lessonPlanCompletionUnit api call ===');
+  lessonPlanCompletionUnit(req, res);
+});
 
 // Real Life Benefits
 router.post('/benefitsCompletion', (req, res) => {

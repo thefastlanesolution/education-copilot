@@ -516,25 +516,25 @@ const UnitPlanner = props => {
       const docRef = doc(db, 'units', unitID);
       console.log('MATCHFIRST TEST ====', nl2br(matchFirst));
       updateDoc(docRef, {
-        day1: { matchFirst: matchFirst ? nl2br(matchFirst) : '' },
-        day2: { matchSecond: matchSecond ? nl2br(matchSecond) : '' },
-        day3: { matchThird: matchThird ? nl2br(matchThird) : '' },
-        day4: { matchFourth: matchFourth ? nl2br(matchFourth) : '' },
-        day5: { matchFifth: matchFifth ? nl2br(matchFifth) : '' },
-        day6: { matchSixth: matchSixth ? nl2br(matchSixth) : '' },
-        day7: { matchSeventh: matchSeventh ? nl2br(matchSeventh) : '' },
-        day8: { matchEighth: matchEighth ? nl2br(matchEighth) : '' },
-        day9: { matchNinth: matchNinth ? nl2br(matchNinth) : '' },
-        day10: { matchTenth: matchTenth ? nl2br(matchTenth) : '' },
-        day11: { matchEleventh: matchEleventh ? nl2br(matchEleventh) : '' },
-        day12: { matchTwelfth: matchTwelfth ? nl2br(matchTwelfth) : '' },
+        day1: { match: matchFirst ? nl2br(matchFirst) : '' },
+        day2: { match: matchSecond ? nl2br(matchSecond) : '' },
+        day3: { match: matchThird ? nl2br(matchThird) : '' },
+        day4: { match: matchFourth ? nl2br(matchFourth) : '' },
+        day5: { match: matchFifth ? nl2br(matchFifth) : '' },
+        day6: { match: matchSixth ? nl2br(matchSixth) : '' },
+        day7: { match: matchSeventh ? nl2br(matchSeventh) : '' },
+        day8: { match: matchEighth ? nl2br(matchEighth) : '' },
+        day9: { match: matchNinth ? nl2br(matchNinth) : '' },
+        day10: { match: matchTenth ? nl2br(matchTenth) : '' },
+        day11: { match: matchEleventh ? nl2br(matchEleventh) : '' },
+        day12: { match: matchTwelfth ? nl2br(matchTwelfth) : '' },
         day13: {
-          matchThirteenth: matchThirteenth ? nl2br(matchThirteenth) : '',
+          match: matchThirteenth ? nl2br(matchThirteenth) : '',
         },
         day14: {
-          matchFourteenth: matchFourteenth ? nl2br(matchFourteenth) : '',
+          match: matchFourteenth ? nl2br(matchFourteenth) : '',
         },
-        day15: { matchFifteenth: matchFifteenth ? nl2br(matchFifteenth) : '' },
+        day15: { match: matchFifteenth ? nl2br(matchFifteenth) : '' },
         // Titles
         title1: titleFirst ? titleFirst : '',
         title2: titleSecond ? titleSecond : '',
@@ -552,30 +552,37 @@ const UnitPlanner = props => {
         title14: titleFourteenth ? titleFourteenth : '',
         title15: titleFifteenth ? titleFifteenth : '',
       }).then(() => {
+        setIsLoading(false);
         navigate(`/unit-planner/${unitID}`);
       });
     }
   }, [unitUpdated]);
 
-  const countdown = () => {
-    let timeLeft = unitLength * 4;
+  // const countdown = () => {
+  //   let timeLeft = unitLength * 4;
 
-    // Create a timer loop
-    const timer = setInterval(() => {
-      // If time left is greater than 0
-      if (timeLeft > 0) {
-        // Update timeLeft
-        timeLeft -= 1;
+  // Create a timer loop
+  //   const timer = setInterval(() => {
+  //     // If time left is greater than 0
+  //     if (timeLeft > 0 && window.location.pathname === '/unit-planner') {
+  //       // Update timeLeft
+  //       timeLeft -= 1;
 
-        // Update the timer
-        document.querySelector('.countdown').innerHTML = `${timeLeft} seconds`;
-      }
-      // Else clear the timer
-      else {
-        clearInterval(timer);
-      }
-    }, 1000);
-  };
+  //       // If the URL has changed, clear the timer
+  //       if (window.location.pathname !== '/unit-planner') {
+  //         clearInterval(timer);
+  //       } else {
+  //         document.querySelector(
+  //           '.countdown'
+  //         ).innerHTML = `${timeLeft} seconds`;
+  //       }
+  //     }
+  //     // Else clear the timer
+  //     else {
+  //       clearInterval(timer);
+  //     }
+  //   }, 1000);
+  // };
 
   // eslint-disable
   return (
@@ -591,7 +598,7 @@ const UnitPlanner = props => {
             <RiseLoader color={'white'} loading={isLoading} size={7} />
           )}
         </button>
-        {isLoading && <div className="countdown">{countdown()}</div>}
+        {/* {isLoading && <div className="countdown">{countdown()}</div>} */}
       </form>
     </div>
   );

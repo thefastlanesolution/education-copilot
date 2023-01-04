@@ -6,10 +6,8 @@ import { Link, useParams } from 'react-router-dom';
 // CSS & Design Component Imports
 import { decode } from 'html-entities';
 import RingLoader from 'react-spinners/RingLoader';
-
-// PDF Imports
-import { PDFDownloadLink, pdf } from '@react-pdf/renderer';
-import PDF from '../../AI-tools/LessonPDF';
+import '../API/RegenButtons/overview.css';
+import { IoRefreshSharp } from 'react-icons/io5';
 
 // Firebase Imports
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
@@ -23,7 +21,13 @@ import { getAuth } from '@firebase/auth';
 //
 ///////////////////////////
 
-const EssentialQuestions = ({ overview, dayNumber, unitDetails }) => {
+const EssentialQuestionsButton = ({
+  title,
+  day,
+  unitName,
+  overview,
+  dayNumber,
+}) => {
   // API Request & Response States
 
   const [studentObjectives, setStudentObjectives] = useState('');
@@ -39,6 +43,16 @@ const EssentialQuestions = ({ overview, dayNumber, unitDetails }) => {
 
   const { unitID } = useParams();
   let overviewText = overview;
+  const lessonOverviewText = overview.replace(/<br\s*\/?>/g, '');
+
+  function nl2br(str, is_xhtml) {
+    var breakTag =
+      is_xhtml || typeof is_xhtml === 'undefined' ? '<br/>' : '<br>';
+    return (str + '').replace(
+      /([^>\r\n]?)(\r\n|\n\r|\r|\n){2,}/g,
+      '$1' + breakTag + '$2'
+    );
+  }
 
   async function saveCompletionToDB(collectionName, data) {
     const auth = getAuth();
@@ -52,40 +66,27 @@ const EssentialQuestions = ({ overview, dayNumber, unitDetails }) => {
     return ref;
   }
 
-  async function checkIfLessonPlan(dayNumber) {
+  async function checkIfLessonOverview(dayNumber) {
     const docRef = doc(db, 'units', unitID);
     const docSnap = await getDoc(docRef);
     const day = docSnap.get(dayNumber).essentialquestions;
-    const studentObjectives = await JSON.parse(day);
-    setDocumentSnap(
-      <ul>
-        {studentObjectives.map((item, index) => (
-          <li key={index}>{item}</li>
-        ))}
-      </ul>
-    );
+    setDocumentSnap(<div>{day}</div>);
   }
 
   useEffect(() => {
-    checkIfLessonPlan(dayNumber);
+    checkIfLessonOverview(dayNumber);
   }, []);
 
-  async function fetchApi(
-    subject,
-    gradeLevel,
-    overviewText,
-    dayNumber,
-    updateFunction
-  ) {
+  async function fetchApi(overview) {
     setIsLoading(true);
     const myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
 
     const raw = JSON.stringify({
-      subject,
-      gradeLevel,
-      overviewText,
+      overview,
     });
+
+    console.log('raw ===', raw);
 
     const requestOptions = {
       method: 'POST',
@@ -113,16 +114,12 @@ const EssentialQuestions = ({ overview, dayNumber, unitDetails }) => {
           setDocumentHasChanged(false);
         }, 100);
 
-        let lines = result.choices[0].text.split('\n');
-        setStudentObjectives(lines);
+        setStudentObjectives(nl2br(textResult));
 
         const dataToSave = {
-          subject,
-          gradeLevel,
-          overviewText,
-          application: 'Student Objectives',
+          overview,
+          application: 'Essential Questions',
           generatedText: result.choices[0].text,
-          lines: lines,
         };
 
         // Save the completion to the database, then set the completion state, then log the ref, then catch any errors
@@ -135,16 +132,18 @@ const EssentialQuestions = ({ overview, dayNumber, unitDetails }) => {
             console.log('Saved succesfully, ref: ', ref);
           })
           .catch(err => console.log('error', err));
+
+        setIsLoading(false);
       })
       .catch(error => console.log('error', error));
   }
 
   const handleSubmit = event => {
     event.preventDefault();
-    if (!overviewText) {
+    if (!overview) {
       return;
     }
-    fetchApi(subject, gradeLevel, overviewText);
+    fetchApi(overview);
   };
 
   useEffect(() => {
@@ -158,9 +157,10 @@ const EssentialQuestions = ({ overview, dayNumber, unitDetails }) => {
       const docRef = doc(db, 'units', unitID);
       const docSnap = await getDoc(docRef);
       const day = docSnap.get(dayNumber);
+
       const updatedDay = {
         ...day,
-        essentialquestions: `${JSON.stringify(studentObjectives)}`,
+        essentialquestions: `${nl2br(studentObjectives)}`,
       };
       await updateDoc(docRef, { [dayNumber]: updatedDay });
     }
@@ -178,8 +178,33 @@ const EssentialQuestions = ({ overview, dayNumber, unitDetails }) => {
     const docSnap = await getDoc(unitRef);
 
     if (await docSnap.data()[dayNumber].essentialquestions) {
+      const snap = await docSnap.data()[dayNumber].essentialquestions;
       setButtonJSX(
-        <div className="objectivestext-container">{decode(documentSnap)}</div>
+        <div className="lessonoverview-container">
+          <div
+            className="lessontext-container"
+            style={{ padding: '1rem' }}
+            dangerouslySetInnerHTML={{
+              __html: snap.replace(
+                /\n/g,
+                '<p style="margin-top: 0.3em; margin-bottom: 0.3em;">'
+              ),
+            }}
+          ></div>
+          <div className="lessonregen-container" onClick={handleSubmit}>
+            {isLoading ? (
+              <RingLoader color={'#7d5ff5'} loading={isLoading} size={20} />
+            ) : (
+              <IoRefreshSharp
+                style={{
+                  color: '#7d5ff5',
+                  fontSize: '1rem',
+                }}
+                className="ai-generate-icon"
+              />
+            )}
+          </div>
+        </div>
       );
     } else {
       setButtonJSX(
@@ -225,18 +250,36 @@ const EssentialQuestions = ({ overview, dayNumber, unitDetails }) => {
     if (fileIsReady) {
       // Map over the array of lines and create a div for each line
       setButtonJSX(
-        studentObjectives.map((line, index) => {
-          return (
-            <div className="objectivestext-container" key={index}>
-              {line}
-            </div>
-          );
-        })
+        <div className="lessonoverview-container">
+          <div
+            className="lessontext-container"
+            style={{ padding: '1rem' }}
+            dangerouslySetInnerHTML={{
+              __html: studentObjectives.replace(
+                /\n/g,
+                '<p style="margin-top: 0.3em; margin-bottom: 0.3em;">'
+              ),
+            }}
+          />
+          <div className="lessonregen-container" onClick={handleSubmit}>
+            {isLoading ? (
+              <RingLoader color={'#7d5ff5'} loading={isLoading} size={20} />
+            ) : (
+              <IoRefreshSharp
+                style={{
+                  color: '#7d5ff5',
+                  fontSize: '1rem',
+                }}
+                className="ai-generate-icon"
+              />
+            )}
+          </div>
+        </div>
       );
     }
-  }, [fileIsReady]);
+  }, [fileIsReady, studentObjectives]);
 
   return <div className="objectivestext-container">{buttonJSX}</div>;
 };
 
-export default EssentialQuestions;
+export default EssentialQuestionsButton;

@@ -10,9 +10,9 @@ import StudentObjectivesButton from '../pages/dashboard/UnitPlanner/API/StudentO
 import EssentialQuestionsButton from '../pages/dashboard/UnitPlanner/API/EssentialQuestionsAPI';
 import EducationalHandoutButton from '../pages/dashboard/UnitPlanner/API/EducationalHandoutAPI';
 import ContextBuilderButton from '../pages/dashboard/UnitPlanner/API/ContextBuilderAPI';
+import LessonOverviewButton from '../pages/dashboard/UnitPlanner/API/RegenButtons/LessonOverviewButton';
 import VideoList from '../pages/dashboard/AI-tools/VideoList';
-import { decode } from 'html-entities';
-import { IoEyeSharp, IoTimerOutline } from 'react-icons/io5';
+import { IoEyeSharp, IoTimerOutline, IoRefreshSharp } from 'react-icons/io5';
 
 // Acordian imports
 import Accordion from '@mui/material/Accordion';
@@ -20,36 +20,140 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-const Tool = ({ title, lastName, overview, day, dayNumber, unitDetails }) => {
+// Firebase Imports
+import { getDoc, doc, updateDoc } from 'firebase/firestore';
+import { getAuth } from '@firebase/auth';
+import { db } from '../../src/firebase.config';
+import { connectStorageEmulator } from 'firebase/storage';
+
+const Tool = ({
+  title,
+  lastName,
+  overview,
+  day,
+  dayNumber,
+  unitDetails,
+  unitName,
+}) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [editable, setEditable] = useState(false);
   const [overview1, setOverview] = useState(overview);
+  const [dayDetails, setDayDetails] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [completion, setCompletion] = useState('');
+  const [lessonOverview, setLessonOverview] = useState('');
 
-  // Gets the overview of the unit and splits each line based on the '-'
+  const { unitID } = useParams();
+
+  // Get the unit details from the database
+  async function getDayDetails() {
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    const unitRef = doc(db, 'units', unitID);
+    const docSnap = await getDoc(unitRef);
+
+    setDayDetails({
+      unitName: docSnap.data().unitName,
+      unitLength: Number(docSnap.data().unitLength),
+      time: Number(docSnap.data().time),
+      gradeLevel: docSnap.data().gradeLevel,
+      unitStandards: docSnap.data().unitStandards,
+      unitDetails: docSnap.data().unitDetails,
+      day1: docSnap.data().day1,
+      title1: docSnap.data().title1,
+    });
+  }
+
+  const lessonOverviewText = overview.replace(/<br\s*\/?>/g, '');
+  console.log('lessonOverviewText ===', lessonOverviewText);
+
+  async function fetchLessonOverview(subject, gradeLevel, title, day) {
+    setIsLoading(true);
+    const myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'application/json');
+
+    const raw = JSON.stringify({
+      subject,
+      gradeLevel,
+      title,
+      day,
+      unitName,
+      lessonOverviewText,
+    });
+
+    const requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow',
+    };
+
+    fetch(
+      `${window.location.origin}/api/v1/completions/lessonOverviewCompletion`,
+      requestOptions
+    )
+      .then(response => response.json())
+      .then(result => {
+        console.log('lessonOverviewCompletion ===', result);
+        let textResult = result.choices[0].text;
+        setCompletion({
+          generatedText: textResult,
+        });
+
+        setLessonOverview(textResult);
+      });
+  }
 
   const overviewState = overview;
 
-  // Create a handleClick function that will set a state value to true
-  const handleClick = () => {
-    setEditable(true);
+  const handleLessonGeneration = async () => {
+    await fetchLessonOverview(
+      dayDetails.unitDetails,
+      dayDetails.gradeLevel,
+      overviewState,
+      day
+    );
   };
 
-  const handleChange = e => {
-    setOverview(e.target.value);
+  useEffect(() => {
+    if (lessonOverview) {
+      saveObjectives(dayNumber);
+    }
+  }, [lessonOverview]);
+
+  const saveObjectives = async dayNumber => {
+    try {
+      const auth = getAuth();
+      const user = auth.currentUser;
+
+      async function updateDay(dayNumber) {
+        const docRef = doc(db, 'units', unitID);
+        const docSnap = await getDoc(docRef);
+        const day = await docSnap.get(dayNumber);
+        const updatedDay = {
+          ...day,
+          matchFirst: `${JSON.stringify(nl2br(lessonOverview))}`,
+        };
+        await updateDoc(docRef, { [dayNumber]: updatedDay });
+      }
+
+      await updateDay(dayNumber);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const handleBlur = () => {
-    setEditable(false);
-  };
+  function nl2br(str, is_xhtml) {
+    var breakTag =
+      is_xhtml || typeof is_xhtml === 'undefined' ? '<br/>' : '<br>';
+    return (str + '').replace(
+      /([^>\r\n]?)(\r\n|\n\r|\r|\n)/g,
+      '$1' + breakTag + '$2'
+    );
+  }
 
   const textareaRef = useRef(null);
-
-  // if editable is true, then the textarea will be editable
-  useEffect(() => {
-    if (editable) {
-      textareaRef.current.focus();
-    }
-  }, [editable]);
 
   return (
     <>
@@ -118,36 +222,15 @@ const Tool = ({ title, lastName, overview, day, dayNumber, unitDetails }) => {
                     Lesson Overview
                   </Typography>
                 </AccordionSummary>
-                <AccordionDetails
-                  onBlur={handleBlur}
-                  className="lessonoverview-details"
-                >
-                  {editable ? (
-                    <textarea
-                      ref={textareaRef}
-                      type="text"
-                      value={overview1.replace(/<br\s*\/?>/gi, '')}
-                      onChange={handleChange}
-                      className="lessonoverview-textarea"
-                    />
-                  ) : (
-                    <Typography
-                      variant="body2"
-                      // onClick={handleClick}
-                      style={{
-                        marginBottom: '1rem',
-                        padding: '1.5rem',
-                        fontFamily: 'cabin',
-                        fontSize: '16px',
-                      }}
-                      dangerouslySetInnerHTML={{
-                        __html: overview1.replace(
-                          /<br\s*\n?>/gi,
-                          '<p style="margin-top: 0.5rem; margin-bottom: 0.5em;">'
-                        ),
-                      }}
-                    />
-                  )}
+                <AccordionDetails className="lessonoverview-details">
+                  <LessonOverviewButton
+                    overview={overviewState}
+                    dayNumber={`day${dayNumber}`}
+                    unitDetails={unitDetails}
+                    unitName={unitName}
+                    day={day}
+                    title={title}
+                  />
                 </AccordionDetails>
               </Accordion>
               <Accordion defaultExpanded={true}>
@@ -326,10 +409,12 @@ const Tool = ({ title, lastName, overview, day, dayNumber, unitDetails }) => {
               <Typography
                 variant="body2"
                 dangerouslySetInnerHTML={{
-                  __html: overview.replace(
-                    /\n/g,
-                    '<p style="margin-top: 0.5em; margin-bottom: 0.5em;">'
-                  ),
+                  __html: overview
+                    .replace(
+                      /\n/g,
+                      '<p style="margin-top: 0.5em; margin-bottom: 0.5em;">'
+                    )
+                    .substring(0, 225),
                 }}
               ></Typography>
             </div>

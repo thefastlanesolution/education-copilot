@@ -145,35 +145,35 @@ const UnitPreview = () => {
           }
           overview={
             i === 1
-              ? unitDetails.day1.matchFirst
+              ? unitDetails.day1.match
               : i === 2
-              ? unitDetails.day2.matchSecond
+              ? unitDetails.day2.match
               : i === 3
-              ? unitDetails.day3.matchThird
+              ? unitDetails.day3.match
               : i === 4
-              ? unitDetails.day4.matchFourth
+              ? unitDetails.day4.match
               : i === 5
-              ? unitDetails.day5.matchFifth
+              ? unitDetails.day5.match
               : i === 6
-              ? unitDetails.day6.matchSixth
+              ? unitDetails.day6.match
               : i === 7
-              ? unitDetails.day7.matchSeventh
+              ? unitDetails.day7.match
               : i === 8
-              ? unitDetails.day8.matchEighth
+              ? unitDetails.day8.match
               : i === 9
-              ? unitDetails.day9.matchNinth
+              ? unitDetails.day9.match
               : i === 10
-              ? unitDetails.day10.matchTenth
+              ? unitDetails.day10.match
               : i === 11
-              ? unitDetails.day11.matchEleventh
+              ? unitDetails.day11.match
               : i === 12
-              ? unitDetails.day12.matchTwelfth
+              ? unitDetails.day12.match
               : i === 13
-              ? unitDetails.day13.matchThirteenth
+              ? unitDetails.day13.match
               : i === 14
-              ? unitDetails.day14.matchFourteenth
+              ? unitDetails.day14.match
               : i === 15
-              ? unitDetails.day15.matchFifteenth
+              ? unitDetails.day15.match
               : ''
           }
         />
