@@ -1,185 +1,314 @@
-// import React, { useEffect, useState } from 'react';
-// import { getAuth } from 'firebase/auth';
-// import Card from '@mui/material/Card';
-// import CardContent from '@mui/material/CardContent';
-// import Button from '@mui/material/Button';
-// import Wrapper from '../../assets/wrappers/PricingWrapper.js';
-// import { useAppContext } from '../../context/appContext';
-// import { db } from '../../firebase.config';
-// import {
-//   collection,
-//   getDocs,
-//   query,
-//   where,
-//   orderBy,
-//   doc,
-//   updateDoc,
-//   addDoc,
-//   onSnapshot,
-//   getDoc,
-// } from 'firebase/firestore';
-// import { loadStripe } from '@stripe/stripe-js';
-// import AuthService from '../../services/Auth.service.js';
-// import { useAuthStatus } from '../../hooks/useAuthStatus.js';
-// const PricingPage = () => {
-//   const { loggedIn, checkingStatus } = useAuthStatus();
+import React, { useEffect, useState } from 'react';
+import { getAuth } from 'firebase/auth';
+import './pricing.css';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Button from '@mui/material/Button';
+import Wrapper from '../../assets/wrappers/PricingWrapper.js';
+import { IoCheckmarkSharp } from 'react-icons/io5';
+import { useAppContext } from '../../context/appContext';
+import { db } from '../../firebase.config';
+import {
+  collection,
+  getDocs,
+  query,
+  where,
+  orderBy,
+  doc,
+  updateDoc,
+  addDoc,
+  onSnapshot,
+  getDoc,
+} from 'firebase/firestore';
+import { loadStripe } from '@stripe/stripe-js';
+import AuthService from '../../services/Auth.service.js';
+import { useAuthStatus } from '../../hooks/useAuthStatus.js';
+import { fontFamily, fontWeight } from '@mui/system';
 
-//   const [canPurchase, setCanPurchase] = useState(true);
-//   const [isCanPurchaseSet, setIsCanPurchaseSet] = useState(false);
+const PricingPage = () => {
+  const { loggedIn, checkingStatus } = useAuthStatus();
 
-//   useEffect(async () => {
-//     if (checkingStatus) {
-//       return;
-//     }
-//     if (loggedIn && !isCanPurchaseSet) {
-//       const result = await AuthService.doesUserHaveActiveSubscription();
-//       setCanPurchase(!result);
-//       setIsCanPurchaseSet(true);
-//     }
-//   }, [checkingStatus, loggedIn]);
+  const [canPurchase, setCanPurchase] = useState(true);
+  const [isCanPurchaseSet, setIsCanPurchaseSet] = useState(false);
 
-//   async function getProductsAndPrices() {
-//     const dbQuery = query(
-//       collection(db, 'products'),
-//       where('active', '==', true)
-//     );
+  useEffect(async () => {
+    if (checkingStatus) {
+      return;
+    }
+    if (loggedIn && !isCanPurchaseSet) {
+      const result = await AuthService.doesUserHaveActiveSubscription();
+      setCanPurchase(!result);
+      setIsCanPurchaseSet(true);
+    }
+  }, [checkingStatus, loggedIn]);
 
-//     const querySnapshot = await getDocs(dbQuery);
+  async function getProductsAndPrices() {
+    const dbQuery = query(
+      collection(db, 'products'),
+      where('active', '==', true)
+    );
 
-//     querySnapshot.forEach(async function (doc) {
-//       console.log(doc.id, ' => ', doc.data());
-//       const priceSnap = await getDocs(collection(doc.ref, 'prices'));
-//       priceSnap.docs.forEach(doc => {
-//         console.log(doc.id, ' => ', doc.data());
-//       });
-//     });
-//   }
+    const querySnapshot = await getDocs(dbQuery);
 
-//   async function startCheckoutSession() {
-//     const userCheckoutCollection = collection(
-//       db,
-//       `users/${getAuth().currentUser.uid}/checkout_sessions`
-//     );
+    querySnapshot.forEach(async function (doc) {
+      console.log(doc.id, ' => ', doc.data());
+      const priceSnap = await getDocs(collection(doc.ref, 'prices'));
+      priceSnap.docs.forEach(doc => {
+        console.log(doc.id, ' => ', doc.data());
+      });
+    });
+  }
 
-//     const docRef = await addDoc(userCheckoutCollection, {
-//       price: 'price_1M8uFoLgWWC0lfdoJQI2k0I8',
-//       success_url: window.location.origin,
-//       cancel_url: window.location.origin,
-//     });
+  async function startCheckoutSession() {
+    const userCheckoutCollection = collection(
+      db,
+      `users/${getAuth().currentUser.uid}/checkout_sessions`
+    );
 
-//     onSnapshot(docRef, async snap => {
-//       const { sessionId } = snap.data();
+    const docRef = await addDoc(userCheckoutCollection, {
+      price: 'price_1MMpuJLgWWC0lfdoQyz5KKIa',
+      success_url: window.location.origin,
+      cancel_url: window.location.origin,
+    });
 
-//       if (sessionId) {
-//         console.log('Ready for starting checkout process');
-//         const stripe = await loadStripe(
-//           'pk_live_zp7u9YDsT6HrrwHs3UVQVmXN00SZrKzQp5'
-//         );
-//         stripe.redirectToCheckout({ sessionId });
-//       }
-//     });
-//   }
+    onSnapshot(docRef, async snap => {
+      const { sessionId } = snap.data();
 
-//   useEffect(() => {
-//     // getProductsAndPrices();
-//   }, []);
+      if (sessionId) {
+        console.log('Ready for starting checkout process');
+        const stripe = await loadStripe(
+          'pk_live_zp7u9YDsT6HrrwHs3UVQVmXN00SZrKzQp5'
+        );
+        stripe.redirectToCheckout({ sessionId });
+      }
+    });
+  }
 
-//   /* {/*
-//                href="https://buy.stripe.com/aEUg2aagYbxp29a144"
-//               */
+  useEffect(() => {
+    // getProductsAndPrices();
+  }, []);
 
-//   return (
-//     <Wrapper className="mainwrapper">
-//       <div className="Header">
-//         {!canPurchase
-//           ? 'Upgrade your Copilot plan'
-//           : 'Try Copilot, free for 5 days'}
-//         🎉
-//       </div>
-//       <Card
-//         className="pricing"
-//         sx={{
-//           width: '100%',
-//           maxWidth: '500px',
-//           border: 'none',
-//           boxShadow: '0px 0px 2px rgba(0, 0, 0, 0.15)',
-//           borderRadius: '10px',
-//           height: '100%',
-//           '&:hover': {
-//             boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.25)',
-//           },
-//         }}
-//       >
-//         <CardContent>
-//           <form>
-//             <div className="form-center">
-//               <h4 className="type">For Teachers 🎓</h4>
-//             </div>
-//           </form>
-//           <div className="bodyText">
-//             <h5>Features</h5>
-//             <p>
-//               ✅ Unlock the power of AI in the classroom.
-//               <br />
-//               ✅ Access to 8 powerful tools.
-//               <br />✅ Unlimited Usage
-//             </p>
-//             <Button
-//               sx={{
-//                 width: '100%',
-//                 maxWidth: '100%',
-//               }}
-//               variant="contained"
-//               disabled={!canPurchase}
-//               onClick={startCheckoutSession}
-//             >
-//               {!canPurchase ? 'Current Active Plan' : 'Start Free Trial'}
-//             </Button>
-//           </div>
-//         </CardContent>
-//       </Card>
-//       <Card
-//         sx={{
-//           width: '100%',
-//           maxWidth: '500px',
-//           border: 'none',
-//           borderRadius: '10px',
-//           height: '100%',
-//           '&:hover': {
-//             boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.25)',
-//           },
-//         }}
-//         className="pricing"
-//       >
-//         <CardContent>
-//           <form>
-//             <div className="form-center">
-//               <h4 className="type">For Schools 🏫</h4>
-//             </div>
-//           </form>
-//           <div className="bodyText">
-//             <h5>Features</h5>
-//             <p>
-//               ✅ Unlock the power of AI in the classroom.
-//               <br />
-//               ✅ Access to 8 powerful tools.
-//               <br />✅ Unlimited Usage
-//             </p>
-//             <Button
-//               sx={{
-//                 width: '100%',
-//                 maxWidth: '100%',
-//               }}
-//               variant="contained"
-//               href="https://educationcopilot.com/contact"
-//               target="_blank"
-//             >
-//               Contact us
-//             </Button>
-//           </div>
-//         </CardContent>
-//       </Card>
-//     </Wrapper>
-//   );
-// };
-// export default PricingPage;
+  return (
+    <Wrapper className="mainwrapper" style={{ marginBottom: '10%' }}>
+      <div className="Header">
+        <div className="main-header">
+          Get <span style={{ color: '#7d5ff5' }}>Unlimited</span> Access to
+          Copilot 🚀
+        </div>
+        <div className="sub-header">
+          <span style={{ color: '#7d5ff5', fontWeight: '700' }}>
+            Turbocharge
+          </span>{' '}
+          your productivity inside and outside of the classroom!
+        </div>
+      </div>
+      <Card
+        className="pricing"
+        sx={{
+          width: '100%',
+          maxWidth: '500px',
+          border: 'none',
+          boxShadow: '0px 0px 2px rgba(0, 0, 0, 0.15)',
+          borderRadius: '10px',
+          height: '100%',
+          '&:hover': {
+            boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.25)',
+          },
+        }}
+      >
+        <CardContent style={{ margin: '1rem' }}>
+          <div>
+            <div className="form-center" style={{ paddingBottom: '1rem' }}>
+              <h4
+                className="type-monthly"
+                style={{
+                  fontFamily: 'inter',
+                  fontSize: '14px',
+                  fontWeight: '600',
+                  margin: '0',
+                  marginBottom: '1rem',
+                }}
+              >
+                Monthly
+              </h4>
+              <a
+                style={{
+                  fontFamily: 'inter',
+                  fontSize: '56px',
+                  fontWeight: '800',
+                }}
+              >
+                $9
+              </a>
+              <a
+                style={{
+                  color: 'gray',
+                  fontFamily: 'inter',
+                }}
+              >
+                /mo
+              </a>
+            </div>
+          </div>
+          <div className="bodyText">
+            <h5
+              style={{
+                fontFamily: 'inter',
+                fontSize: '16px',
+                color: 'gray',
+                fontWeight: '400',
+                letterSpacing: '0.3px',
+              }}
+            >
+              Unlimited access to all of Copilot's tools, upgraded storage
+              capacity, expedited support + tool request.
+            </h5>
+            <p style={{ fontFamily: 'inter' }}>
+              <IoCheckmarkSharp
+                className="checkmark"
+                style={{ stroke: '#34cd2b', fontSize: '1.3rem' }}
+              />
+              15+ AI Templates
+              <br />
+              <IoCheckmarkSharp
+                className="checkmark"
+                style={{ stroke: '#34cd2b', fontSize: '1.3rem' }}
+              />
+              Unlimited Usage
+              <br />
+              <IoCheckmarkSharp
+                className="checkmark"
+                style={{ stroke: '#34cd2b', fontSize: '1.3rem' }}
+              />
+              Support for over 10+ languages
+              <br />
+              <IoCheckmarkSharp
+                className="checkmark"
+                style={{ stroke: '#34cd2b', fontSize: '1.3rem' }}
+              />
+              Chat Support
+            </p>
+            <Button
+              sx={{
+                width: '100%',
+                maxWidth: '100%',
+                textTransform: 'none',
+                background: '#7d5ff5',
+                fontFamily: 'inter',
+                '&:hover': {
+                  background: '#7a2ff5',
+                },
+              }}
+              variant="contained"
+              disabled={!canPurchase}
+              onClick={startCheckoutSession}
+            >
+              {!canPurchase ? 'Current Active Plan' : 'Get Started'}
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+      <Card
+        sx={{
+          width: '100%',
+          maxWidth: '500px',
+          border: '3px solid #7d5ff5',
+          borderRadius: '10px',
+          height: '100%',
+          '&:hover': {
+            boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.25)',
+          },
+        }}
+        className="pricing pricing-annual"
+      >
+        <CardContent style={{ margin: '1rem' }}>
+          <div>
+            <div className="form-center" style={{ paddingBottom: '1rem' }}>
+              <h4
+                className="type-annual"
+                style={{
+                  fontFamily: 'inter',
+                  fontSize: '14px',
+                  fontWeight: '600',
+                  margin: '0',
+                  marginBottom: '1rem',
+                }}
+              >
+                Annual - 30% off
+              </h4>
+              <a
+                style={{
+                  fontFamily: 'inter',
+                  fontSize: '56px',
+                  fontWeight: '800',
+                }}
+              >
+                $6
+              </a>
+              <a style={{ color: 'gray', fontFamily: 'inter' }}>
+                /mo - <span style={{ fontSize: '.8rem' }}>billed annually</span>
+              </a>
+            </div>
+          </div>
+          <div className="bodyText">
+            <h5
+              style={{
+                fontFamily: 'inter',
+                fontSize: '16px',
+                color: 'gray',
+                fontWeight: '400',
+                letterSpacing: '0.3px',
+              }}
+            >
+              Everything included in the monthly package. Plus early access to
+              new tools, features and integrations. All at 30% savings.
+            </h5>
+            <p style={{ fontFamily: 'inter' }}>
+              <IoCheckmarkSharp
+                className="checkmark"
+                style={{ stroke: '#34cd2b', fontSize: '1.3rem' }}
+              />
+              15+ AI Templates
+              <br />
+              <IoCheckmarkSharp
+                className="checkmark"
+                style={{ stroke: '#34cd2b', fontSize: '1.3rem' }}
+              />
+              Unlimited Usage
+              <br />
+              <IoCheckmarkSharp
+                className="checkmark"
+                style={{ stroke: '#34cd2b', fontSize: '1.3rem' }}
+              />
+              Support for over 10+ languages
+              <br />
+              <IoCheckmarkSharp
+                className="checkmark"
+                style={{ stroke: '#34cd2b', fontSize: '1.3rem' }}
+              />
+              Chat Support
+            </p>
+            <Button
+              sx={{
+                width: '100%',
+                maxWidth: '100%',
+                textTransform: 'none',
+                background: '#7d5ff5',
+                fontFamily: 'inter',
+                '&:hover': {
+                  background: '#7a2ff5',
+                },
+              }}
+              variant="contained"
+              disabled={!canPurchase}
+              onClick={startCheckoutSession}
+            >
+              {!canPurchase ? 'Current Active Plan' : 'Get Started'}
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+    </Wrapper>
+  );
+};
+export default PricingPage;

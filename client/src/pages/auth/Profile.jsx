@@ -90,28 +90,59 @@ function Profile() {
 
   return (
     <div className="profile">
-      <header className="profileHeader">
+      <header
+        className="profileHeader"
+        style={{ padding: '1rem 2rem 1rem 2rem' }}
+      >
         <p className="pageHeader">My Profile</p>
         <button type="button" className="logOut" onClick={onLogout}>
           Logout
         </button>
       </header>
 
-      <main>
+      <div className="main-container">
+        <div className="billingCard" style={{ padding: '1rem' }}>
+          <div
+            style={{
+              fontWeight: '600',
+              paddingBottom: '.7rem',
+              fontSize: '.9rem',
+            }}
+          >
+            Billing
+          </div>
+          <div className="currentPlan">
+            <div className="currentplan-text">Current Plan</div>
+            <div className="currentplan-plan">Beta User</div>
+          </div>
+          <div className="nextbill">
+            <div className="nextbill-text">Next Billing Date</div>
+            <div className="nextbill-date">N/A</div>
+          </div>
+          <div className="planprice">
+            <div className="planprice-text">Monthly Charge</div>
+            <div className="planprice-price">
+              $0.00 <span className="monthtext">/ Month</span>
+            </div>
+          </div>
+          {/* <div className="updateplan">
+            <button className="updateplan-btn">Update Plan</button>
+          </div> */}
+        </div>
         <div className="profileCard">
           <div className="profileDetailsHeader">
-            <p className="profileDetailsText">Personal Details</p>
-            <p
+            <div className="profileDetailsText">Personal Details</div>
+            <div
               className="changePersonalDetails"
               onClick={() => {
                 changeDetails && onSubmit();
                 setChangeDetails(prevState => !prevState);
               }}
             >
-              {changeDetails ? 'done' : 'change'}
-            </p>
+              {changeDetails ? 'done' : 'edit'}
+            </div>
           </div>
-          <form>
+          <form className="editpersonal-form">
             <input
               type="text"
               id="name"
@@ -130,7 +161,7 @@ function Profile() {
             />
           </form>
         </div>
-      </main>
+      </div>
     </div>
   );
 }

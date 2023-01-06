@@ -26,18 +26,23 @@
   cursor: pointer;
 }
 
-.profileDetailsHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.profileCard {
   width: 100%;
-  padding: 20px 0;
+  background: #fff;
+  border: 1px solid rgb(237, 237, 237);
+  padding: 1rem;
+  font-family: 'inter';
+}
+
+.profileDetailsHeader {
+  width: 100%;
   border-bottom: 1px solid lightgrey;
 }
 
 .profileDetailsText {
-  font-size: 20px;
-  color: #333;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin: none !important;
 }
 
 .changePersonalDetails {
@@ -46,30 +51,24 @@
   cursor: pointer;
 }
 
-.profileCard {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  padding: 20px 0;
-}
-
 .profileName {
   width: 100%;
-  border: none;
   background: none;
   font-size: 16px;
   color: #333;
   padding: 10px;
+  border: 1px solid lightgrey;
+  max-width: 70%;
 }
 
 .profileNameActive {
   width: 100%;
-  border: 1px solid lightgrey;
+  border: 2px solid lightgrey;
   background: #fff;
   font-size: 16px;
   color: #333;
   padding: 10px;
+  max-width: 70%;
 }
 
 .profileEmail {
@@ -80,14 +79,107 @@
   color: #333;
   padding: 10px;
   margin-top: 10px;
+  border: 1px solid lightgrey;
+  max-width: 70%;
 }
 
 .profileEmailActive {
   width: 100%;
-  border: 1px solid lightgrey;
+  border: 2px solid lightgrey;
   background: #fff;
   font-size: 16px;
   color: #333;
   padding: 10px;
   margin-top: 10px;
+  max-width: 70%;
+}
+
+.editpersonal-form {
+  padding-top: 1rem;
+}
+
+@media (min-width: 768px) {
+  .main-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+  }
+}
+
+@media (min-width: 1050px) {
+  .main-container {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-container {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.billingCard {
+  height: 100%;
+  border: 1px solid lightgrey;
+  background: white;
+  font-family: 'inter';
+  font-weight: 500;
+}
+
+@media (min-width: 768px) {
+  .billingCard {
+    width: 200px;
+  }
+}
+
+.currentplan-text {
+  color: rgb(141, 141, 141);
+  font-size: 0.8rem;
+  line-height: 1rem;
+}
+
+.currentplan-plan {
+  font-weight: 700;
+  font-size: 1.7rem;
+  line-height: 1rem;
+  margin-top: 10px;
+  color: #7d5ff5;
+}
+
+.nextbill {
+  padding-top: 1.5rem;
+  font-size: 1rem;
+}
+
+.planprice {
+  padding-top: 1.3rem;
+}
+
+.nextbill-text,
+.planprice-text,
+.monthtext {
+  font-size: 0.8rem;
+  line-height: 1rem;
+  color: rgb(141, 141, 141);
+}
+
+.updateplan {
+  padding-top: 1.3rem;
+  font-size: 1rem;
+  font-family: 'inter';
+}
+
+.updateplan-btn {
+  font-size: 1rem;
+  font-family: 'inter';
+  background: none;
+  color: #7d5ff5;
+  cursor: pointer;
+  border: 2px solid #7d5ff5;
+}
+
+.updateplan-btn:hover {
+  background: #7d5ff5;
+  color: white;
 }

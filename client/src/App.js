@@ -25,7 +25,7 @@ import WeeklyNewsletter from './pages/dashboard/AI-tools/WeeklyNewsletter.js';
 import ResearchProjectGenerator from './pages/dashboard/AI-tools/ResearchProjectGenerator.js';
 import IdeaGenerator from './pages/dashboard/AI-tools/IdeaGenerator.js';
 import InformationalHandout from './pages/dashboard/AI-tools/InformationalHandout.js';
-import PricingPage from './pages/pricing/PricingPage.js';
+import Pricing from './pages/pricing/PricingPage.js';
 import CompletionHistory from './pages/dashboard/AI-tools/CompletionHistory.js';
 import StudentReports from './pages/dashboard/AI-tools/StudentReports.js';
 import React from 'react';
@@ -61,7 +61,7 @@ function App() {
               </ProtectedRoute>
             }
           >
-            {/* <Route path="pricing" element={<Pricing />} /> */}
+            <Route path="pricing" element={<Pricing />} />
             <Route path="/" element={<PrivateRoute />}>
               <Route path="unit-planner/:unitID" element={<UnitPreview />} />
               <Route path="/test" element={<VideoList />} />
