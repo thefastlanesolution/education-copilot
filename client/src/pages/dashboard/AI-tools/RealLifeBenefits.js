@@ -16,6 +16,9 @@ import 'react-modal-video/scss/modal-video.scss';
 import '../AI-tools-css/ModalStyling.css';
 import { Link } from 'react-router-dom';
 import { ImArrowLeft2 } from 'react-icons/im';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import RiseLoader from 'react-spinners/RiseLoader';
 
 const RealLifeBenefits = () => {
   const { displayAlert } = useAppContext();
@@ -31,6 +34,18 @@ const RealLifeBenefits = () => {
   const [subject, setSubject] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
+  const notify = () =>
+    toast('🥳 Benefits coming right up!', {
+      position: 'top-right',
+      autoClose: 20000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: 'light',
+    });
+
   async function saveCompletionToDB(collectionName, data) {
     const auth = getAuth();
     const user = auth.currentUser;
@@ -45,6 +60,7 @@ const RealLifeBenefits = () => {
 
   async function fetchApi(subject) {
     setIsLoading(true);
+    notify();
     const myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
 

@@ -14,6 +14,9 @@ import '../AI-tools-css/ModalStyling.css';
 import { ImDownload, ImArrowLeft2, ImHistory } from 'react-icons/im';
 import printIcon from '../../../assets/svg/noun-print.svg';
 import './PDFCSS.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import RiseLoader from 'react-spinners/RiseLoader';
 
 // PDF Imports
 import { PDFDownloadLink, pdf } from '@react-pdf/renderer';
@@ -52,6 +55,18 @@ const LessonPlannerV2 = () => {
   const [struggleSection, setStruggleSection] = useState('');
   const [closureSection, setClosureSection] = useState('');
 
+  const notify = () =>
+    toast('🦄 Lesson plan coming right up!', {
+      position: 'top-right',
+      autoClose: 70000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: 'light',
+    });
+
   // API Request & Response States
 
   const [completion, setCompletion] = useState({
@@ -84,6 +99,7 @@ const LessonPlannerV2 = () => {
 
   async function fetchApi(subject, gradeLevel) {
     setIsLoading(true);
+    notify();
     const myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
 
@@ -432,7 +448,11 @@ const LessonPlannerV2 = () => {
                 type="submit"
                 disabled={isLoading}
               >
-                {isLoading ? 'Please Wait...' : 'Generate Lesson Plan'}
+                {isLoading ? (
+                  <RiseLoader color={'white'} loading={isLoading} size={7} />
+                ) : (
+                  'Generate Lesson Plan'
+                )}
               </button>
             </div>
           </form>

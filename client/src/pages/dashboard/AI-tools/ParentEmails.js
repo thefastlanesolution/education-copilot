@@ -16,6 +16,9 @@ import 'react-modal-video/scss/modal-video.scss';
 import '../AI-tools-css/ModalStyling.css';
 import { Link } from 'react-router-dom';
 import { ImArrowLeft2 } from 'react-icons/im';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import RiseLoader from 'react-spinners/RiseLoader';
 
 const ParentEmails = () => {
   const { displayAlert } = useAppContext();
@@ -33,6 +36,18 @@ const ParentEmails = () => {
     debounce(handleEditorTextOnChange, 300),
     [completion]
   );
+
+  const notify = () =>
+    toast('📧 Writing Email...', {
+      position: 'top-right',
+      autoClose: 15000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: 'light',
+    });
 
   async function saveCompletionToDB(collectionName, data) {
     const auth = getAuth();
@@ -53,6 +68,7 @@ const ParentEmails = () => {
     fourthFeedback
   ) {
     setIsLoading(true);
+    notify();
     const myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
 
@@ -196,7 +212,11 @@ const ParentEmails = () => {
                 type="submit"
                 disabled={isLoading}
               >
-                {isLoading ? 'Please Wait...' : 'Generate Email'}
+                {isLoading ? (
+                  <RiseLoader color={'white'} loading={isLoading} size={7} />
+                ) : (
+                  'Generate Email'
+                )}
               </button>
             </div>
           </form>
@@ -207,11 +227,8 @@ const ParentEmails = () => {
               <br />
               ✅ Can easily detect between positive and negative feedback. Feel
               free to include both, or just one.
-              <br />
-              ✅ Simply click 'Generate Email' again if you don't like the first
-              one!
-              <br />✅ Simply click 'Generate Email' again if you don't like the
-              first one!
+              <br />✅ Please note, the AI Freestyle tool also does a great job
+              at generating emails of all types.
             </p>
           </div>
         </CardContent>

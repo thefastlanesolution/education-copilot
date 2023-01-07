@@ -79,7 +79,7 @@ const ContextBuilderAPI = ({ overview, dayNumber, unitDetails }) => {
   let overviewText = overview;
 
   const notify = () =>
-    toast('🚀 Generating Context builder!', {
+    toast('🚀 Generating Context Builder!', {
       position: 'top-left',
       autoClose: 70000,
       hideProgressBar: false,

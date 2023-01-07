@@ -14,8 +14,10 @@ import 'react-modal-video/scss/modal-video.scss';
 import '../AI-tools-css/ModalStyling.css';
 import { ImDownload, ImHistory, ImArrowLeft2 } from 'react-icons/im';
 import printIcon from '../../../assets/svg/noun-print.svg';
-
 import './PDFCSS.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import RiseLoader from 'react-spinners/RiseLoader';
 
 // PDF Imports
 import { PDFDownloadLink, pdf } from '@react-pdf/renderer';
@@ -96,6 +98,18 @@ const ContextBuilder = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [documentHasChanged, setDocumentHasChanged] = useState(false);
 
+  const notify = () =>
+    toast('📚 Generating Context Builder!', {
+      position: 'top-right',
+      autoClose: 70000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: 'light',
+    });
+
   // Async function to save the document to the database
 
   async function saveCompletionToDB(collectionName, data) {
@@ -114,6 +128,7 @@ const ContextBuilder = () => {
 
   async function fetchApi(subject, gradeLevel) {
     setIsLoading(true);
+    notify();
     const myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
 
@@ -585,7 +600,11 @@ const ContextBuilder = () => {
                 type="submit"
                 disabled={isLoading}
               >
-                {isLoading ? 'Please Wait...' : 'Generate Context Builder'}
+                {isLoading ? (
+                  <RiseLoader color={'white'} loading={isLoading} size={7} />
+                ) : (
+                  'Generate Context Builder'
+                )}
               </button>
             </div>
           </form>

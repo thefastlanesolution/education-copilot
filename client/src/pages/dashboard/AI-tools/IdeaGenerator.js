@@ -16,6 +16,9 @@ import 'react-modal-video/scss/modal-video.scss';
 import '../AI-tools-css/ModalStyling.css';
 import { Link } from 'react-router-dom';
 import { ImArrowLeft2 } from 'react-icons/im';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import RiseLoader from 'react-spinners/RiseLoader';
 
 const IdeaGenerator = () => {
   const { displayAlert } = useAppContext();
@@ -29,6 +32,18 @@ const IdeaGenerator = () => {
   const [subject, setSubject] = useState('');
   const [gradeLevel, setGradeLevel] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+
+  const notify = () =>
+    toast('💡 Generating Ideas!', {
+      position: 'top-right',
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: 'light',
+    });
 
   async function saveCompletionToDB(collectionName, data) {
     const auth = getAuth();
@@ -46,6 +61,7 @@ const IdeaGenerator = () => {
     setIsLoading(true);
     const myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
+    notify();
 
     const raw = JSON.stringify({
       subject,
@@ -168,7 +184,11 @@ const IdeaGenerator = () => {
                 type="submit"
                 disabled={isLoading}
               >
-                {isLoading ? 'Please Wait...' : 'Generate Ideas'}
+                {isLoading ? (
+                  <RiseLoader color={'white'} loading={isLoading} size={7} />
+                ) : (
+                  'Generate Ideas'
+                )}
               </button>
             </div>
           </form>

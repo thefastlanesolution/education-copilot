@@ -15,6 +15,9 @@ import { decode } from 'html-entities';
 import 'react-modal-video/scss/modal-video.scss';
 import '../AI-tools-css/ModalStyling.css';
 import { ImDownload, ImArrowLeft2 } from 'react-icons/im';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import RiseLoader from 'react-spinners/RiseLoader';
 
 // Powerpoint Imports
 import PPTXGenJS from 'pptxgenjs';
@@ -74,6 +77,18 @@ const SlideGenerator = () => {
   // add the documentHasChanged state hook
   const [documentHasChanged, setDocumentHasChanged] = useState(false);
 
+  const notify = () =>
+    toast('🤓 Creating your PowerPoint!', {
+      position: 'top-right',
+      autoClose: 70000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: 'light',
+    });
+
   // Async function to save the document to the database
   async function saveCompletionToDB(collectionName, data) {
     const auth = getAuth();
@@ -94,6 +109,7 @@ const SlideGenerator = () => {
     );
 
     setIsLoading(true);
+    notify();
     const myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
 
@@ -791,7 +807,11 @@ const SlideGenerator = () => {
                 type="submit"
                 disabled={isLoading}
               >
-                {isLoading ? 'Please Wait...' : 'Generate PowerPoint'}
+                {isLoading ? (
+                  <RiseLoader color={'white'} loading={isLoading} size={7} />
+                ) : (
+                  'Generate PowerPoint'
+                )}
               </button>
             </div>
           </form>

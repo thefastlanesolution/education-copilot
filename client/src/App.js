@@ -47,10 +47,13 @@ import UnitHistory from './pages/dashboard/UnitPlanner/UnitHistory.js';
 import UnitPlanner1 from './pages/dashboard/UnitPlanner/UnitPlanner1.js';
 import UnitPreview from './pages/dashboard/UnitPlanner/UnitPreview.js';
 import VideoList from './pages/dashboard/AI-tools/VideoList.js';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
     <>
+      <ToastContainer />
       <Router>
         <Routes>
           <Route

@@ -14,6 +14,9 @@ import '../AI-tools-css/ModalStyling.css';
 import { ImArrowLeft2, ImDownload, ImHistory } from 'react-icons/im';
 import printIcon from '../../../assets/svg/noun-print.svg';
 import './PDFCSS.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import RiseLoader from 'react-spinners/RiseLoader';
 
 // PDF Imports
 import { PDFDownloadLink, pdf } from '@react-pdf/renderer';
@@ -72,6 +75,18 @@ const EducationalHandout = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [documentHasChanged, setDocumentHasChanged] = useState(false);
 
+  const notify = () =>
+    toast('🛸 Generating Educational Handout!', {
+      position: 'top-right',
+      autoClose: 65000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: 'light',
+    });
+
   // Async function to save the document to the database
 
   async function saveCompletionToDB(collectionName, data) {
@@ -89,6 +104,7 @@ const EducationalHandout = () => {
   // API Request Function to get the generated text and set the states for the lesson plan sections
 
   async function fetchApi(subject, gradeLevel) {
+    notify();
     setIsLoading(true);
     const myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
@@ -477,7 +493,11 @@ const EducationalHandout = () => {
                 type="submit"
                 disabled={isLoading}
               >
-                {isLoading ? 'Please Wait...' : 'Generate Educational Handout'}
+                {isLoading ? (
+                  <RiseLoader color={'white'} loading={isLoading} size={7} />
+                ) : (
+                  'Generate Educational Handout'
+                )}
               </button>
             </div>
           </form>

@@ -11,7 +11,7 @@ const shotgunCompletion = async (req, res) => {
   openai
     .createCompletion({
       model: 'text-davinci-002',
-      prompt: `Give me 10 assessment, project, or classroom activity ideas for my ${gradeLevel} students.<br><br/>Topic: ${subject}<br><br/>Okay, here's your list:<br><br/>`,
+      prompt: `Give me 10 assessment, project, or classroom activity ideas for my ${gradeLevel} students.<br/>Topic: ${subject}. <br/>Okay, here's your list:<br/><br/>`,
       temperature: 0.8,
       max_tokens: 300,
       top_p: 1,
