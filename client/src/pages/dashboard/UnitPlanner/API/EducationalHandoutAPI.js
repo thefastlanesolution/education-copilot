@@ -5,6 +5,8 @@ import { Link, useParams } from 'react-router-dom';
 
 // CSS & Design Component Imports
 import { decode } from 'html-entities';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // PDF Imports
 import { PDFDownloadLink, pdf } from '@react-pdf/renderer';
@@ -64,6 +66,18 @@ const EducationalHandoutAPI = ({ overview, dayNumber, unitDetails }) => {
   const { unitID } = useParams();
   let overviewText = overview;
 
+  const notify = () =>
+    toast('🤖 Handout on its way!', {
+      position: 'top-left',
+      autoClose: 70000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: 'light',
+    });
+
   // console.log(unitDetails[dayNumber].lessonplan);
 
   // Async function to save the document to the database
@@ -100,6 +114,7 @@ const EducationalHandoutAPI = ({ overview, dayNumber, unitDetails }) => {
     dayNumber,
     updateFunction
   ) {
+    notify();
     setIsLoading(true);
     const myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');

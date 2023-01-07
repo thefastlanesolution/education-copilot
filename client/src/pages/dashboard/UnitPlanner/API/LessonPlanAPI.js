@@ -6,6 +6,8 @@ import { Link, useParams } from 'react-router-dom';
 // CSS & Design Component Imports
 import { decode } from 'html-entities';
 import './UnitDay.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // PDF Imports
 import { PDFDownloadLink, pdf } from '@react-pdf/renderer';
@@ -55,7 +57,17 @@ const LessonPlanButton = ({ overview, dayNumber, unitDetails }) => {
   const { unitID } = useParams();
   let overviewText = overview;
 
-  // console.log(unitDetails[dayNumber].lessonplan);
+  const notify = () =>
+    toast('📝 Lesson Plan coming right up!', {
+      position: 'top-left',
+      autoClose: 70000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: 'light',
+    });
 
   // Async function to save the document to the database
 
@@ -221,6 +233,7 @@ const LessonPlanButton = ({ overview, dayNumber, unitDetails }) => {
     setStruggleSection('');
     setClosureSection('');
     console.log('reset states');
+    notify();
     fetchApi(subject, gradeLevel, overviewText);
   };
 
@@ -390,7 +403,25 @@ const LessonPlanButton = ({ overview, dayNumber, unitDetails }) => {
     }
   }, [fileIsReady]);
 
-  return <div>{buttonJSX}</div>;
+  return (
+    <div>
+      {buttonJSX}
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      {/* Same as */}
+      <ToastContainer />
+    </div>
+  );
 };
 
 export default LessonPlanButton;
