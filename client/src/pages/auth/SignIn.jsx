@@ -41,10 +41,11 @@ function SignIn() {
       );
 
       if (userCredential.user) {
-        firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+        setPersistence(auth, browserLocalPersistence);
         navigate('/');
       }
     } catch (error) {
+      console.log(error);
       console.log('Bad User Credentials');
     }
   };

@@ -8,6 +8,11 @@ import Wrapper from '../../assets/wrappers/PricingWrapper.js';
 import { IoCheckmarkSharp } from 'react-icons/io5';
 import { useAppContext } from '../../context/appContext';
 import { db } from '../../firebase.config';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import RiseLoader from 'react-spinners/RiseLoader';
+
+// Firebase Imports
 import {
   collection,
   getDocs,
@@ -20,16 +25,29 @@ import {
   onSnapshot,
   getDoc,
 } from 'firebase/firestore';
+
+// Stripe / Auth Services
 import { loadStripe } from '@stripe/stripe-js';
 import AuthService from '../../services/Auth.service.js';
 import { useAuthStatus } from '../../hooks/useAuthStatus.js';
-import { fontFamily, fontWeight } from '@mui/system';
 
 const PricingPage = () => {
   const { loggedIn, checkingStatus } = useAuthStatus();
-
   const [canPurchase, setCanPurchase] = useState(true);
+  const [isYearlyPlanActive, setIsYearlyPlanActive] = useState(false);
   const [isCanPurchaseSet, setIsCanPurchaseSet] = useState(false);
+
+  const notify = () =>
+    toast('🚀 Loading Secure Checkout!', {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: 'light',
+    });
 
   useEffect(async () => {
     if (checkingStatus) {
@@ -37,6 +55,8 @@ const PricingPage = () => {
     }
     if (loggedIn && !isCanPurchaseSet) {
       const result = await AuthService.doesUserHaveActiveSubscription();
+      const yearlyActive = await AuthService.doesUserHaveAnnualSubscription();
+      setIsYearlyPlanActive(yearlyActive);
       setCanPurchase(!result);
       setIsCanPurchaseSet(true);
     }
@@ -60,6 +80,7 @@ const PricingPage = () => {
   }
 
   async function startCheckoutSession() {
+    notify();
     const userCheckoutCollection = collection(
       db,
       `users/${getAuth().currentUser.uid}/checkout_sessions`
@@ -67,6 +88,32 @@ const PricingPage = () => {
 
     const docRef = await addDoc(userCheckoutCollection, {
       price: 'price_1MMpuJLgWWC0lfdoQyz5KKIa',
+      success_url: window.location.origin,
+      cancel_url: window.location.origin,
+    });
+
+    onSnapshot(docRef, async snap => {
+      const { sessionId } = snap.data();
+
+      if (sessionId) {
+        console.log('Ready for starting checkout process');
+        const stripe = await loadStripe(
+          'pk_live_zp7u9YDsT6HrrwHs3UVQVmXN00SZrKzQp5'
+        );
+        stripe.redirectToCheckout({ sessionId });
+      }
+    });
+  }
+
+  async function startAnnualCheckoutSession() {
+    notify();
+    const userCheckoutCollection = collection(
+      db,
+      `users/${getAuth().currentUser.uid}/checkout_sessions`
+    );
+
+    const docRef = await addDoc(userCheckoutCollection, {
+      price: 'price_1MNgcfLgWWC0lfdo070ghCWc',
       success_url: window.location.origin,
       cancel_url: window.location.origin,
     });
@@ -138,7 +185,7 @@ const PricingPage = () => {
                   fontWeight: '800',
                 }}
               >
-                $9
+                $0.10
               </a>
               <a
                 style={{
@@ -243,7 +290,7 @@ const PricingPage = () => {
                   fontWeight: '800',
                 }}
               >
-                $6
+                $5
               </a>
               <a style={{ color: 'gray', fontFamily: 'inter' }}>
                 /mo - <span style={{ fontSize: '.8rem' }}>billed annually</span>
@@ -300,10 +347,12 @@ const PricingPage = () => {
                 },
               }}
               variant="contained"
-              disabled={!canPurchase}
-              onClick={startCheckoutSession}
+              disabled={!canPurchase && !isYearlyPlanActive}
+              onClick={startAnnualCheckoutSession}
             >
-              {!canPurchase ? 'Current Active Plan' : 'Get Started'}
+              {!canPurchase && !isYearlyPlanActive
+                ? 'Current Active Plan'
+                : 'Get Started'}
             </Button>
           </div>
         </CardContent>
