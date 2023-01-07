@@ -1,11 +1,4 @@
-import {
-  Page,
-  Text,
-  View,
-  Document,
-  StyleSheet,
-  Font,
-} from '@react-pdf/renderer';
+import { Page, Text, Document, StyleSheet, Font } from '@react-pdf/renderer';
 
 Font.register({
   family: 'Oswald',
@@ -15,7 +8,6 @@ Font.register({
 const PDF = props => {
   const {
     subject,
-    terms,
     firstDefinition,
     firstExample,
     firstExample2,

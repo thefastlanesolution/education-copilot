@@ -1,6 +1,6 @@
 // React State Management Imports
 import * as React from 'react';
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 // CSS & Design Component Imports
@@ -14,12 +14,12 @@ import '../AI-tools-css/ModalStyling.css';
 import { ImArrowLeft2, ImDownload, ImHistory } from 'react-icons/im';
 import printIcon from '../../../assets/svg/noun-print.svg';
 import './PDFCSS.css';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import RiseLoader from 'react-spinners/RiseLoader';
 
 // PDF Imports
-import { PDFDownloadLink, pdf } from '@react-pdf/renderer';
+import { pdf } from '@react-pdf/renderer';
 import PDF from './EducationalPDF';
 import { Document, Page } from 'react-pdf';
 

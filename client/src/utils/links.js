@@ -1,9 +1,4 @@
-import {
-  IoHome,
-  IoColorWand,
-  IoCalendar,
-  IoCalendarClearSharp,
-} from 'react-icons/io5';
+import { IoHome, IoColorWand, IoCalendar } from 'react-icons/io5';
 import { ImProfile, ImHistory } from 'react-icons/im';
 
 const links = [
