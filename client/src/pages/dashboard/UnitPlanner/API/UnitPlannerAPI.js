@@ -9,6 +9,8 @@ import RingLoader from 'react-spinners/RingLoader';
 import PropagateLoader from 'react-spinners/PropagateLoader';
 import RiseLoader from 'react-spinners/RiseLoader';
 import '../multiform.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // Firebase Imports
 import {
@@ -165,6 +167,8 @@ const UnitPlanner = props => {
   async function fetchApi(unitName, unitLength, unitStandards, unitDetails) {
     const myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
+
+    notify();
 
     const raw = JSON.stringify({
       unitName,
@@ -585,6 +589,19 @@ const UnitPlanner = props => {
   // };
 
   // eslint-disable
+
+  const notify = () =>
+    toast('🦄  Now sit back and relax!', {
+      position: 'top-right',
+      autoClose: unitLength * 4 * 1100,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: 'light',
+    });
+
   return (
     <div className="unitpage">
       <form onSubmit={onSubmit}>
@@ -600,6 +617,20 @@ const UnitPlanner = props => {
         </button>
         {/* {isLoading && <div className="countdown">{countdown()}</div>} */}
       </form>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      {/* Same as */}
+      <ToastContainer />
     </div>
   );
 };

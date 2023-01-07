@@ -17,6 +17,8 @@ import {
 import UnitPlannerButton from '../UnitPlanner/API/UnitPlannerAPI';
 import UnitIdeaButton from '../UnitPlanner/API/UnitPlannerAPI';
 import RingLoader from 'react-spinners/RingLoader';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // Unit Planner Component
 
@@ -154,6 +156,18 @@ const MultiStepForm = () => {
 
   const navigate = useNavigate();
 
+  const notify = () =>
+    toast('🦄 Unit plan on the way!', {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'light',
+    });
+
   switch (currentStep) {
     case 1:
       return (
@@ -200,6 +214,20 @@ const MultiStepForm = () => {
               margin: '0 0 2rem 0',
             }}
           ></div>
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />
+          {/* Same as */}
+          <ToastContainer />
           <div>
             <button
               className="btn btn-block history-btn"
@@ -383,7 +411,7 @@ const MultiStepForm = () => {
       return (
         <div className="container">
           <div className="headertext" style={{ maxWidth: '90%' }}>
-            How many days should this unit take to cover?
+            How many lessons should this unit include?
           </div>
           <div className="form">
             <form onSubmit={handleSubmit}>
@@ -407,7 +435,9 @@ const MultiStepForm = () => {
                     type="text"
                     className="length-input"
                     disabled="true"
-                    value={unitLength + (unitLength === 1 ? ' day' : ' days')}
+                    value={
+                      unitLength + (unitLength === 1 ? ' lesson' : ' lessons')
+                    }
                     handleChange={e => setUnitLength(e.target.value)}
                     placeHolder={'1'}
                     style={{
