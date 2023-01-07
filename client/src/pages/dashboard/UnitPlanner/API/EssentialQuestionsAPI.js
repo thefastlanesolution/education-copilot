@@ -8,6 +8,8 @@ import { decode } from 'html-entities';
 import RingLoader from 'react-spinners/RingLoader';
 import '../API/RegenButtons/overview.css';
 import { IoRefreshSharp } from 'react-icons/io5';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // Firebase Imports
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
@@ -44,6 +46,18 @@ const EssentialQuestionsButton = ({
   const { unitID } = useParams();
   let overviewText = overview;
   const lessonOverviewText = overview.replace(/<br\s*\/?>/g, '');
+
+  const notify = () =>
+    toast('🦄 Essential Questions on their way!', {
+      position: 'top-left',
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: 'light',
+    });
 
   function nl2br(str, is_xhtml) {
     var breakTag =
@@ -143,6 +157,7 @@ const EssentialQuestionsButton = ({
     if (!overview) {
       return;
     }
+    notify();
     fetchApi(overview);
   };
 

@@ -8,6 +8,8 @@ import { decode } from 'html-entities';
 import RingLoader from 'react-spinners/RingLoader';
 import '../API/RegenButtons/overview.css';
 import { IoRefreshSharp } from 'react-icons/io5';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // Firebase Imports
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
@@ -54,6 +56,18 @@ const StudentObjectivesButton = ({
     );
   }
 
+  const notify = () =>
+    toast('😎 Objectives on their way!', {
+      position: 'top-left',
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: 'light',
+    });
+
   async function saveCompletionToDB(collectionName, data) {
     const auth = getAuth();
     const user = auth.currentUser;
@@ -81,6 +95,7 @@ const StudentObjectivesButton = ({
     setIsLoading(true);
     const myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
+    notify();
 
     const raw = JSON.stringify({
       overview,
