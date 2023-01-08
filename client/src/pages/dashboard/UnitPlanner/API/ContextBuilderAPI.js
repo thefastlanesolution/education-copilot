@@ -498,7 +498,7 @@ const ContextBuilderAPI = ({ overview, dayNumber, unitDetails }) => {
         const url = window.URL.createObjectURL(new Blob([blob]));
         const link = document.createElement('a');
         link.href = url;
-        link.setAttribute('download', `${dayNumber} Lesson Plan.pdf`);
+        link.setAttribute('download', `${dayNumber} Context Builder.pdf`);
         document.body.appendChild(link);
         link.click();
         link.parentNode.removeChild(link);
