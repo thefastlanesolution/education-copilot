@@ -147,7 +147,7 @@ const EducationalHandoutAPI = ({ overview, dayNumber, unitDetails }) => {
         });
 
         //set the title to everything between <title> and </title>
-        var regex = /<title>(.*?)<\/title>/s;
+        var regex = /<pdftitle>(.*?)<\/pdftitle>/s;
         var matchFirst = textResult.match(regex);
         setTitle(matchFirst[1]);
 
