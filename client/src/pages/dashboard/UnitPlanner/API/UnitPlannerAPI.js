@@ -554,6 +554,7 @@ const UnitPlanner = props => {
         title15: titleFifteenth ? titleFifteenth : '',
       }).then(() => {
         setIsLoading(false);
+        toast.dismiss();
         navigate(`/unit-planner/${unitID}`);
       });
     }
@@ -592,11 +593,12 @@ const UnitPlanner = props => {
       position: 'top-right',
       autoClose: unitLength * 4 * 1100,
       hideProgressBar: false,
-      closeOnClick: true,
+      closeOnClick: false,
       pauseOnHover: false,
       draggable: true,
       progress: undefined,
       theme: 'light',
+      pauseOnFocusLoss: false,
     });
 
   return (
@@ -614,7 +616,6 @@ const UnitPlanner = props => {
         </button>
         {/* {isLoading && <div className="countdown">{countdown()}</div>} */}
       </form>
-     
     </div>
   );
 };

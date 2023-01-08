@@ -66,6 +66,7 @@ const LessonPlanButton = ({ overview, dayNumber, unitDetails }) => {
       pauseOnHover: false,
       draggable: true,
       progress: undefined,
+      pauseOnFocusLoss: false,
       theme: 'light',
       toastId: 'lessonplanunit',
     });

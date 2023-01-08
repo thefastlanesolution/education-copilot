@@ -85,6 +85,7 @@ const ContextBuilderAPI = ({ overview, dayNumber, unitDetails }) => {
       hideProgressBar: false,
       closeOnClick: false,
       pauseOnHover: false,
+      pauseOnFocusLoss: false,
       draggable: true,
       progress: undefined,
       theme: 'light',

@@ -75,6 +75,7 @@ const EducationalHandoutAPI = ({ overview, dayNumber, unitDetails }) => {
       pauseOnHover: false,
       draggable: true,
       progress: undefined,
+      pauseOnFocusLoss: false,
       theme: 'light',
       toastId: 'educationalhandoutunit',
     });
