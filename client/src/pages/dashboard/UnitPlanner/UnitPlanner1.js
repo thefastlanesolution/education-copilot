@@ -214,20 +214,7 @@ const MultiStepForm = () => {
               margin: '0 0 2rem 0',
             }}
           ></div>
-          <ToastContainer
-            position="top-right"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="light"
-          />
-          {/* Same as */}
-          <ToastContainer />
+
           <div>
             <button
               className="btn btn-block history-btn"

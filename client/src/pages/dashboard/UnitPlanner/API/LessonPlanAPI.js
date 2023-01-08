@@ -130,55 +130,55 @@ const LessonPlanButton = ({ overview, dayNumber, unitDetails }) => {
         });
 
         // Aim
-        var regex = /<aim>(.*?)<aim>/s;
+        var regex = /<aim>(.*?)<\/aim>/s;
         var matchAim = textResult.match(regex);
         console.log('Aim Match ====', matchAim[1]);
         setAimSection(matchAim[1]);
 
         // Objectives
-        var regex = /<objectives>(.*?)<objectives>/s;
+        var regex = /<objectives>(.*?)<\/objectives>/s;
         var matchObjectives = textResult.match(regex);
         console.log('Objectives Match ====', matchObjectives[1]);
         setObjectivesSection(matchObjectives[1]);
 
         // Materials Needed
-        var regex = /<materials>(.*?)<materials>/s;
+        var regex = /<materials>(.*?)<\/materials>/s;
         var matchMaterials = textResult.match(regex);
         console.log('Materials Match ====', matchMaterials[1]);
         setMaterialsSection(matchMaterials[1]);
 
         // Anticipatory Set
-        var regex = /<anticipatory>(.*?)<anticipatory>/s;
+        var regex = /<anticipatory>(.*?)<\/anticipatory>/s;
         var matchAnticipatory = textResult.match(regex);
         //console.log('Objectives Match ====', matchAnticipatory[1]);
         setAnticipatorySection(matchAnticipatory[1]);
 
         // Modeled Practice
-        var regex = /<modeled>(.*?)<modeled>/s;
+        var regex = /<modeled>(.*?)<\/modeled>/s;
         var matchModeled = textResult.match(regex);
         //console.log('Aim Match ====', matchModeled[1]);
         setModeledSection(matchModeled[1]);
 
         // Guided Practice
-        var regex = /<guided>(.*?)<guided>/s;
+        var regex = /<guided>(.*?)<\/guided>/s;
         var matchGuided = textResult.match(regex);
         //console.log('Objectives Match ====', matchGuided[1]);
         setGuidedSection(matchGuided[1]);
 
         // Independent Practice
-        var regex = /<independent>(.*?)<independent>/s;
+        var regex = /<independent>(.*?)<\/independent>/s;
         var matchIndependent = textResult.match(regex);
         // console.log('Aim Match ====', matchIndependent[1]);
         setIndependentPractice(matchIndependent[1]);
 
         // Struggle
-        var regex = /<struggles>(.*?)<struggles>/s;
+        var regex = /<struggles>(.*?)<\/struggles>/s;
         var matchStruggle = textResult.match(regex);
         // console.log('Objectives Match ====', matchStruggle[1]);
         setStruggleSection(matchStruggle[1]);
 
         // Closure
-        var regex = /<closure>(.*?)<closure>/s;
+        var regex = /<closure>(.*?)<\/closure>/s;
         var matchClosure = textResult.match(regex);
         console.log('Aim Match ====', matchClosure[1]);
         setClosureSection(matchClosure[1]);
@@ -403,25 +403,7 @@ const LessonPlanButton = ({ overview, dayNumber, unitDetails }) => {
     }
   }, [fileIsReady]);
 
-  return (
-    <div>
-      {buttonJSX}
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
-      {/* Same as */}
-      <ToastContainer />
-    </div>
-  );
+  return <div>{buttonJSX}</div>;
 };
 
 export default LessonPlanButton;

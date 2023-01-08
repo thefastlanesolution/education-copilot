@@ -614,20 +614,7 @@ const UnitPlanner = props => {
         </button>
         {/* {isLoading && <div className="countdown">{countdown()}</div>} */}
       </form>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
-      {/* Same as */}
-      <ToastContainer />
+     
     </div>
   );
 };
