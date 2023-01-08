@@ -136,7 +136,7 @@ const PricingPage = () => {
   }, []);
 
   return (
-    <Wrapper className="mainwrapper" style={{ marginBottom: '10%' }}>
+    <Wrapper className="mainwrapper">
       <div className="Header">
         <div className="main-header">
           Get <span style={{ color: '#7d5ff5' }}>Unlimited</span> Access to

@@ -1,10 +1,10 @@
 .mainwrapper {
   margin-top: 0 !important;
+  margin-bottom: 8rem;
 }
 
 .pricing-annual {
   box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.1) !important;
-  max-width: 100%;
 }
 
 .sub-header {
@@ -21,7 +21,7 @@
   color: white;
   padding: 5px 10px;
   border-radius: 20px;
-  width: 100%;
+  width: fit-content;
 }
 
 .type-monthly {
@@ -30,7 +30,7 @@
   color: #526fff;
   padding: 5px 10px;
   border-radius: 20px;
-  width: 100%;
+  width: fit-content;
 }
 
 .checkmark {
