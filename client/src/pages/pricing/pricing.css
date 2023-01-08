@@ -18,22 +18,33 @@
 .type-annual {
   display: flex;
   background-color: #526fff;
+  justify-content: center;
+  align-items: center;
   color: white;
   padding: 5px 10px;
   border-radius: 20px;
-  width: fit-content;
+  width: 170px;
 }
 
 .type-monthly {
   display: flex;
   background-color: #f1f5f9;
   color: #526fff;
+  justify-content: center;
+  align-items: center;
   padding: 5px 10px;
   border-radius: 20px;
-  width: fit-content;
+  width: 90px;
 }
 
 .checkmark {
   transform: translate(-1px, 5px);
   margin-right: 0.7rem;
+}
+
+.pricing {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
