@@ -107,6 +107,7 @@ const ContextBuilder = () => {
       pauseOnHover: false,
       draggable: true,
       progress: undefined,
+      pauseOnFocusLoss: false,
       theme: 'light',
     });
 
@@ -421,6 +422,8 @@ const ContextBuilder = () => {
         tenthExample2={tenthExample2}
       />
     ).toBlob();
+
+    toast.dismiss();
 
     // Get the current user and the storage service and the user id
     const auth = getAuth();

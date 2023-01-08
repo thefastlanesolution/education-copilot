@@ -16,6 +16,9 @@ import 'react-modal-video/scss/modal-video.scss';
 import '../AI-tools-css/ModalStyling.css';
 import { Link } from 'react-router-dom';
 import { ImArrowLeft2 } from 'react-icons/im';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import RiseLoader from 'react-spinners/RiseLoader';
 
 const FreeStyle = () => {
   //Loading State
@@ -41,6 +44,19 @@ const FreeStyle = () => {
     const ref = await addDoc(collection(db, collectionName), data);
     return ref;
   }
+
+  const notify = () =>
+    toast('🛸 Contacting the mother ship!', {
+      position: 'top-right',
+      autoClose: 30000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      pauseOnFocusLoss: false,
+      theme: 'light',
+    });
 
   async function fetchApi(subject) {
     setIsLoading(true);
@@ -76,6 +92,8 @@ const FreeStyle = () => {
           generatedText: textResult,
         };
 
+        toast.dismiss();
+
         saveCompletionToDB('completions', dataToSave)
           .then(ref => {
             setCompletion({
@@ -95,6 +113,7 @@ const FreeStyle = () => {
       console.log('You must enter in a prompt');
       return;
     }
+    notify();
     fetchApi(subject);
   };
 
@@ -186,7 +205,11 @@ const FreeStyle = () => {
                 type="submit"
                 disabled={isLoading}
               >
-                {isLoading ? 'Please Wait...' : 'Generate Output'}
+                {isLoading ? (
+                  <RiseLoader color={'white'} loading={isLoading} size={7} />
+                ) : (
+                  'Generate Output'
+                )}
               </button>
             </div>
           </form>

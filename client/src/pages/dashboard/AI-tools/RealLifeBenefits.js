@@ -42,6 +42,7 @@ const RealLifeBenefits = () => {
       closeOnClick: true,
       pauseOnHover: false,
       draggable: true,
+      pauseOnFocusLoss: false,
       progress: undefined,
       theme: 'light',
     });
@@ -92,6 +93,8 @@ const RealLifeBenefits = () => {
           application: 'Real World Benefits',
           generatedText: textResult,
         };
+
+        toast.dismiss();
 
         saveCompletionToDB('completions', dataToSave)
           .then(ref => {
@@ -179,7 +182,11 @@ const RealLifeBenefits = () => {
                   type="submit"
                   disabled={isLoading}
                 >
-                  {isLoading ? 'Please Wait...' : 'Generate Benefits'}
+                  {isLoading ? (
+                    <RiseLoader color={'white'} loading={isLoading} size={7} />
+                  ) : (
+                    'Generate Benefits'
+                  )}
                 </button>
               </div>
             </form>
