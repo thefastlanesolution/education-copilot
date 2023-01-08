@@ -315,6 +315,12 @@ const PricingPage = () => {
                 className="checkmark"
                 style={{ stroke: '#34cd2b', fontSize: '1.3rem' }}
               />
+              Access to all future updates!
+              <br />
+              <IoCheckmarkSharp
+                className="checkmark"
+                style={{ stroke: '#34cd2b', fontSize: '1.3rem' }}
+              />
               15+ AI Templates
               <br />
               <IoCheckmarkSharp
