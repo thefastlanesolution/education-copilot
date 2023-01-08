@@ -76,6 +76,7 @@ const EducationalHandoutAPI = ({ overview, dayNumber, unitDetails }) => {
       draggable: true,
       progress: undefined,
       theme: 'light',
+      toastId: 'educationalhandoutunit',
     });
 
   // console.log(unitDetails[dayNumber].lessonplan);
@@ -341,6 +342,7 @@ const EducationalHandoutAPI = ({ overview, dayNumber, unitDetails }) => {
       />
     ).toBlob();
 
+    toast.dismiss('educationalhandoutunit');
     setPdfBlob(blob);
 
     // Get the current user and the storage service and the user id

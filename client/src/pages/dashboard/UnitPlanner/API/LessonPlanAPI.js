@@ -67,6 +67,7 @@ const LessonPlanButton = ({ overview, dayNumber, unitDetails }) => {
       draggable: true,
       progress: undefined,
       theme: 'light',
+      toastId: 'lessonplanunit',
     });
 
   // Async function to save the document to the database
@@ -258,6 +259,7 @@ const LessonPlanButton = ({ overview, dayNumber, unitDetails }) => {
       />
     ).toBlob();
 
+    toast.dismiss('lessonplanunit');
     setPdfBlob(blob);
 
     // Get the current user and the storage service and the user id

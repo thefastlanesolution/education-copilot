@@ -88,6 +88,7 @@ const ContextBuilderAPI = ({ overview, dayNumber, unitDetails }) => {
       draggable: true,
       progress: undefined,
       theme: 'light',
+      toastId: 'contextunit',
     });
 
   // console.log(unitDetails[dayNumber].lessonplan);
@@ -509,6 +510,7 @@ const ContextBuilderAPI = ({ overview, dayNumber, unitDetails }) => {
       />
     ).toBlob();
 
+    toast.dismiss('contextunit');
     setPdfBlob(blob);
 
     // Get the current user and the storage service and the user id
