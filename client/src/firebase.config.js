@@ -1,4 +1,5 @@
 import { initializeApp } from 'firebase/app';
+import { getFunctions } from 'firebase/functions';
 import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 import {
@@ -34,3 +35,4 @@ export const db = getFirestore();
 
 export const unitsCollection = collection(db, 'units');
 export const unitDoc = doc(db, 'units', 'VFrRmfZwzLVh6F91Xln1');
+export const functions = getFunctions(app, 'us-central1');

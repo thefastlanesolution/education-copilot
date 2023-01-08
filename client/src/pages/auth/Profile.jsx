@@ -10,14 +10,19 @@ import {
   orderBy,
   deleteDoc,
 } from 'firebase/firestore';
-import { db } from '../../firebase.config';
+import { db, functions } from '../../firebase.config';
 import { useNavigate } from 'react-router-dom';
 import './Profile.css';
+import { httpsCallable } from 'firebase/functions';
+import AuthService from '../../services/Auth.service';
+import dayjs from 'dayjs';
+dayjs().format();
 
 function Profile() {
   const auth = getAuth();
   const [loading, setLoading] = useState(true);
   const [listings, setListings] = useState(null);
+  const [subscriptionData, setSubscriptionData] = useState(null);
   const [changeDetails, setChangeDetails] = useState(false);
   const [formData, setFormData] = useState({
     name: auth.currentUser.displayName,
@@ -27,6 +32,24 @@ function Profile() {
   const { name, email } = formData;
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const getSubscription = async () => {
+      const subscription = await AuthService.getUserSubscriptionDetails();
+      setSubscriptionData(subscription);
+    };
+
+    getSubscription();
+  }, []);
+
+  function calculateCurrentPlanCost() {
+    if (subscriptionData) {
+      console.log(subscriptionData);
+      const price = subscriptionData.items[0].plan.amount;
+      return `$${price / 100} `;
+    }
+    return '$0.00 ';
+  }
 
   useEffect(() => {
     const fetchUserListings = async () => {
@@ -88,6 +111,32 @@ function Profile() {
     }));
   };
 
+  const redirectToCustomerPortal = async () => {
+    console.log(functions);
+    // TODO: We need to deactivate cors in local while testing for localhost domain
+    const functionRef = httpsCallable(
+      functions,
+      'ext-firestore-stripe-payments-createPortalLink'
+    );
+
+    const { data } = await await functionRef({
+      returnUrl: window.location.origin,
+      locale: 'auto', // Optional, defaults to "auto"
+    });
+
+    window.location.assign(data.url);
+  };
+
+  function calculateNextBillingDate() {
+    if (subscriptionData) {
+      const date = dayjs(
+        new Date(subscriptionData.current_period_end.seconds * 1000)
+      );
+      console.log(date);
+      return date.format('MM/DD/YYYY');
+    }
+    return 'N/A';
+  }
   return (
     <div className="profile">
       <header
@@ -113,21 +162,28 @@ function Profile() {
           </div>
           <div className="currentPlan">
             <div className="currentplan-text">Current Plan</div>
-            <div className="currentplan-plan">Beta User</div>
+            <div className="currentplan-plan">
+              {/* FIXME/TODO : In the future, with multiple plans, it'll be better to just get the plan type from the AuthService or a dedicated SubscriptionService */}
+              {subscriptionData ? 'Pro Plan' : 'Free Plan'}
+            </div>
           </div>
           <div className="nextbill">
             <div className="nextbill-text">Next Billing Date</div>
-            <div className="nextbill-date">N/A</div>
+            <div className="nextbill-date">{calculateNextBillingDate()}</div>
           </div>
           <div className="planprice">
             <div className="planprice-text">Monthly Charge</div>
             <div className="planprice-price">
-              $0.00 <span className="monthtext">/ Month</span>
+              {calculateCurrentPlanCost()}
+              <span className="monthtext">/ Month</span>
             </div>
           </div>
-          {/* <div className="updateplan">
-            <button className="updateplan-btn">Update Plan</button>
-          </div> */}
+          {/* Add dynamic buttons here, upgrade plan, subscribe, etc */}
+          {subscriptionData && (
+            <div className="updateplan" onClick={redirectToCustomerPortal}>
+              <button className="updateplan-btn">Billing Details</button>
+            </div>
+          )}
         </div>
         <div className="profileCard">
           <div className="profileDetailsHeader">
