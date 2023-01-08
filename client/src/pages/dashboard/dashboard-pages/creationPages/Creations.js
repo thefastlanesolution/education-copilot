@@ -10,6 +10,7 @@ import Wrapper from '../../../../assets/wrappers/WorkshopTools';
 import PageBtnContainer from '../../../../components/PageBtnContainer';
 import { ImHistory, ImPlus, ImFolder } from 'react-icons/im';
 import './Creations.css';
+import LazyLoad from 'react-lazy-load';
 
 // Firebase Imports
 import { getAuth } from '@firebase/auth';
@@ -21,6 +22,19 @@ import {
   listAll,
   getMetadata,
 } from 'firebase/storage';
+import {
+  collection,
+  doc,
+  getDocs,
+  query,
+  where,
+  updateDoc,
+  setDoc,
+  limit,
+  orderBy,
+  addDoc,
+  limitToFirst,
+} from 'firebase/firestore';
 import { Document, Page } from 'react-pdf';
 
 const Creations = () => {
@@ -96,6 +110,7 @@ const Creations = () => {
     });
   }, []);
 
+  // only take the first 10 items from the sortedCreationCards array
   const sortedCreationCards = creationCards.sort((a, b) => {
     // Get the timeCreated value for each FolderCard component
     const timeCreatedA = a.props.timeCreated;
@@ -110,6 +125,8 @@ const Creations = () => {
     if (dateA > dateB) return -1;
     return 0;
   });
+
+  const sortedItems1 = sortedCreationCards.slice(0, 20);
 
   // eslint-disable
   return (
@@ -185,7 +202,7 @@ const Creations = () => {
         </div>
         <div className="recentFiles">
           <h5 className="folder-header creations-header">Recent Creations</h5>
-          <div className="files">{sortedCreationCards}</div>
+          <div className="files">{sortedItems1}</div>
         </div>
       </Wrapper>
     </div>
