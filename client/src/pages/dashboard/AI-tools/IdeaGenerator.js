@@ -175,7 +175,8 @@ const IdeaGenerator = () => {
       displayAlert();
       return;
     }
-    fetchDocumentsCreated();
+    // fetchDocumentsCreated();
+    fetchApi(subject, gradeLevel);
   };
 
   async function handleEditorTextOnChange(event, editor) {
