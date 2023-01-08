@@ -57,7 +57,7 @@ const IdeaGenerator = () => {
       position: 'top-right',
       autoClose: 2000,
       hideProgressBar: false,
-      closeOnClick: true,
+      closeOnClick: false,
       pauseOnHover: false,
       draggable: true,
       progress: undefined,

@@ -156,18 +156,6 @@ const MultiStepForm = () => {
 
   const navigate = useNavigate();
 
-  const notify = () =>
-    toast('🦄 Unit plan on the way!', {
-      position: 'top-right',
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: 'light',
-    });
-
   switch (currentStep) {
     case 1:
       return (

@@ -103,7 +103,7 @@ const ContextBuilder = () => {
       position: 'top-right',
       autoClose: 70000,
       hideProgressBar: false,
-      closeOnClick: true,
+      closeOnClick: false,
       pauseOnHover: false,
       draggable: true,
       progress: undefined,

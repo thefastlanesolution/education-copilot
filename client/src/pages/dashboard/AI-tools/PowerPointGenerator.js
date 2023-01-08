@@ -80,9 +80,9 @@ const SlideGenerator = () => {
   const notify = () =>
     toast('🤓 Creating your PowerPoint!', {
       position: 'top-right',
-      autoClose: 70000,
+      autoClose: 75000,
       hideProgressBar: false,
-      closeOnClick: true,
+      closeOnClick: false,
       pauseOnHover: false,
       draggable: true,
       pauseOnFocusLoss: false,

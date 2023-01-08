@@ -39,7 +39,7 @@ const RealLifeBenefits = () => {
       position: 'top-right',
       autoClose: 20000,
       hideProgressBar: false,
-      closeOnClick: true,
+      closeOnClick: false,
       pauseOnHover: false,
       draggable: true,
       pauseOnFocusLoss: false,

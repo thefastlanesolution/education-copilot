@@ -50,7 +50,7 @@ const FreeStyle = () => {
       position: 'top-right',
       autoClose: 30000,
       hideProgressBar: false,
-      closeOnClick: true,
+      closeOnClick: false,
       pauseOnHover: false,
       draggable: true,
       progress: undefined,

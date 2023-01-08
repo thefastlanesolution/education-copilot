@@ -42,7 +42,7 @@ const ParentEmails = () => {
       position: 'top-right',
       autoClose: 15000,
       hideProgressBar: false,
-      closeOnClick: true,
+      closeOnClick: false,
       pauseOnHover: false,
       draggable: true,
       progress: undefined,
