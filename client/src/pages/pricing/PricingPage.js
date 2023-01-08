@@ -185,7 +185,7 @@ const PricingPage = () => {
                   fontWeight: '800',
                 }}
               >
-                $0.10
+                $9
               </a>
               <a
                 style={{

@@ -69,7 +69,7 @@ const EducationalHandoutAPI = ({ overview, dayNumber, unitDetails }) => {
   const notify = () =>
     toast('🤖 Handout on its way!', {
       position: 'top-left',
-      autoClose: 70000,
+      autoClose: 55000,
       hideProgressBar: false,
       closeOnClick: false,
       pauseOnHover: false,
