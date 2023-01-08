@@ -84,6 +84,7 @@ const EducationalHandout = () => {
       pauseOnHover: false,
       draggable: true,
       progress: undefined,
+      pauseOnFocusLoss: false,
       theme: 'light',
     });
 
@@ -312,6 +313,7 @@ const EducationalHandout = () => {
       />
     ).toBlob();
 
+    toast.dismiss();
     setPdfBlob(blob);
 
     // Get the current user and the storage service and the user id

@@ -85,6 +85,7 @@ const SlideGenerator = () => {
       closeOnClick: true,
       pauseOnHover: false,
       draggable: true,
+      pauseOnFocusLoss: false,
       progress: undefined,
       theme: 'light',
     });
@@ -786,6 +787,7 @@ const SlideGenerator = () => {
       });
 
       uploadBytes(storageRef, blobData);
+      toast.dismiss();
     });
   };
 

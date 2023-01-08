@@ -64,6 +64,7 @@ const LessonPlannerV2 = () => {
       pauseOnHover: false,
       draggable: true,
       progress: undefined,
+      pauseOnFocusLoss: false,
       theme: 'light',
     });
 
@@ -255,6 +256,7 @@ const LessonPlannerV2 = () => {
       />
     ).toBlob();
 
+    toast.dismiss();
     setPdfBlob(blob);
 
     console.log('pdfBlob ===', pdfBlob);
