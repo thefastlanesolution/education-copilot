@@ -162,11 +162,7 @@ const Tool = ({
         open={isDrawerOpen}
         onClose={() => setIsDrawerOpen(false)}
       >
-        <Box
-          sx={{ width: '72vw', height: '100%', background: '#f8fafc' }}
-          p={2}
-          role="presentation"
-        >
+        <Box p={2} role="presentation" className="drawerbox">
           <div className="navcontrols">
             <button
               style={{
@@ -174,7 +170,7 @@ const Tool = ({
                 padding: '0.5rem 1rem',
                 borderRadius: '5px',
                 border: 'none',
-                background: '#a665ff',
+                background: '#7d5ff5',
                 color: 'white',
                 cursor: 'pointer',
               }}

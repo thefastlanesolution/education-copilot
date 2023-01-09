@@ -30,6 +30,28 @@ const BigSidebar = () => {
               Upgrade to Pro
             </button>
           </div>
+          <div className="bigsidebar-footer">
+            <div className="policytxt">
+              <a
+                a
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://educationcopilot.com/privacy-policy/"
+              >
+                Privacy Policy
+              </a>
+            </div>
+            <div className="policytxt">
+              <a
+                a
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://educationcopilot.com/terms-of-service/"
+              >
+                Terms of Service
+              </a>
+            </div>
+          </div>
         </div>
       </div>
       <div className="nav-center"></div>

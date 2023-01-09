@@ -4,6 +4,7 @@ import './VideoList.css';
 
 function VideoList(props) {
   const [videos, setVideos] = useState([]);
+  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
 
   useEffect(() => {
     async function getVideos() {
@@ -17,7 +18,7 @@ function VideoList(props) {
             q: query,
             type: 'video',
             part: 'id,snippet',
-            maxResults: 3,
+            maxResults: 5,
             videoDuration: 'medium',
           },
         }
@@ -29,22 +30,57 @@ function VideoList(props) {
     getVideos();
   }, [props.lessonTopic]);
 
+  const handlePreviousButtonClick = () => {
+    if (currentVideoIndex > 0) {
+      setCurrentVideoIndex(currentVideoIndex - 1);
+    }
+  };
+
+  const handleNextButtonClick = () => {
+    if (currentVideoIndex < videos.length - 1) {
+      setCurrentVideoIndex(currentVideoIndex + 1);
+    }
+  };
+
+  <script src="https://www.youtube.com/iframe_api"></script>;
+
   return (
     <div>
-      {videos.map(video => (
-        <div key={video.id.videoId} className="video-container">
+      {videos.length > 0 && (
+        <div
+          key={videos[currentVideoIndex].id.videoId}
+          className="video-container"
+        >
           <iframe
             className="video"
-            title={video.snippet.title}
-            src={`https://www.youtube.com/embed/${video.id.videoId}`}
+            title={videos[currentVideoIndex].snippet.title}
+            src={`https://www.youtube.com/embed/${videos[currentVideoIndex].id.videoId}`}
             frameBorder="0"
             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
-            width={320}
+            width={'100%'}
+            height={200}
           ></iframe>
-          <div className="video-title">{video.snippet.title}</div>
+          <div className="video-title">
+            {videos[currentVideoIndex].snippet.title}
+          </div>
+          <div className="buttoncontainer-yt">
+            {currentVideoIndex > 0 && (
+              <button
+                onClick={handlePreviousButtonClick}
+                className="prevbutton"
+              >
+                Previous
+              </button>
+            )}
+            {currentVideoIndex < videos.length - 1 && (
+              <button onClick={handleNextButtonClick} className="nextbutton">
+                Next
+              </button>
+            )}
+          </div>
         </div>
-      ))}
+      )}
     </div>
   );
 }

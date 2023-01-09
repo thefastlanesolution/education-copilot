@@ -31,3 +31,18 @@
   border: 1px solid #3f2a93;
   color: #fff;
 }
+
+.bigsidebar-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  padding: 1rem 1.2rem 1rem 1.2rem;
+  font-size: 12px;
+  color: rgb(164, 164, 164);
+}
+
+.sidebar-container {
+  font-family: 'inter' !important;
+  height: 100vh;
+}
