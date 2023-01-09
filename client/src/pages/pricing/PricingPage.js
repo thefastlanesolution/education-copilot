@@ -136,8 +136,8 @@ const PricingPage = () => {
   }, []);
 
   return (
-    <Wrapper className="mainwrapper">
-      <div className="Header">
+    <>
+      <div className="header">
         <div className="main-header">
           Get <span style={{ color: '#7d5ff5' }}>Unlimited</span> Access to
           Copilot 🚀
@@ -149,221 +149,237 @@ const PricingPage = () => {
           your productivity inside and outside of the classroom!
         </div>
       </div>
-      <Card
-        className="pricing"
-        sx={{
-          width: '100%',
-          maxWidth: '500px',
-          border: 'none',
-          boxShadow: '0px 0px 2px rgba(0, 0, 0, 0.15)',
-          borderRadius: '10px',
-          height: '100%',
-          '&:hover': {
-            boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.25)',
-          },
-        }}
-      >
-        <CardContent style={{ margin: '1rem' }}>
-          <div>
-            <div className="form-center" style={{ paddingBottom: '1rem' }}>
-              <h4
-                className="type-monthly"
+      <div className="pricing-container">
+        <Card
+          className="pricing-monthly"
+          sx={{
+            width: '100%',
+            maxWidth: '500px',
+            border: 'none',
+            boxShadow: '0px 0px 2px rgba(0, 0, 0, 0.15)',
+            borderRadius: '10px',
+            height: '100%',
+            '&:hover': {
+              boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.25)',
+            },
+          }}
+        >
+          <CardContent style={{ margin: '1rem' }}>
+            <div>
+              <div className="form-center" style={{ paddingBottom: '1rem' }}>
+                <h4
+                  className="type-monthly"
+                  style={{
+                    fontFamily: 'inter',
+                    fontSize: '14px',
+                    fontWeight: '600',
+                    margin: '0',
+                    marginBottom: '1rem',
+                  }}
+                >
+                  Monthly
+                </h4>
+                <a
+                  style={{
+                    fontFamily: 'inter',
+                    fontSize: '56px',
+                    fontWeight: '800',
+                  }}
+                >
+                  $9
+                </a>
+                <a
+                  style={{
+                    color: 'gray',
+                    fontFamily: 'inter',
+                  }}
+                >
+                  /mo
+                </a>
+              </div>
+            </div>
+            <div className="bodyText">
+              <h5
                 style={{
                   fontFamily: 'inter',
-                  fontSize: '14px',
-                  fontWeight: '600',
-                  margin: '0',
-                  marginBottom: '1rem',
-                }}
-              >
-                Monthly
-              </h4>
-              <a
-                style={{
-                  fontFamily: 'inter',
-                  fontSize: '56px',
-                  fontWeight: '800',
-                }}
-              >
-                $9
-              </a>
-              <a
-                style={{
+                  fontSize: '16px',
                   color: 'gray',
-                  fontFamily: 'inter',
+                  fontWeight: '400',
+                  letterSpacing: '0.3px',
                 }}
               >
-                /mo
-              </a>
+                Unlimited access to all of Copilot's tools, upgraded storage
+                capacity, expedited support + tool request.
+              </h5>
+              <p style={{ fontFamily: 'inter' }}>
+                <IoCheckmarkSharp
+                  className="checkmark"
+                  style={{ stroke: '#34cd2b', fontSize: '1.3rem' }}
+                />
+                15+ AI Templates
+                <br />
+                <IoCheckmarkSharp
+                  className="checkmark"
+                  style={{ stroke: '#34cd2b', fontSize: '1.3rem' }}
+                />
+                Unlimited Usage
+                <br />
+                <IoCheckmarkSharp
+                  className="checkmark"
+                  style={{ stroke: '#34cd2b', fontSize: '1.3rem' }}
+                />
+                Support for over 10+ languages
+                <br />
+                <IoCheckmarkSharp
+                  className="checkmark"
+                  style={{ stroke: '#34cd2b', fontSize: '1.3rem' }}
+                />
+                Chat Support
+                <br />
+                <IoCheckmarkSharp
+                  className="checkmark"
+                  style={{ stroke: '#34cd2b', fontSize: '1.3rem' }}
+                />
+                Lock in your price for life!
+              </p>
+
+              <Button
+                sx={{
+                  width: '100%',
+                  maxWidth: '100%',
+                  textTransform: 'none',
+                  background: '#7d5ff5',
+                  fontFamily: 'inter',
+                  '&:hover': {
+                    background: '#7a2ff5',
+                  },
+                }}
+                variant="contained"
+                disabled={!canPurchase}
+                onClick={startCheckoutSession}
+              >
+                {!canPurchase ? 'Current Active Plan' : 'Get Started'}
+              </Button>
             </div>
-          </div>
-          <div className="bodyText">
-            <h5
-              style={{
-                fontFamily: 'inter',
-                fontSize: '16px',
-                color: 'gray',
-                fontWeight: '400',
-                letterSpacing: '0.3px',
-              }}
-            >
-              Unlimited access to all of Copilot's tools, upgraded storage
-              capacity, expedited support + tool request.
-            </h5>
-            <p style={{ fontFamily: 'inter' }}>
-              <IoCheckmarkSharp
-                className="checkmark"
-                style={{ stroke: '#34cd2b', fontSize: '1.3rem' }}
-              />
-              15+ AI Templates
-              <br />
-              <IoCheckmarkSharp
-                className="checkmark"
-                style={{ stroke: '#34cd2b', fontSize: '1.3rem' }}
-              />
-              Unlimited Usage
-              <br />
-              <IoCheckmarkSharp
-                className="checkmark"
-                style={{ stroke: '#34cd2b', fontSize: '1.3rem' }}
-              />
-              Support for over 10+ languages
-              <br />
-              <IoCheckmarkSharp
-                className="checkmark"
-                style={{ stroke: '#34cd2b', fontSize: '1.3rem' }}
-              />
-              Chat Support
-            </p>
-            <Button
-              sx={{
-                width: '100%',
-                maxWidth: '100%',
-                textTransform: 'none',
-                background: '#7d5ff5',
-                fontFamily: 'inter',
-                '&:hover': {
-                  background: '#7a2ff5',
-                },
-              }}
-              variant="contained"
-              disabled={!canPurchase}
-              onClick={startCheckoutSession}
-            >
-              {!canPurchase ? 'Current Active Plan' : 'Get Started'}
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
-      <Card
-        sx={{
-          width: '100%',
-          maxWidth: '500px',
-          border: '3px solid #7d5ff5',
-          borderRadius: '10px',
-          height: '100%',
-          '&:hover': {
-            boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.25)',
-          },
-        }}
-        className="pricing pricing-annual"
-      >
-        <CardContent style={{ margin: '1rem' }}>
-          <div>
-            <div className="form-center" style={{ paddingBottom: '1rem' }}>
-              <h4
-                className="type-annual"
+          </CardContent>
+        </Card>
+        <Card
+          sx={{
+            width: '100%',
+            maxWidth: '500px',
+            border: '3px solid #7d5ff5',
+            borderRadius: '10px',
+            height: '100%',
+            '&:hover': {
+              boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.25)',
+            },
+          }}
+          className="pricing pricing-annual"
+        >
+          <CardContent style={{ margin: '1rem' }}>
+            <div>
+              <div className="form-center" style={{ paddingBottom: '1rem' }}>
+                <h4
+                  className="type-annual"
+                  style={{
+                    fontFamily: 'inter',
+                    fontSize: '14px',
+                    fontWeight: '600',
+                    margin: '0',
+                    marginBottom: '1rem',
+                  }}
+                >
+                  Annual - 30% off
+                </h4>
+                <a
+                  style={{
+                    fontFamily: 'inter',
+                    fontSize: '56px',
+                    fontWeight: '800',
+                  }}
+                >
+                  $5
+                </a>
+                <a style={{ color: 'gray', fontFamily: 'inter' }}>
+                  /mo -{' '}
+                  <span style={{ fontSize: '.8rem' }}>billed annually</span>
+                </a>
+              </div>
+            </div>
+            <div className="bodyText">
+              <h5
                 style={{
                   fontFamily: 'inter',
-                  fontSize: '14px',
-                  fontWeight: '600',
-                  margin: '0',
-                  marginBottom: '1rem',
+                  fontSize: '16px',
+                  color: 'gray',
+                  fontWeight: '400',
+                  letterSpacing: '0.3px',
                 }}
               >
-                Annual - 30% off
-              </h4>
-              <a
-                style={{
+                Everything included in the monthly package. Plus early access to
+                new tools, features and integrations. All at 30% savings.
+              </h5>
+              <p style={{ fontFamily: 'inter' }}>
+                <IoCheckmarkSharp
+                  className="checkmark"
+                  style={{ stroke: '#34cd2b', fontSize: '1.3rem' }}
+                />
+                Access to all future updates!
+                <br />
+                <IoCheckmarkSharp
+                  className="checkmark"
+                  style={{ stroke: '#34cd2b', fontSize: '1.3rem' }}
+                />
+                15+ AI Templates
+                <br />
+                <IoCheckmarkSharp
+                  className="checkmark"
+                  style={{ stroke: '#34cd2b', fontSize: '1.3rem' }}
+                />
+                Unlimited Usage
+                <br />
+                <IoCheckmarkSharp
+                  className="checkmark"
+                  style={{ stroke: '#34cd2b', fontSize: '1.3rem' }}
+                />
+                Support for over 10+ languages
+                <br />
+                <IoCheckmarkSharp
+                  className="checkmark"
+                  style={{ stroke: '#34cd2b', fontSize: '1.3rem' }}
+                />
+                Chat Support
+                <br />
+                <IoCheckmarkSharp
+                  className="checkmark"
+                  style={{ stroke: '#34cd2b', fontSize: '1.3rem' }}
+                />
+                Lock in your price for life!
+              </p>
+              <Button
+                sx={{
+                  width: '100%',
+                  maxWidth: '100%',
+                  textTransform: 'none',
+                  background: '#7d5ff5',
                   fontFamily: 'inter',
-                  fontSize: '56px',
-                  fontWeight: '800',
+                  '&:hover': {
+                    background: '#7a2ff5',
+                  },
                 }}
+                variant="contained"
+                disabled={!canPurchase && !isYearlyPlanActive}
+                onClick={startAnnualCheckoutSession}
               >
-                $5
-              </a>
-              <a style={{ color: 'gray', fontFamily: 'inter' }}>
-                /mo - <span style={{ fontSize: '.8rem' }}>billed annually</span>
-              </a>
+                {!canPurchase && !isYearlyPlanActive
+                  ? 'Current Active Plan'
+                  : 'Get Started'}
+              </Button>
             </div>
-          </div>
-          <div className="bodyText">
-            <h5
-              style={{
-                fontFamily: 'inter',
-                fontSize: '16px',
-                color: 'gray',
-                fontWeight: '400',
-                letterSpacing: '0.3px',
-              }}
-            >
-              Everything included in the monthly package. Plus early access to
-              new tools, features and integrations. All at 30% savings.
-            </h5>
-            <p style={{ fontFamily: 'inter' }}>
-              <IoCheckmarkSharp
-                className="checkmark"
-                style={{ stroke: '#34cd2b', fontSize: '1.3rem' }}
-              />
-              Access to all future updates!
-              <br />
-              <IoCheckmarkSharp
-                className="checkmark"
-                style={{ stroke: '#34cd2b', fontSize: '1.3rem' }}
-              />
-              15+ AI Templates
-              <br />
-              <IoCheckmarkSharp
-                className="checkmark"
-                style={{ stroke: '#34cd2b', fontSize: '1.3rem' }}
-              />
-              Unlimited Usage
-              <br />
-              <IoCheckmarkSharp
-                className="checkmark"
-                style={{ stroke: '#34cd2b', fontSize: '1.3rem' }}
-              />
-              Support for over 10+ languages
-              <br />
-              <IoCheckmarkSharp
-                className="checkmark"
-                style={{ stroke: '#34cd2b', fontSize: '1.3rem' }}
-              />
-              Chat Support
-            </p>
-            <Button
-              sx={{
-                width: '100%',
-                maxWidth: '100%',
-                textTransform: 'none',
-                background: '#7d5ff5',
-                fontFamily: 'inter',
-                '&:hover': {
-                  background: '#7a2ff5',
-                },
-              }}
-              variant="contained"
-              disabled={!canPurchase && !isYearlyPlanActive}
-              onClick={startAnnualCheckoutSession}
-            >
-              {!canPurchase && !isYearlyPlanActive
-                ? 'Current Active Plan'
-                : 'Get Started'}
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
-    </Wrapper>
+          </CardContent>
+        </Card>
+      </div>
+    </>
   );
 };
 export default PricingPage;

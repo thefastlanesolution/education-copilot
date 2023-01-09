@@ -1,10 +1,24 @@
-.mainwrapper {
-  margin-top: 0 !important;
-  margin-bottom: 8rem;
-}
-
 .pricing-annual {
   box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* .header contains two divs, stack them on top of each other */
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 1rem;
+  text-align: center;
+  font-family: 'inter';
+  margin-top: 2rem;
+}
+
+.main-header {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #333;
 }
 
 .sub-header {
@@ -47,4 +61,38 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+
+.pricing-container {
+  flex: 1 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  padding: 1rem;
+  margin-bottom: 4rem;
+}
+
+.pricing-annual {
+  margin-left: 1.5rem;
+}
+.pricing-annual:hover {
+  box-shadow: 0px 0px 10px rgba(166, 0, 255, 0.349) !important;
+}
+
+.pricing-monthly {
+  margin-right: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .pricing-container {
+    flex-direction: column;
+  }
+  .pricing-annual {
+    margin-left: 0;
+    margin-top: 2rem;
+  }
+  .pricing-monthly {
+    margin-right: 0;
+  }
 }
