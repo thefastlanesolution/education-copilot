@@ -12,6 +12,14 @@ import { decode } from 'html-entities';
 import 'react-modal-video/scss/modal-video.scss';
 import '../AI-tools-css/ModalStyling.css';
 import { ImDownload, ImArrowLeft2, ImHistory } from 'react-icons/im';
+import {
+  IoArrowDown,
+  IoArrowForward,
+  IoTimerOutline,
+  IoTimerSharp,
+  IoBulbSharp,
+} from 'react-icons/io5';
+import RingLoader from 'react-spinners/RingLoader';
 import printIcon from '../../../assets/svg/noun-print.svg';
 import './PDFCSS.css';
 import { ToastContainer, toast } from 'react-toastify';
@@ -43,6 +51,7 @@ const LessonPlannerV2 = () => {
   const [pageNumber, setPageNumber] = useState(1);
   const [pdfBlob, setPdfBlob] = useState(null);
   const [pdfJSX, setPdfJSX] = useState(null);
+  const [standardsHaveChanged, setStandardsHaveChanged] = useState(false);
 
   // Lesson Plan Section States
   const [aimSection, setAimSection] = useState('');
@@ -54,6 +63,21 @@ const LessonPlannerV2 = () => {
   const [independentPractice, setIndependentPractice] = useState('');
   const [struggleSection, setStruggleSection] = useState('');
   const [closureSection, setClosureSection] = useState('');
+
+  // API Request & Response States
+
+  const [completion, setCompletion] = useState({
+    generatedText: '',
+  });
+  const [subject, setSubject] = useState('');
+  const [gradeLevel, setGradeLevel] = useState('');
+  const [unitDetails, setUnitDetails] = useState('');
+
+  // Loading State
+  const [isLoading, setIsLoading] = useState(false);
+
+  // add the documentHasChanged state hook
+  const [documentHasChanged, setDocumentHasChanged] = useState(false);
 
   const notify = () =>
     toast('🦄 Lesson plan coming right up!', {
@@ -67,20 +91,6 @@ const LessonPlannerV2 = () => {
       pauseOnFocusLoss: false,
       theme: 'light',
     });
-
-  // API Request & Response States
-
-  const [completion, setCompletion] = useState({
-    generatedText: '',
-  });
-  const [subject, setSubject] = useState('');
-  const [gradeLevel, setGradeLevel] = useState('');
-
-  // Loading State
-  const [isLoading, setIsLoading] = useState(false);
-
-  // add the documentHasChanged state hook
-  const [documentHasChanged, setDocumentHasChanged] = useState(false);
 
   // Async function to save the document to the database
 
@@ -397,6 +407,54 @@ const LessonPlannerV2 = () => {
     );
   }, []);
 
+  // async function fetchUnitStandards(subject, gradeLevel) {
+  //   setIsLoading(true);
+  //   const myHeaders = new Headers();
+  //   myHeaders.append('Content-Type', 'application/json');
+
+  //   const raw = JSON.stringify({
+  //     subject,
+  //     gradeLevel,
+  //   });
+
+  //   const requestOptions = {
+  //     method: 'POST',
+  //     headers: myHeaders,
+  //     body: raw,
+  //     redirect: 'follow',
+  //   };
+
+  //   fetch(
+  //     `${window.location.origin}/api/v1/completions/unitObjectivesCompletion`,
+  //     requestOptions
+  //   )
+  //     .then(response => response.json())
+  //     .then(result => {
+  //       setIsLoading(false);
+  //       console.log('unitObjectivesCompletion ===', result);
+  //       let textResult = result.choices[0].text;
+
+  //       setStandardsHaveChanged(true);
+
+  //       // wait 100 ms before setting the documentHasChanged state to false
+  //       setTimeout(() => {
+  //         setStandardsHaveChanged(false);
+  //       }, 100);
+
+  //       let lines = result.choices[0].text.split('\n');
+  //       setUnitDetails(textResult);
+  //     })
+  //     .catch(error => console.log('error', error));
+  // }
+
+  // const handleStandardGeneration = event => {
+  //   event.preventDefault();
+  //   if (!subject || !gradeLevel) {
+  //     return;
+  //   }
+  //   fetchUnitStandards(subject, gradeLevel);
+  // };
+
   return (
     <Wrapper>
       <Card
@@ -445,6 +503,39 @@ const LessonPlannerV2 = () => {
                 handleChange={e => setGradeLevel(e.target.value)}
                 placeHolder={placeholder.gradeLevel}
               />
+              {/* <div className="label-row" style={{ marginTop: '1.5rem' }}>
+                <label className="form-label">Standards / Objectives:</label>
+                <button
+                  disabled={isLoading}
+                  className="ai-generate"
+                  style={{
+                    backgroundColor: 'white',
+                    border: '2px solid #a665ff',
+                  }}
+                  onClick={handleStandardGeneration}
+                >
+                  {!isLoading && (
+                    <>
+                      <IoBulbSharp
+                        style={{ color: '#a665ff', fontSize: '1rem' }}
+                      />
+                    </>
+                  )}
+                  {isLoading && (
+                    <RingLoader
+                      color={'#7d5ff5'}
+                      loading={isLoading}
+                      size={20}
+                    />
+                  )}
+                </button>
+              </div>
+              <textarea
+                className="unit-textarea"
+                placeholder="1. Locate and describe the major river systems and discuss the physical settings that supported permanent settlement and early civilizations.&#13;&#10; ‎ &#13;&#10;2. Discuss the main features of Egyptian art and architecture. &#13;&#10; ‎ &#13;&#10;3. Understand the relationship between religion and the social and political order in Mesopotamia and Egypt. &#13;&#10; ‎ &#13;&#10;4. Know the significance of Hammurabi's code. &#13;&#10; ‎ &#13;&#10;5. Describe the role of Egyptian trade in the eastern Mediterranean and Nile valley. &#13;&#10; ‎ &#13;&#10;6. Understand the significance of Queen Hatshepsut and Ramses the Great. &#13;&#10; ‎ &#13;&#10; 7. Identify the location of the Kush civilization and describe its political, commercial, and cultural relations with Egypt. &#13;&#10; ‎ &#13;&#10;8. Trace the evolution of language and its written forms"
+                value={unitDetails}
+                onChange={e => setUnitDetails(e.target.value)}
+              /> */}
               <button
                 className="btn btn-block"
                 type="submit"
