@@ -47,6 +47,7 @@ import UnitHistory from './pages/dashboard/UnitPlanner/UnitHistory.js';
 import UnitPlanner1 from './pages/dashboard/UnitPlanner/UnitPlanner1.js';
 import UnitPreview from './pages/dashboard/UnitPlanner/UnitPreview.js';
 import VideoList from './pages/dashboard/AI-tools/VideoList.js';
+import Test from './pages/dashboard/AI-tools/AssessmentBuilder.js';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -67,7 +68,7 @@ function App() {
             <Route path="pricing" element={<Pricing />} />
             <Route path="/" element={<PrivateRoute />}>
               <Route path="unit-planner/:unitID" element={<UnitPreview />} />
-              <Route path="/test" element={<VideoList />} />
+              <Route path="/super-secret" element={<Test />} />
               <Route path="/profile" element={<Profile />} />
               <Route index element={<DashboardHome />} />
               <Route path="workshop" element={<Workshop />} />

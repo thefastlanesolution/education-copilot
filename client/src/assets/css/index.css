@@ -182,6 +182,17 @@ ul {
   font-size: 1.25rem;
   padding: 0.5rem 1.25rem;
 }
+
+.btn-success {
+  background: var(--green-dark);
+  color: var(--white);
+}
+
+.btn-success:hover {
+  background: var(--green-light);
+  color: var(--green-dark);
+}
+
 .btn-danger {
   background: var(--red-light);
   color: var(--red-dark);

@@ -1,0 +1,150 @@
+/* put each quiz inside it's own card with a drop shadow and when the current quiz is selected, the card should be highlighted with a different background color */
+
+.questions-column {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.new-question-icon {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 10%;
+}
+
+.answers-container {
+  padding-top: 1rem;
+  padding-bottom: 1.3rem;
+}
+
+.quiz-container {
+  background: rgb(255, 255, 255);
+  padding: 1rem;
+  padding-left: 2rem;
+  margin: 2rem;
+  border-radius: 8px;
+}
+
+.quiz-textarea {
+  width: 100%;
+  height: 200px;
+  border: 1px solid #d9d9d9;
+  border-radius: 5px;
+  padding: 1rem;
+  font-family: 'inter';
+  font-size: 0.9rem;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  color: #000000;
+  resize: none;
+}
+
+.quiz-form {
+  width: 100%;
+  font-family: 'inter';
+}
+
+.quiz-container:hover {
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  background-color: #e8f0fe;
+}
+
+#page-one .sidebar-container {
+  display: none;
+}
+
+.assessment-container {
+  display: flex;
+  justify-content: space-between;
+  background-color: #f1f1f1;
+  width: 100%;
+  margin-right: 10px;
+}
+
+.left-container {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgb(255, 255, 255);
+  padding: 1.5rem;
+  position: sticky;
+  top: 0;
+  overflow-y: auto;
+  height: 100vh;
+  overflow-x: hidden;
+  box-shadow: inset 0 0 10px 0 rgba(0, 0, 0, 0.2);
+}
+
+.quiz-disable-sidebar {
+  display: none;
+}
+
+.right-container {
+  width: fill-available;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow-y: scroll;
+  max-height: 100vh;
+}
+
+.quiz-content {
+  font-family: 'inter';
+}
+
+input {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  width: 80%;
+}
+
+button {
+  padding: 10px;
+  margin-left: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.question-number {
+  font-size: 1.1rem;
+  font-family: 'inter' !important;
+  font-weight: 700px !important;
+  padding-bottom: 1rem;
+}
+
+.quiz-container {
+  display: grid;
+  grid-template-columns: 85% 15%;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.card-quiz-controls {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+.checkbox-group {
+  margin-bottom: 1.4rem;
+}
+
+.idea-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.quiz-checkbox-group .check4 label,
+.quiz-checkbox-group .check3 label,
+.quiz-checkbox-group .check2 label {
+  color: #949494;
+}

@@ -26,6 +26,34 @@ import { unitObjectivesCompletion } from '../controllers/Unit Planner/unitObject
 import { lessonPlanCompletionUnit } from '../controllers/Unit Planner/lessonPlanCompletionUnit.js';
 import { powerPointCompletionUnit } from '../controllers/Unit Planner/powerPointCompletionUnit.js';
 import { lessonOverviewCompletion } from '../controllers/Unit Planner/lessonOverviewCompletion.js';
+import { lessonIdeaCompletion } from '../controllers/AI Tools/lessonPlanV2Ideas.js';
+import { quizGeneratorCompletion } from '../controllers/AI Tools/quizGeneratorController.js';
+import { quizCoversCompletion } from '../controllers/AI Tools/quizCoversController.js';
+import { quizQuestionCompletion } from '../controllers/AI Tools/quizQuestionController.js';
+
+// quizQuestionCompletion
+router.post('/quizQuestionCompletion', (req, res) => {
+  console.log('quizQuestionCompletion api call ===');
+  quizQuestionCompletion(req, res);
+});
+
+// quizCoversCompletion
+router.post('/quizCoversCompletion', (req, res) => {
+  console.log('quizCoversCompletion api call ===');
+  quizCoversCompletion(req, res);
+});
+
+// quizGeneratorCompletion
+router.post('/quizGeneratorCompletion', (req, res) => {
+  console.log('quizGeneratorCompletion api call ===');
+  quizGeneratorCompletion(req, res);
+});
+
+// lessonIdeaCompletion
+router.post('/lessonIdeaCompletion', (req, res) => {
+  console.log('lessonIdeaCompletion api call ===');
+  lessonIdeaCompletion(req, res);
+});
 
 // lessonOverviewCompletion
 router.post('/lessonOverviewCompletion', (req, res) => {
